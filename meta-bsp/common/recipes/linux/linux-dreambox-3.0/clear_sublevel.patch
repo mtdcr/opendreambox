@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,7 @@
+ VERSION = 3
+ PATCHLEVEL = 0
+-SUBLEVEL = 17
++SUBLEVEL =
++#SUBLEVEL = 17
+ EXTRAVERSION =
+ NAME = Sneaky Weasel
+ 
