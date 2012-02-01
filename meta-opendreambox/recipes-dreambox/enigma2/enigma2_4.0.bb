@@ -32,11 +32,15 @@ RDEPENDS_append_dm7020hd = " ${GST_BASE_RDEPENDS} ${GST_DVD_RDEPENDS} gst-plugin
 #DEPENDS += "enigma2-plugins"
 #PACKAGES_DYNAMIC = "enigma2-plugin-*"
 
+DESCRIPTION_append_enigma2-plugin-extensions-browser = "a basic webbrowser for surfing the web."
+RDEPENDS_enigma2-plugin-extensions-browser = "python-sqlite3"
 DESCRIPTION_append_enigma2-plugin-extensions-cutlisteditor = "enables you to cut your movies."
 RDEPENDS_enigma2-plugin-extensions-cutlisteditor = "aio-grab"
 DESCRIPTION_append_enigma2-plugin-extensions-graphmultiepg = "shows a graphical timeline EPG."
 DESCRIPTION_append_enigma2-plugin-extensions-pictureplayer = "displays photos on the TV."
 DESCRIPTION_append_enigma2-plugin-systemplugins-frontprocessorupdate = "keeps your frontprocessor up to date."
+DESCRIPTION_append_enigma2-plugin-systemplugins-minidlnasetup = "setup a dlna mediaserver based on minidlna."
+RDEPENDS_enigma2-plugin-systemplugins-minidlnasetup = "minidlna"
 DESCRIPTION_append_enigma2-plugin-systemplugins-positionersetup = "helps you installing a motorized dish."
 DESCRIPTION_append_enigma2-plugin-systemplugins-satelliteequipmentcontrol = "allows you to fine-tune DiSEqC-settings."
 DESCRIPTION_append_enigma2-plugin-systemplugins-satfinder = "helps you to align your dish."
@@ -49,7 +53,7 @@ RREPLACES_enigma2-plugin-systemplugins-softwaremanager = "enigma2-plugin-systemp
 DESCRIPTION_append_enigma2-plugin-systemplugins-crashlogautosubmit = "automatically send crashlogs to Dream Multimedia"
 RDEPENDS_enigma2-plugin-systemplugins-crashlogautosubmit = "python-twisted-mail python-twisted-names python-compression python-mime python-email"
 DESCRIPTION_append_enigma2-plugin-systemplugins-cleanupwizard = "informs you on low internal memory on system startup."
-DESCRIPTION_append_enigma2-plugin-extenstions-modem = "opens a menu to connect to internet via builtin modem."
+DESCRIPTION_append_enigma2-plugin-extensions-modem = "opens a menu to connect to internet via builtin modem."
 RDEPENDS_enigma2-plugin-extensions-modem = "dreambox-modem-ppp-scripts ppp"
 DESCRIPTION_append_enigma2-plugin-systemplugins-wirelesslan = "helps you configuring your wireless lan"
 RDEPENDS_enigma2-plugin-systemplugins-wirelesslan = "wpa-supplicant wireless-tools python-wifi"
@@ -58,7 +62,7 @@ DESCRIPTION_append_enigma2-plugin-systemplugins-networkwizard = "provides easy s
 ENIGMA2_GIT ?= "git://git.opendreambox.org/git/enigma2.git;protocol=git"
 ENIGMA2_BRANCH ?= "experimental"
 
-SRCREV = "c17f7d34af9e2b90eda139f60ea8207abbb9b93b"
+SRCREV = "71fa0cf0488f36ac2f666c4e08aa536f9e9379a7"
 
 RECIPE_PV := "${PV}"
 PV = "${RECIPE_PV}+${@legitimize_package_name(bb.data.getVar('ENIGMA2_BRANCH', d, True))}+gitr${SRCPV}"
