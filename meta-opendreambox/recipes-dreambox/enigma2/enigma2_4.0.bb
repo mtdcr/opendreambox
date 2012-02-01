@@ -3,7 +3,7 @@ LICENSE = "proprietary"
 DEPENDS = "jpeg giflib libpng libsigc++-2.0 gettext-native \
 	dreambox-dvbincludes freetype libdvbsi++ python swig-native \
 	libfribidi libxmlccwrap libdreamdvd gstreamer \
-	python-wifi task-opendreambox-qt4 qxmpp-e"
+	python-wifi task-opendreambox-qt4 qxmpp-e minidlna"
 RDEPENDS = "python-codecs python-core python-lang python-re python-threading \
 	python-xml python-fcntl gst-plugin-decodebin gst-plugin-decodebin2 python-stringold \
 	python-pickle gst-plugin-app \
