@@ -1,0 +1,59 @@
+upstream: OE-only
+
+From 9bdc961f15fb8e1623a4bc0bfc93a109d0393ad3 Mon Sep 17 00:00:00 2001
+From: Andreas Oberritter <obi@opendreambox.org>
+Date: Thu, 14 Oct 2010 14:20:13 +0000
+Subject: [PATCH] keymap_endianess.patch
+
+---
+ console-tools/dumpkmap.c |    4 ++++
+ console-tools/loadkmap.c |    4 ++++
+ 2 files changed, 8 insertions(+), 0 deletions(-)
+
+diff --git a/console-tools/dumpkmap.c b/console-tools/dumpkmap.c
+index a03b593..08febc5 100644
+--- a/console-tools/dumpkmap.c
++++ b/console-tools/dumpkmap.c
+@@ -10,6 +10,7 @@
+ /* no options, no getopt */
+ 
+ #include "libbb.h"
++#include <endian.h>
+ 
+ /* From <linux/kd.h> */
+ struct kbentry {
+@@ -61,6 +62,9 @@ int dumpkmap_main(int argc UNUSED_PARAM, char **argv)
+ 						(char *)&ke.kb_table,
+ 						&ke.kb_value)
+ 				) {
++#if __BYTE_ORDER == __LITTLE_ENDIAN
++					ke.kb_value = ((ke.kb_value&0xFF) << 8) | ((ke.kb_value&0xFF00) >> 8);
++#endif
+ 					write(STDOUT_FILENO, (void*)&ke.kb_value, 2);
+ 				}
+ 			}
+diff --git a/console-tools/loadkmap.c b/console-tools/loadkmap.c
+index 8f1a915..a0184c1 100644
+--- a/console-tools/loadkmap.c
++++ b/console-tools/loadkmap.c
+@@ -7,6 +7,7 @@
+  * Licensed under GPLv2 or later, see file LICENSE in this tarball for details.
+  */
+ #include "libbb.h"
++#include <endian.h>
+ 
+ #define BINARY_KEYMAP_MAGIC "bkeymap"
+ 
+@@ -56,6 +57,9 @@ int loadkmap_main(int argc UNUSED_PARAM, char **argv)
+ 			for (j = 0; j < NR_KEYS; j++) {
+ 				ke.kb_index = j;
+ 				ke.kb_table = i;
++#if __BYTE_ORDER == __LITTLE_ENDIAN
++				ibuff[j] = ((ibuff[j]&0xFF) << 8) | ((ibuff[j]&0xFF00) >> 8);
++#endif
+ 				ke.kb_value = ibuff[j];
+ 				ioctl(fd, KDSKBENT, &ke);
+ 			}
+-- 
+1.7.1
+

@@ -1,0 +1,13 @@
+diff --git a/main/enigma.cpp b/main/enigma.cpp
+index 91645d8..081d1ce 100644
+--- a/main/enigma.cpp
++++ b/main/enigma.cpp
+@@ -256,6 +256,8 @@ int main(int argc, char **argv)
+ 		p.flush();
+ 	}
+ 
++	/* Ugly workaround: interrupt python thread hanging in poll() */
++	kill(0, SIGINT);
+ 	return exit_code;
+ }
+ 
