@@ -1,0 +1,35 @@
+DESCRIPTION = "Hardware drivers for Dreambox"
+SECTION = "base"
+PRIORITY = "required"
+LICENSE = "proprietary"
+DEPENDS += "virtual/kernel"
+RDEPENDS_${PN} += "dreambox-secondstage kernel-${DM_LOCALVERSION}"
+INC_PR = "r1"
+
+DREAMBOX_DVB_MODULES_MIRROR ?= "http://sources.dreamboxupdate.com/snapshots"
+
+SRC_URI = " \
+        ${DREAMBOX_DVB_MODULES_MIRROR}/dreambox-dvb-modules-${MACHINE}-${PV}.tar.bz2;name=modules \
+"
+
+inherit module
+
+do_compile() {
+}
+do_install() {
+        install -d ${D}/lib/modules/${DM_LOCALVERSION}/extra
+        install -m 0644 ${WORKDIR}/LICENSE ${D}/lib/modules/${DM_LOCALVERSION}/extra
+        install -m 0644 ${WORKDIR}/*.ko ${D}/lib/modules/${DM_LOCALVERSION}/extra
+}
+
+python __anonymous () {
+        import bb, re
+        kv = bb.data.getVar('DREAMBOX_KERNEL_VERSION', d, 1)
+        pv = bb.data.getVar('PV', d, 1)
+        if kv != pv.split('-')[0]:
+                raise bb.parse.SkipPackage("incompatible with kernel version %s" % kv)
+}
+
+# We don't use KERNEL_VERSION in this recipe, because the
+# precompiled modules depend on a specific version.
+DM_LOCALVERSION = "${@'-'.join('${PV}'.split('-')[:-1])}"

@@ -1,0 +1,5 @@
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+
+PR .= "-bsp2"
+
+PACKAGE_ARCH = "${MACHINE_ARCH}"
