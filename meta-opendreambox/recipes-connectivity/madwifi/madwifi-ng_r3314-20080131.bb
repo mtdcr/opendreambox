@@ -3,7 +3,7 @@
 require madwifi-ng_r.inc
 
 # PR set after the include, to override what's set in the included file.
-PR = "${INC_PR}.3"
+PR = "${INC_PR}.4"
 
 # versions of OpenWrt backfire (10.03)
 HAL_VERSION = "20090508"
@@ -16,6 +16,7 @@ SRC_URI += " \
         file://remove-wprobe.patch;apply=no \
         file://fix-build-2.6.39.patch;apply=no \
         file://fix-build-3.x.patch;apply=no \
+        file://fix-module-autoload.patch;apply=no \
         "
 SRC_URI[md5sum] = "2c7352cbbdac995de8c3bce5b80db5f2"
 SRC_URI[sha256sum] = "0599c75b95ba63bdc554cb8124192e62c75fbeb71b9e8a5a7bc351c8e0666758"
@@ -36,4 +37,5 @@ do_postpatch() {
         patch -p1 -i ${WORKDIR}/remove-wprobe.patch
         patch -p1 -i ${WORKDIR}/fix-build-2.6.39.patch
         patch -p1 -i ${WORKDIR}/fix-build-3.x.patch
+        patch -p1 -i ${WORKDIR}/fix-module-autoload.patch
 }
