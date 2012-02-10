@@ -1,6 +1,6 @@
 DESCRIPTION = "ppp scripts for dreambox builtin modem"
 SECTION = "base"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 PR = "r1"
 
 S = "${WORKDIR}"

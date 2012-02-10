@@ -1,5 +1,5 @@
 DESCRIPTION = "enigma2 default services/transponder"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 PR = "r5"
 
 SRC_URI = "file://*"

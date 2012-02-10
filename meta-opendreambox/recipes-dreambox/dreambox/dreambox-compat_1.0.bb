@@ -1,7 +1,7 @@
 DESCRIPTION = "Dreambox compatibility links"
 SECTION = "base"
 PRIORITY = "required"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 
 do_install() {
         install -d ${D}${base_libdir}

@@ -1,5 +1,5 @@
 DESCRIPTION = "Enigma2 is an experimental, but useful framebuffer-based frontend for DVB functions"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 DEPENDS = "jpeg giflib libpng libsigc++-2.0 gettext-native \
 	dreambox-dvbincludes freetype libdvbsi++ python swig-native \
 	libfribidi libxmlccwrap libdreamdvd gstreamer \

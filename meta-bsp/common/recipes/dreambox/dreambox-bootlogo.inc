@@ -1,7 +1,7 @@
 DESCRIPTION = "Bootlogo support"
 SECTION = "base"
 PRIORITY = "required"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 RDEPENDS_${PN} = "${PN}-data"
 INC_PR = "r9"
 

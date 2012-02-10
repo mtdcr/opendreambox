@@ -1,5 +1,5 @@
 SECTION ?= "base"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 
 SRC_URI = "http://dreamboxupdate.com/download/${DISTRO}/${DISTRO_VERSION}/${PN}/${PN}_${PV}_${PACKAGE_ARCH}.tar.bz2;name=${PACKAGE_ARCH}"
 

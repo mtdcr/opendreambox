@@ -1,5 +1,5 @@
 DESCRIPTION = "Dreambox TS/M2TS audio passthrough helper lib"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 PR = "r1"
 
 SRC_URI[mipsel.md5sum] = "fad2e38bf8b7766b7bd707274d8bc2e1"

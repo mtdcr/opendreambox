@@ -1,5 +1,5 @@
 DESCRIPTION = "Descriptions for driver packages used by enigma2"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 
 SRC_URI = " \
         file://genmetaindex.py \

@@ -1,6 +1,6 @@
 DESCRIPTION = "Preloadable library to improve large file operations"
 SECTION = "base"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 
 SRCREV = "3fb3a842b6de53f75a153b14a8716cb6bafd8436"
 

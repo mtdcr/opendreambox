@@ -1,5 +1,5 @@
 DESCRIPTION = "TuxCom for dreambox 8000/32bit framebuffer"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 DEPENDS = "freetype"
 SRCDATE = "20060123"
 PV = "0.0+cvs${SRCDATE}"

@@ -1,5 +1,5 @@
 DESCRIPTION = "Dreambox second stage bootloader"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 SECTION = "base"
 PRIORITY = "required"
 PROVIDES = "virtual/bootloader"

@@ -1,5 +1,5 @@
 DESCRIPTION = "tuxbox tuxtxt for 32bit framebuffer"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 DEPENDS = "freetype tuxbox-libtuxtxt"
 RDEPENDS_${PN} = "enigma2"
 SRCDATE = "20090130"

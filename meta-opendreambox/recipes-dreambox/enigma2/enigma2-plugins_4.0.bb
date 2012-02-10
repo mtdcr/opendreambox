@@ -1,5 +1,6 @@
 DESCRIPTION = "Additional plugins for Enigma2"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
+LIC_FILES_CHKSUM = "file://COPYING;md5=8e37f34d0e40d32ea2bc90ee812c9131"
 DEPENDS = "enigma2 python-pyopenssl python-gdata streamripper python-mutagen python-daap"
 PR = "r1"
 

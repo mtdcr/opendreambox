@@ -1,5 +1,5 @@
 DESCRIPTION = "streamproxy manages streaming data to a PC using enigma2"
-LICENSE = "proprietary"
+LICENSE = "Proprietary"
 
 SRCREV = "${AUTOREV}"
 SCHWERKRAFT_PROJECT = "streamproxy"
