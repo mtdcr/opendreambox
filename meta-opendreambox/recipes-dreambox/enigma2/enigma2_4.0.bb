@@ -1,6 +1,6 @@
 DESCRIPTION = "Enigma2 is an experimental, but useful framebuffer-based frontend for DVB functions"
 LICENSE = "Proprietary"
-DEPENDS = "jpeg giflib libpng libsigc++-2.0 gettext-native \
+DEPENDS = "jpeg giflib libpng libsigc++-2.0 \
 	dreambox-dvbincludes freetype libdvbsi++ python swig-native \
 	libfribidi libxmlccwrap libdreamdvd gstreamer \
 	python-wifi task-opendreambox-qt4 qxmpp-e minidlna"
@@ -80,7 +80,7 @@ FILES_${PN}-meta = "${datadir}/meta"
 PACKAGES += "${PN}-meta"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-inherit autotools gitpkgv pkgconfig
+inherit autotools gettext gitpkgv pkgconfig
 
 EXTRA_OECONF = " \
         BUILD_SYS=${BUILD_SYS} \

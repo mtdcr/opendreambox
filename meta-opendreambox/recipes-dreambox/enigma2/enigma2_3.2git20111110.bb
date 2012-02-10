@@ -1,10 +1,9 @@
 DESCRIPTION = "Enigma2 is an experimental, but useful framebuffer-based frontend for DVB functions"
 LICENSE = "Proprietary"
 LIC_FILES_CHKSUM = "file://usr/share/doc/enigma2/LICENSE;md5=e943a2b66bda2bf828e561a3e6c7ecfc"
-DEPENDS = "jpeg giflib libpng libsigc++-2.0 gettext-native \
+DEPENDS = "jpeg giflib libpng libsigc++-1.2 \
 	dreambox-dvbincludes freetype libdvbsi++ python swig-native \
-	libfribidi libxmlccwrap libdreamdvd gstreamer \
-	python-wifi task-opendreambox-qt4 qxmpp-e"
+	libfribidi libxmlccwrap libdreamdvd gstreamer python-wifi"
 RDEPENDS = " \
 	alsa-conf \
 	ethtool \
@@ -106,7 +105,7 @@ FILES_${PN}-meta = "${datadir}/meta"
 PACKAGES += "${PN}-meta"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-inherit autotools pkgconfig
+inherit autotools gettext pkgconfig
 
 EXTRA_OECONF = " \
         BUILD_SYS=${BUILD_SYS} \
