@@ -2,11 +2,14 @@ DESCRIPTION = "CDfs filesystem"
 HOMEPAGE = "http://users.elis.ugent.be/~mronsse/cdfs/"
 SECTION = "kernel/modules"
 LICENSE = "GPL"
+PR = "r1"
 
 SRC_URI = " \
         http://users.elis.ugent.be/~mronsse/cdfs/download/${P}.tar.bz2 \
         file://0001-Fix-compile-error-with-linux-2.6.32.patch \
         file://0002-Fix-compile-error-with-linux-2.6.37.patch \
+        file://fix-strange-errors.patch \
+        file://compile-fix-linux-3.2.patch \
 "
 SRC_URI[md5sum] = "ac64c014a90e3c488394832ea29605b3"
 SRC_URI[sha256sum] = "d034f6c6d9578fe2addfaeceaa101584a4a1fc9f27d825c340baebd345d8d724"
