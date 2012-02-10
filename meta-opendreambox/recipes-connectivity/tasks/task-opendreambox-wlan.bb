@@ -9,8 +9,9 @@ inherit task
 DEPENDS = " \
   enigma2 \
   ${@base_contains('COMBINED_FEATURES', 'madwifi', 'madwifi-ng', '',d)} \
-  ${WLAN_USB_FIRMWARE} \
-  ${@base_version_less_or_equal('DREAMBOX_KERNEL_VERSION', '2.6.18', '${WLAN_USB_MODULES}', '', d)} \
+  linux-firmware \
+  zd1211-firmware \
+  ${@base_version_less_or_equal('DREAMBOX_KERNEL_VERSION', '2.6.18', '${WLAN_USB_MODULES_LEGACY}', '', d)} \
   virtual/kernel \
 "
 
@@ -33,7 +34,8 @@ WLAN_CRYPTO_MODULES = " \
 "
 
 WLAN_USB_FIRMWARE_KERNEL = " \
-  rt73-firmware \
+  linux-firmware-rtl8192su \
+  linux-firmware-rt73usb \
   zd1211-firmware \
 "
 
@@ -41,6 +43,7 @@ WLAN_USB_FIRMWARE_LEGACY = " \
 "
 
 WLAN_USB_MODULES_KERNEL = " \
+  kernel-module-rtl8192su \
   kernel-module-rt73usb \
   kernel-module-zd1211rw \
 "
