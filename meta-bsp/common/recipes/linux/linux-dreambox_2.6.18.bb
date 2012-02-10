@@ -3,7 +3,7 @@ PR = "${INC_PR}.6"
 PATCHREV = "ac6cc9511a5f70eaa584c63fc5c3de33cae1d0e7"
 
 SRC_URI = " \
-        ${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2;name=kernel \
+        ${KERNELORG_MIRROR}/linux/kernel/v2.6/linux-${PV}.tar.bz2;name=kernel \
         http://sources.dreamboxupdate.com/download/kernel-patches/${P}-${PATCHREV}.patch.bz2;name=patch \
         file://defconfig \
         file://stblinux-2.6.18-extra-version-7.4.patch \

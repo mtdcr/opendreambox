@@ -4,8 +4,8 @@ PATCHREV = "a3eaf43fbd1c2994fb61fd7065724ff4f2e4f1e0"
 PATCHLEVEL = "2"
 
 SRC_URI = " \
-        ${KERNELORG_MIRROR}/pub/linux/kernel/v3.x/linux-3.2.tar.bz2;name=kernel \
-        ${KERNELORG_MIRROR}/pub/linux/kernel/v3.x/patch-3.2.${PATCHLEVEL}.bz2;apply=yes;name=kernel-patch \
+        ${KERNELORG_MIRROR}/linux/kernel/v3.x/linux-3.2.tar.bz2;name=kernel \
+        ${KERNELORG_MIRROR}/linux/kernel/v3.x/patch-3.2.${PATCHLEVEL}.bz2;apply=yes;name=kernel-patch \
         http://sources.dreamboxupdate.com/download/kernel-patches/${P}-${PATCHREV}.patch.bz2;name=dmm-patch \
         file://clear_sublevel.patch \
         file://fadvise_dontneed_change.patch \

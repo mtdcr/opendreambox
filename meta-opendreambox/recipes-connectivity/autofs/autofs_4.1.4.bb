@@ -1,9 +1,9 @@
 require autofs.inc
 
-SRC_URI = "${KERNELORG_MIRROR}/pub/linux/daemons/autofs/v4/autofs-${PV}.tar.bz2;name=archive \
-           ${KERNELORG_MIRROR}/pub/linux/daemons/autofs/v4/autofs-4.1.4-misc-fixes.patch;name=patch1 \
-           ${KERNELORG_MIRROR}/pub/linux/daemons/autofs/v4/autofs-4.1.4-multi-parse-fix.patch;name=patch2 \
-           ${KERNELORG_MIRROR}/pub/linux/daemons/autofs/v4/autofs-4.1.4-non-replicated-ping.patch;name=patch3 \
+SRC_URI = "${KERNELORG_MIRROR}/linux/daemons/autofs/v4/autofs-${PV}.tar.bz2;name=archive \
+           ${KERNELORG_MIRROR}/linux/daemons/autofs/v4/autofs-4.1.4-misc-fixes.patch;name=patch1 \
+           ${KERNELORG_MIRROR}/linux/daemons/autofs/v4/autofs-4.1.4-multi-parse-fix.patch;name=patch2 \
+           ${KERNELORG_MIRROR}/linux/daemons/autofs/v4/autofs-4.1.4-non-replicated-ping.patch;name=patch3 \
            file://cross.patch \
            file://Makefile.rules-cross.patch \
 	   file://install.patch \
