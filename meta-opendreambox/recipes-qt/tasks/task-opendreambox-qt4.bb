@@ -2,7 +2,7 @@ DESCRIPTION = "OpenDreambox: Qt4 packages"
 SECTION = "opendreambox/base"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=861a56d19a6e100979e4c596ed785160"
-DEPENDS = "qt4-embedded qtwebkit-e"
+DEPENDS = "qt4-embedded"
 RRECOMMENDS_${PN} = " \
         qt4-embedded-fonts \
         qt4-embedded-plugin-gfxdriver-screenvfb \
