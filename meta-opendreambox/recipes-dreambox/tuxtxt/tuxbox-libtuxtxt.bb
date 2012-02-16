@@ -11,6 +11,7 @@ SRC_URI = "cvs://anoncvs@cvs.tuxbox.org/cvs/tuxbox;module=apps/tuxbox/libs;metho
         file://32bpp.diff \
         file://resize_framebuffer.diff \
         file://allow_different_demux.diff \
+        file://videodev2.patch \
 "
 
 S = "${WORKDIR}/libs"
