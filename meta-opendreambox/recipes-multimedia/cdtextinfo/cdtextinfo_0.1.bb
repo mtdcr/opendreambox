@@ -1,8 +1,8 @@
 DESCRIPTION = "Query CD-Text or information from CDDB"
 AUTHOR = "Andreas Frisch <andreas.frisch@multimedia-labs.de>"
 SECTION = "console"
-PRIORITY = "optional"
-LICENSE = "GPLv3"
+LICENSE = "GPLv3+"
+LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
 DEPENDS = "libcddb libcdio"
 
 SRC_URI = "http://dreamboxupdate.com/download/sources/${P}.tar.bz2"

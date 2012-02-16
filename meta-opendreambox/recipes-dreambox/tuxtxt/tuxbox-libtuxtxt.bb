@@ -1,5 +1,6 @@
 DESCRIPTION = "tuxbox libtuxtxt"
 LICENSE = "Proprietary"
+LIC_FILES_CHKSUM = "file://libtuxtxt/libtuxtxt.c;endline=19;md5=75fd12b0664044ec3b3182337e21e98f"
 DEPENDS = "dreambox-dvbincludes libpng freetype"
 SRCDATE = "20090130"
 PV = "0.0+cvs${SRCDATE}"

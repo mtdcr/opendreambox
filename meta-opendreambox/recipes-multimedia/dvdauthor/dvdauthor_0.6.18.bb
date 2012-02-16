@@ -1,7 +1,7 @@
 DESCRIPTION = "A set of tools to help you generate DVD files to be played back on a standalone DVD player"
 SECTION = "console/multimedia"
-PRIORITY = "optional"
-LICENSE = "GPLv2"
+LICENSE = "GPLv2+"
+LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
 DEPENDS = "freetype libdvdread libfribidi libpng libxml2 zlib"
 
 SRC_URI = "${SOURCEFORGE_MIRROR}/${PN}/${P}.tar.gz"

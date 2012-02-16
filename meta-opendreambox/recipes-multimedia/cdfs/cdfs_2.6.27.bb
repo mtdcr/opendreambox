@@ -1,7 +1,8 @@
 DESCRIPTION = "CDfs filesystem"
 HOMEPAGE = "http://users.elis.ugent.be/~mronsse/cdfs/"
 SECTION = "kernel/modules"
-LICENSE = "GPL"
+LICENSE = "GPLv2+"
+LIC_FILES_CHKSUM = "file://COPYING;md5=8ca43cbc842c2336e835926c2166c28b"
 PR = "r1"
 
 SRC_URI = " \

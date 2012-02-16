@@ -1,5 +1,6 @@
 DESCRIPTION = "Handle & repair many DVB radio & television stream types."
 LICENSE = "GPLv2"
+LIC_FILES_CHKSUM = "file://Copying;md5=f08a446809913fc9b3c718f0eaea0426"
 SRCDATE = "20090824"
 
 SRC_URI = "cvs://anonymous@project-x.cvs.sourceforge.net/cvsroot/project-x;module=Project-X;method=pserver \
