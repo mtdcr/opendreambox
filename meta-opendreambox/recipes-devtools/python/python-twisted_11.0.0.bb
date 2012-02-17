@@ -3,19 +3,29 @@ Twisted supports TCP, UDP, SSL/TLS, multicast, Unix sockets, a large number of p
 (including HTTP, NNTP, IMAP, SSH, IRC, FTP, and others), and much more."
 HOMEPAGE = "http://www.twistedmatrix.com"
 SECTION = "console/network"
-PRIORITY = "optional"
-LICENSE = "LGPL"
-PR = "r0"
 
-SRC_URI = "http://twistedmatrix.com/Releases/Twisted/11.0/Twisted-${PV}.tar.bz2 "
+#twisted/topfiles/NEWS:655: - Relicensed: Now under the MIT license, rather than LGPL.
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=c3b38a096afde6f486c4c5c0fc880bcc"
+
+SRC_URI = "http://twistedmatrix.com/Releases/Twisted/11.0/Twisted-${PV}.tar.bz2"
+SRC_URI[md5sum] = "d7f94a1609a1b8f3b8c8d0146d4cfe54"
+SRC_URI[sha256sum] = "dd91254a4c946f51c4248590ca31b496ad3e4fd1b5a9fbc3a82c39a41131a2e2"
+
 S = "${WORKDIR}/Twisted-${PV}"
 
 inherit setuptools
+
+do_install_append() {
+    # remove some useless files before packaging
+    find ${D} -name "*.bat" -o -name "*.c" -o -name "*.h" -exec rm {} \;
+}
 
 PACKAGES += "\
   ${PN}-zsh \
   ${PN}-test \
   ${PN}-protocols \
+  ${PN}-bin \
   ${PN}-conch \
   ${PN}-lore \
   ${PN}-mail \
@@ -31,6 +41,7 @@ PACKAGES += "\
 
 RDEPENDS_${PN} = "python-core python-zopeinterface"
 RDEPENDS_${PN} += "\
+  ${PN}-bin \
   ${PN}-conch \
   ${PN}-lore \
   ${PN}-mail \
@@ -41,18 +52,12 @@ RDEPENDS_${PN} += "\
   ${PN}-words \
 "
 
-do_install_append() {
-	# remove some useless files before packaging
-	find ${D} -name "*.bat" -o -name "*.c" -o -name "*.h" -exec rm {} \;
-}
-
-ALLOW_EMPTY = "1"
+ALLOW_EMPTY_${PN} = "1"
 FILES_${PN} = ""
 
 FILES_${PN}-test = " \
   ${libdir}/${PYTHON_DIR}/site-packages/twisted/test \
   ${libdir}/${PYTHON_DIR}/site-packages/twisted/*/test \
-  ${libdir}/${PYTHON_DIR}/site-packages/twisted/*/*/test \  
 "
 
 FILES_${PN}-protocols = " \
@@ -62,6 +67,11 @@ FILES_${PN}-protocols = " \
 FILES_${PN}-zsh = " \
   ${libdir}/${PYTHON_DIR}/site-packages/twisted/python/zsh \
   ${libdir}/${PYTHON_DIR}/site-packages/twisted/python/zshcomp.* \
+"
+
+FILES_${PN}-bin = " \
+  ${libdir}/${PYTHON_DIR}/site-packages/twisted/protocols/_c_urlarg.so \
+  ${libdir}/${PYTHON_DIR}/site-packages/twisted/spread/cBanana.so \
 "
 
 FILES_${PN}-conch = " \
@@ -211,5 +221,3 @@ ${libdir}/${PYTHON_DIR}/site-packages/twisted/*/.debug \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/*/*/.debug \
 "
 
-SRC_URI[md5sum] = "d7f94a1609a1b8f3b8c8d0146d4cfe54"
-SRC_URI[sha256sum] = "dd91254a4c946f51c4248590ca31b496ad3e4fd1b5a9fbc3a82c39a41131a2e2"
