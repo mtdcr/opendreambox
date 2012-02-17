@@ -20,8 +20,8 @@ SRC_URI = " \
         file://09-s390.patch \
         file://10-remote-dos.patch \
 "
-SRC_URI[md5sum] = "2ea5d19978710527bb7444d93b67767a"
-SRC_URI[sha256sum] = "b466edf96437afa2b2bea6981d4ab8b0204b83ca0a2ac94bef6b62b42cc71a5a"
+SRC_URI[md5sum] = "01398a5bef8e85b6cf2c213a4b011eca"
+SRC_URI[sha256sum] = "d87ee2987df8f03e1dbe294905f7907b2798deb89c67ca965f6e2f60879e54f1"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
