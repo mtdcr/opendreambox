@@ -1,5 +1,6 @@
 DESCRIPTION = "enigma2 default services/transponder"
-LICENSE = "Proprietary"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=861a56d19a6e100979e4c596ed785160"
 PR = "r5"
 
 SRC_URI = "file://*"

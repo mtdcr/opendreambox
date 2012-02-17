@@ -1,5 +1,5 @@
 DESCRIPTION = "Skins for Enigma2"
-LICENSE = "Proprietary"
+LICENSE = "CLOSED"
 
 SRCREV = "${AUTOREV}"
 

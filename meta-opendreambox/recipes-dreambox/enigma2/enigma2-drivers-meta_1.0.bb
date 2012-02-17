@@ -1,5 +1,6 @@
 DESCRIPTION = "Descriptions for driver packages used by enigma2"
-LICENSE = "Proprietary"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=861a56d19a6e100979e4c596ed785160"
 
 SRC_URI = " \
         file://genmetaindex.py \
