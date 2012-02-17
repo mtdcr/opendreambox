@@ -17,9 +17,12 @@ SRC_URI[sha256sum] = "d034f6c6d9578fe2addfaeceaa101584a4a1fc9f27d825c340baebd345
 
 inherit module
 
-do_install() {
+do_compile() {
         unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
-        oe_runmake -C "${STAGING_KERNEL_DIR}" DEPMOD=echo INSTALL_MOD_PATH="${D}" SUBDIRS="${S}" ${MODULE_MAKE_FLAGS} modules_install
+        oe_runmake -C "${STAGING_KERNEL_DIR}" SUBDIRS="${S}" modules
 }
 
-PACKAGES = "${PN}"
+do_install() {
+        unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
+        oe_runmake -C "${STAGING_KERNEL_DIR}" SUBDIRS="${S}" DEPMOD=echo INSTALL_MOD_PATH="${D}" modules_install
+}
