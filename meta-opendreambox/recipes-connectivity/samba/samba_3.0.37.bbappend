@@ -5,7 +5,7 @@ SRC_URI += " \
 	file://01samba-start \
 "
 
-PACKAGES =+ "smbfs smbfs-doc sambaserver libpopt libtalloc libtdb"
+PACKAGES =+ "smbfs smbfs-doc sambaserver libpopt libtalloc"
 
 FILES_smbfs = "${bindir}/smbmount ${bindir}/smbumount ${bindir}/smbmnt ${base_sbindir}/mount.smbfs ${base_sbindir}/mount.smb"
 FILES_smbfs-doc = "${mandir}/man8/smbmount.8 ${mandir}/man8/smbumount.8 ${mandir}/man8/smbmnt.8"
@@ -14,7 +14,6 @@ FILES_sambaserver = "${sbindir}/smbd ${sbindir}/nmbd ${libdir}/charset/*.so ${li
 	${sysconfdir}/network/if-up.d/01samba-start ${sysconfdir}/network/if-down.d/01samba-kill"
 FILES_libpopt = "${libdir}/libpopt.so.*"
 FILES_libtalloc = "${libdir}/libtalloc.so.*"
-FILES_libtdb = "${libdir}/libtdb.so.*"
 
 CONFFILES_${PN} = ""
 CONFFILES_sambaserver = "${sysconfdir}/samba/smb.conf"
