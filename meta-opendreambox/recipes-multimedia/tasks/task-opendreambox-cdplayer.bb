@@ -15,6 +15,6 @@ RDEPENDS_${PN} = "\
  cdfs \
  cdtextinfo \
  enigma2-plugin-extensions-cdinfo \
- gst-plugins-base-cdio \
+ gst-plugins-ugly-cdio \
 "
 

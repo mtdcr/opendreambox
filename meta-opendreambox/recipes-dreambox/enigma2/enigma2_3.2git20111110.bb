@@ -9,36 +9,36 @@ RDEPENDS = " \
 	ethtool \
 	glibc-gconv-iso8859-15 \
 	gst-plugin-dvbmediasink \
+	gst-plugins-bad-mpegdemux \
 	gst-plugins-base-alsa \
-	gst-plugins-base-decodebin \
-	gst-plugins-base-decodebin2 \
-	gst-plugins-base-apetag \
 	gst-plugins-base-app \
 	gst-plugins-base-audioconvert \
-	gst-plugins-base-audioparsers \
 	gst-plugins-base-audioresample \
-	gst-plugins-base-dvdsub \
-	gst-plugins-base-icydemux \
-	gst-plugins-base-id3demux \
-	gst-plugins-base-isomp4 \
-	gst-plugins-base-mad \
-	gst-plugins-base-mpegaudioparse \
-	gst-plugins-base-mpegdemux \
-	gst-plugins-base-mpegstream \
+	gst-plugins-base-decodebin \
+	gst-plugins-base-decodebin2 \
 	gst-plugins-base-ogg \
 	gst-plugins-base-playbin \
-	gst-plugins-base-rtp \
-	gst-plugins-base-rtpmanager \
-	gst-plugins-base-rtsp \
 	gst-plugins-base-subparse \
 	gst-plugins-base-typefindfunctions \
-	gst-plugins-base-udp \
 	${@base_conditional('TARGET_FPU', 'soft', 'gst-plugins-base-ivorbisdec', 'gst-plugins-base-vorbis', d)} \
+	gst-plugins-good-apetag \
+	gst-plugins-good-audioparsers \
 	gst-plugins-good-autodetect \
 	gst-plugins-good-flac \
+	gst-plugins-good-icydemux \
+	gst-plugins-good-id3demux \
+	gst-plugins-good-isomp4 \
 	gst-plugins-good-matroska \
+	gst-plugins-good-rtp \
+	gst-plugins-good-rtpmanager \
+	gst-plugins-good-rtsp \
 	gst-plugins-good-souphttpsrc \
+	gst-plugins-good-udp \
 	gst-plugins-good-wavparse \
+	gst-plugins-ugly-dvdsub \
+	gst-plugins-ugly-mad \
+	gst-plugins-ugly-mpegaudioparse \
+	gst-plugins-ugly-mpegstream \
 	python-codecs \
 	python-core \
 	python-fcntl \
@@ -51,7 +51,7 @@ RDEPENDS = " \
 	python-xml \
 "
 
-GST_DVD_RDEPENDS = "gst-plugins-base-cdxaparse gst-plugins-base-cdio gst-plugins-base-vcdsrc"
+GST_DVD_RDEPENDS = "gst-plugins-bad-cdxaparse gst-plugins-ugly-cdio gst-plugins-bad-vcdsrc"
 
 RDEPENDS_append_dm8000 = " ${GST_DVD_RDEPENDS} gst-plugins-good-avi"
 RDEPENDS_append_dm500hd = " ${GST_DVD_RDEPENDS} gst-plugins-good-avi"
