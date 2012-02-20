@@ -22,6 +22,8 @@ CFLAGS += "${LDFLAGS}"
 EXTRA_OEMAKE = "STRIP=/bin/true"
 PARALLEL_MAKE = ""
 
+INSANE_SKIP_${PN} = "dev-so"
+
 SRC_URI[archive.md5sum] = "7e3949114c00665b4636f0c318179657"
 SRC_URI[archive.sha256sum] = "e25caa0e9639ea54dd7c4f21e8146ac9859a61fa126f397edf874b5fdc147430"
 SRC_URI[patch1.md5sum] = "6342d6908c35af72b29231ecc6a10b5a"
