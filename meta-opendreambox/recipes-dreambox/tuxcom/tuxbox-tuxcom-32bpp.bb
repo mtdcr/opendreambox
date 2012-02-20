@@ -14,7 +14,7 @@ SRC_URI = "cvs://anoncvs@cvs.tuxbox.org/cvs/tuxbox;module=apps/tuxbox/plugins/tu
 
 S = "${WORKDIR}/tuxcom"
 
-inherit autotools pkgconfig
+inherit autotools
 
 EXTRA_OECONF = "--with-target=native"
 

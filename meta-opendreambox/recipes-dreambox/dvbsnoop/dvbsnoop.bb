@@ -9,4 +9,4 @@ SRC_URI = "cvs://anoncvs@cvs.tuxbox.org/cvs/tuxbox;module=apps/dvb/dvbsnoop;meth
 
 S = "${WORKDIR}/dvbsnoop"
 
-inherit autotools pkgconfig
+inherit autotools

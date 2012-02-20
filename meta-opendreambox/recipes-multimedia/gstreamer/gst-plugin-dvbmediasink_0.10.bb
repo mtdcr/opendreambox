@@ -9,7 +9,7 @@ PR = "r1"
 SRCREV = "${AUTOREV}"
 SCHWERKRAFT_PROJECT = "dvbmediasink"
 
-inherit autotools pkgconfig schwerkraft-git
+inherit autotools schwerkraft-git
 
 FILES_${PN} = "${libdir}/gstreamer-0.10/*.so*"
 FILES_${PN}-dev += "${libdir}/gstreamer-0.10/*.la \

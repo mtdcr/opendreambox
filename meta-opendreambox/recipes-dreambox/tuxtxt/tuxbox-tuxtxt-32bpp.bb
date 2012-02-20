@@ -18,7 +18,7 @@ SRC_URI = "cvs://anoncvs@cvs.tuxbox.org/cvs/tuxbox;module=apps/tuxbox/plugins/tu
 
 S = "${WORKDIR}/tuxtxt"
 
-inherit autotools pkgconfig
+inherit autotools
 
 do_configure_prepend() {
         touch ${S}/python/__init__.py
