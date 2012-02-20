@@ -2,6 +2,8 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${P}:"
 
 PR .= "-dream1"
 
-DEPENDS := "${@oe_filter_out('^(mpeg2dec)$', '${DEPENDS}', d)}"
+DEPENDS += "orc"
+
+EXTRA_OECONF += "--with-plugins="
 
 SRC_URI += "file://dvdsubdec-addproperty-singlebuffer.patch"
