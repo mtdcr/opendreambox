@@ -1,6 +1,7 @@
 DESCRIPTION = "Kernel based automounter for linux."
 SECTION = "base"
 LICENSE = "GPLv2+"
+LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3"
 INC_PR = "r4"
 EXTRA_OEMAKE += "'RANLIB=${RANLIB}'"
 

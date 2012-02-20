@@ -1,7 +1,7 @@
 DESCRIPTION = "Hardware drivers for Dreambox"
 SECTION = "base"
 PRIORITY = "required"
-LICENSE = "Proprietary"
+LICENSE = "CLOSED"
 DEPENDS += "virtual/kernel"
 RDEPENDS_${PN} += "dreambox-secondstage kernel-${DM_LOCALVERSION}"
 INC_PR = "r1"

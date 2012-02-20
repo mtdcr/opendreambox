@@ -1,5 +1,5 @@
 DESCRIPTION = "Tuxbox common files"
-LICENSE = "GPL"
+LICENSE = "CLOSED"
 
 SRCREV = "${AUTOREV}"
 

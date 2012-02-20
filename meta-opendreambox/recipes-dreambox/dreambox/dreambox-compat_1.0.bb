@@ -1,7 +1,8 @@
 DESCRIPTION = "Dreambox compatibility links"
 SECTION = "base"
 PRIORITY = "required"
-LICENSE = "Proprietary"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=861a56d19a6e100979e4c596ed785160"
 
 do_install() {
         install -d ${D}${base_libdir}

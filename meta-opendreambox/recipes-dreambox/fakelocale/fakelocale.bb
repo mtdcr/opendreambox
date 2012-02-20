@@ -1,5 +1,5 @@
 DESCRIPTION = "Fake locale support"
-LICENSE = "Proprietary"
+LICENSE = "CLOSED"
 SECTION = "base"
 PRIORITY = "required"
 PR = "r2"
