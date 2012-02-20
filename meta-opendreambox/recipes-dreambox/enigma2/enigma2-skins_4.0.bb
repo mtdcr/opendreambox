@@ -3,9 +3,8 @@ LICENSE = "CLOSED"
 
 SRCREV = "${AUTOREV}"
 
-inherit autotools schwerkraft-git
+inherit allarch autotools schwerkraft-git
 
-PACKAGE_ARCH = "all"
 PACKAGES_DYNAMIC = "enigma2-skin-*"
 PACKAGES += "${PN}-meta"
 

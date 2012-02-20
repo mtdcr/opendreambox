@@ -5,11 +5,12 @@ PRIORITY = "required"
 PR = "r2"
 
 SRC_URI = "http://sources.dreamboxupdate.com/download/opendreambox/fakelocale.tar.gz file://locale.alias"
-
 SRC_URI[md5sum] = "d11a901c9e4dc2947cbc560044de2b67"
 SRC_URI[sha256sum] = "b424804aff7a23efaa1fa25d27a55ac25173d0e7e95d07fe31096250bb498cc6"
 
 S = "${WORKDIR}/fakelocale"
+
+inherit allarch
 
 LOCALEDIR = "${libdir}/locale"
 LOCALEDIR2 = "/usr/share/locale"
@@ -45,4 +46,3 @@ do_install() {
 }
 
 FILES_${PN} = "${LOCALEDIR} ${LOCALEDIR2}"
-PACKAGE_ARCH = "all"

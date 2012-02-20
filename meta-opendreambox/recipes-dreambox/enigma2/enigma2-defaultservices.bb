@@ -7,12 +7,12 @@ SRC_URI = "file://*"
 
 S = "${WORKDIR}"
 
+inherit allarch
+
 do_install() {
         install -d ${D}/usr/share/enigma2/dealer
         install ${WORKDIR}/*.info ${D}/usr/share/enigma2/dealer
         install ${WORKDIR}/lamedb.* ${D}/usr/share/enigma2/dealer
 }
-
-PACKAGE_ARCH = "all"
 
 FILES_${PN} = "/"

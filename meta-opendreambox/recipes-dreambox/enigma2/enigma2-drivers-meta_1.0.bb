@@ -10,6 +10,8 @@ SRC_URI = " \
 
 S = "${WORKDIR}"
 
+inherit allarch
+
 do_install() {
         install -d ${D}${datadir}/meta
         install ${S}/*.xml ${D}${datadir}/meta
@@ -17,7 +19,5 @@ do_install() {
                 python ${WORKDIR}/genmetaindex.py ${D}${datadir}/meta/driver_*.xml > ${D}${datadir}/meta/index-enigma2-drivers.xml
         done
 }
-
-PACKAGE_ARCH = "all"
 
 FILES_${PN} = "${datadir}/meta"
