@@ -34,8 +34,8 @@ WLAN_CRYPTO_MODULES = " \
 "
 
 WLAN_USB_FIRMWARE_KERNEL = " \
-  linux-firmware-rtl8192su \
   linux-firmware-rt73usb \
+  linux-firmware-rtl8192su \
   zd1211-firmware \
 "
 
@@ -43,7 +43,7 @@ WLAN_USB_FIRMWARE_LEGACY = " \
 "
 
 WLAN_USB_MODULES_KERNEL = " \
-  kernel-module-rtl8192su \
+  kernel-module-r8712u \
   kernel-module-rt73usb \
   kernel-module-zd1211rw \
 "
