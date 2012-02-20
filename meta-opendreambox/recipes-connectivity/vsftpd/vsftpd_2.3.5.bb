@@ -1,14 +1,14 @@
 DESCRIPTION = "lightweight, efficient FTP server written for security"
-HOMEPAGE = "http://vsftpd.beasts.org/"
+HOMEPAGE = "https://security.appspot.com/vsftpd.html"
 SECTION = "console/network"
 LICENSE = "GPL-2.0-with-OpenSSL-exception"
 LIC_FILES_CHKSUM = "file://COPYING;md5=a6067ad950b28336613aed9dd47b1271"
 DEPENDS = "libcap openssl"
 DEPENDS += "${@base_contains('DISTRO_FEATURES', 'pam', 'libpam', '', d)}"
-PR = "r1"
 
 SRC_URI = " \
-        https://security.appspot.com/downloads/${BPN}-${PV}.tar.gz \
+        https://security.appspot.com/downloads/${BP}.tar.gz \
+        file://vsftpd.xinetd.in \
         file://01-builddefs.patch \
         file://02-config.patch \
         file://03-db-doc.patch \
@@ -23,11 +23,9 @@ SRC_URI = " \
 SRC_URI[md5sum] = "01398a5bef8e85b6cf2c213a4b011eca"
 SRC_URI[sha256sum] = "d87ee2987df8f03e1dbe294905f7907b2798deb89c67ca965f6e2f60879e54f1"
 
-S = "${WORKDIR}/${BPN}-${PV}"
+S = "${WORKDIR}/${BP}"
 
-INETD_SERVICE_NAME = "ftp"
-
-inherit inetd
+inherit useradd
 
 CFLAGS = "${TARGET_CFLAGS}"
 CFLAGS += "-DVSF_BUILD_SSL=1"
@@ -38,14 +36,12 @@ LIBS += "${@base_contains('DISTRO_FEATURES', 'pam', '-lpam', '', d)}"
 
 LINK = "${TARGET_LDFLAGS}"
 
-SECURE_CHROOT_DIR = "${datadir}/${PN}/chroot"
-RSA_CERT_FILE = "${sysconfdir}/ssl/private/${PN}.pem"
+SECURE_CHROOT_DIR = "${datadir}/${BPN}/chroot"
+RSA_CERT_FILE = "${sysconfdir}/ssl/private/${BPN}.pem"
 
-do_patchpost() {
+do_configure() {
         rm -f builddefs.h
         touch builddefs.h
-}
-do_configure() {
         set_default() {
                 NAME=$1
                 VALUE=$2
@@ -73,6 +69,8 @@ do_configure() {
         set_default ls_recurse_enable YES
         set_default secure_chroot_dir "${SECURE_CHROOT_DIR}"
         set_default rsa_cert_file "${RSA_CERT_FILE}"
+
+	sed -e 's,@SBINDIR@,${sbindir},' ${WORKDIR}/vsftpd.xinetd.in > vsftpd.xinetd
 }
 do_compile() {
         oe_runmake 'CFLAGS=${CFLAGS}' 'LIBS=${LIBS}' 'LINK=${LINK}'
@@ -86,21 +84,12 @@ do_install() {
         install -m 644 vsftpd.8 ${D}${mandir}/man8/vsftpd.8
         install -d ${D}${mandir}/man5
         install -m 644 vsftpd.conf.5 ${D}${mandir}/man5/vsftpd.conf.5
+        install -d ${D}${sysconfdir}/xinetd.d
+        install -m 644 vsftpd.xinetd ${D}${sysconfdir}/xinetd.d/vsftpd
         install -d ${D}${SECURE_CHROOT_DIR}
 }
 
-addtask patchpost after do_patch before do_configure
+RDEPENDS_${PN} = "xinetd"
 
-pkg_postinst_${PN}() {
-if [ "x$D" != "x" ]; then
-        exit 1
-fi
-addgroup -S vsftpd
-adduser -S -h ${SECURE_CHROOT_DIR} -H -G vsftpd -D -s /bin/false vsftpd
-}
-pkg_postrm_${PN}() {
-if [ "x$D" != "x" ]; then
-        exit 1
-fi
-deluser vsftpd
-}
+USERADD_PACKAGES = "${PN}"
+USERADD_PARAM_${PN} = "--home-dir ${SECURE_CHROOT_DIR} --no-create-home --system --shell /bin/false --user-group vsftpd"
