@@ -216,7 +216,7 @@ THE SOFTWARE.
       \item The recipes were split into multiple layers.
       \item Instead of \shell{env.source}, a file is generated for bitbake
         (\shell{bitbake.env}) and every compiler (\shell{compiler-mipsel.env}
-        and \shell{compiler-mipsel-nofp.env}). You can use the same
+        and \shell{compiler-mipsel-nf.env}). You can use the same
         \shell{bitbake.env} for all machines.
       \item All machines share a common \shell{tmp} directory.
       \item \shell{\$\{MACHINE\}/build} directories were renamed to \shell{build/\$\{MACHINE\}}.
@@ -245,7 +245,7 @@ THE SOFTWARE.
       \begin{itemize}
         \item \shell{bitbake.env}
         \item \shell{compiler-mipsel.env}
-        \item \shell{compiler-mipsel-nofp.env}
+        \item \shell{compiler-mipsel-nf.env}
         \item \shell{build/\$\{MACHINE\}/conf/bblayers.conf}
         \item \shell{build/\$\{MACHINE\}/conf/local.conf}
       \end{itemize}
@@ -373,7 +373,7 @@ THE SOFTWARE.
       \item \shell{oe\_setenv} - Exports the OE environment to the currently running shell session.
     \end{itemize}
 
-    The script needs to know the target architecture, which can be either \shell{mipsel} or \shell{mipsel-nofp}. Because the script
+    The script needs to know the target architecture, which can be either \shell{mipsel} or \shell{mipsel-nf}. Because the script
     adds aliases to your currently running shell session, it has to be invoked using \shell{source} or \shell{.} (the dot operator), e.g.:
 
     \shell{source cross-compile.env mipsel}
