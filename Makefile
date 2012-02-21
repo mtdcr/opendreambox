@@ -65,7 +65,7 @@ BBLAYERS = \
 CONFFILES = \
 	bitbake.env \
 	compiler-mipsel.env \
-	compiler-mipsel-nofp.env \
+	compiler-mipsel-nf.env \
 	$(TOPDIR)/conf/bblayers.conf \
 	$(TOPDIR)/conf/local.conf
 
@@ -190,4 +190,4 @@ bitbake.env:
 
 compiler-%.env:
 	@echo '[*] Generating $@'
-	@echo 'export PATH=$(TMPDIR)/sysroots/$(shell uname -m)-linux/usr/$*/bin:$${PATH}' > $@
+	@echo 'export PATH=$(TMPDIR)/sysroots/$(shell uname -m)-linux/usr/bin/$*-oe-linux:$${PATH}' > $@
