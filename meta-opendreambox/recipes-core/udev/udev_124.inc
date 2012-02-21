@@ -2,6 +2,7 @@ DESCRIPTION ?= "udev is a program which dynamically creates and removes device n
 /dev/. It responds to /sbin/hotplug device events and requires a 2.6 kernel."
 
 LICENSE = "GPLv2+"
+LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
 
 SRC_URI = "http://kernel.org/pub/linux/utils/kernel/hotplug/udev-${PV}.tar.gz \
 	   file://udev.rules \
