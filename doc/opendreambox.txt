@@ -1,0 +1,403 @@
+opendreambox
+
+   Andreas Oberritter <obi@opendreambox.org>
+   November 2011
+
+  Contents
+
+   1 Introduction
+    1.1 Target audience
+    1.2 Supported products
+    1.3 License
+    1.4 Obtaining the source code
+    1.5 Directory structure
+     1.5.1 meta-bsp
+     1.5.2 meta-opendreambox
+     1.5.3 meta-openembedded
+     1.5.4 openembedded
+   2 Prerequisites
+    2.1 Required software
+    2.2 System shell
+   3 Major changes since previous releases
+    3.1 Changes since release 1.6
+   4 Known Bugs
+    4.1 Failure to build openssl-native
+   5 Building OpenDreambox
+    5.1 Makefile targets
+    5.2 Configuration variables
+     5.2.1 BB_NUMBER_THREADS
+     5.2.2 BB_SCHEDULER
+     5.2.3 MACHINE
+     5.2.4 PARALLEL_MAKE
+     5.2.5 RM_WORK
+    5.3 Adding custom layers
+    5.4 Adding custom options
+    5.5 Setting up a build directory
+    5.6 Building a firmware image
+    5.7 Building a package
+   6 Development hints
+    6.1 Cross-compilation of external software using OE's compilers and libraries
+    6.2 Coding style
+    6.3 Package architecture
+    6.4 Kernel versions
+   7 Bug reports and patches
+
+  1 Introduction
+
+   This document describes the OpenDreambox distribution, an embedded Linux
+   distribution for Set-Top-Boxes manufactured by Dream Multimedia GmbH.
+
+   OpenDreambox is based on the OpenEmbedded build framework release 2011.03.
+   OpenEmbedded uses BitBake 1.12 to transform build instructions into
+   distributable firmare images and software packages.
+
+    1.1 Target audience
+
+   Developers familiar with previous versions of OpenDreambox or OpenEmbedded in
+   general.
+
+    1.2 Supported products
+
+   The current version includes support for the following machines:
+
+   +-----------------------------------+
+   |  ----------  |  ----------------  |
+   |Product name  |Environment variable|
+   |  ----------  |  ----------------  |
+   |DM 500 HD     |MACHINE=dm500hd     |
+   |DM 800 HD PVR |MACHINE=dm800       |
+   |DM 800 HD SE  |MACHINE=dm800se     |
+   |DM 7020 HD    |MACHINE=dm7020hd    |
+   |DM 8000 HD PVR|MACHINE=dm8000      |
+   |  ----------  |  ----------------  |
+   +-----------------------------------+
+
+    1.3 License
+
+   Copyright (c) 2010-2011 Dream Multimedia GmbH, Germany
+                           http://www.dream-multimedia-tv.de/
+   Authors:
+     Andreas Frisch <fraxinas@opendreambox.org>
+     Andreas Monzner <ghost@opendreambox.org>
+     Andreas Oberritter <obi@opendreambox.org>
+     Mladen Horvat <acid-burn@opendreambox.org>
+     Stefan Pluecken <thedoc@opendreambox.org>
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+   THE SOFTWARE.
+
+
+    1.4 Obtaining the source code
+
+   OpenDreambox uses the Git version control system. To obtain the source code, it
+   is required to install Git. See http://git-scm.com/.
+
+   To initially download the source into the current directory, issue the
+   following command:
+
+   git clone git://git.opendreambox.org/git/opendreambox.git
+
+    1.5 Directory structure
+
+   OpenDreambox consists of a set of layers containing build instructions. This
+   meta data is used by BitBake to download and compile source code and to
+   assemble installable software packages and firmware images.
+
+   Currently, there are five layers, ordered by priority from highest to lowest:
+     * meta-bsp/${MACHINE}
+     * meta-bsp/common
+     * meta-opendreambox
+     * meta-openembedded
+     * openembedded
+
+   If a recipe for the same version of a package exists in multiple layers, then
+   the higher priority layer takes precedence over the lower priority layer.
+
+   For example, libsoup-2.4_2.32.2.bb exists in both meta-openembedded and
+   openembedded. The recipe in meta-openembedded will be used, because
+   openembedded has lower priority.
+
+      1.5.1 meta-bsp
+
+   The directory meta-bsp contains Board Support Packages (BSP) for the supported
+   Dreambox models. This includes:
+     * Hardware drivers
+     * Machine specific overrides
+     * The Linux kernel
+     * The boot loader
+     * Splash images for display at startup
+
+      1.5.2 meta-opendreambox
+
+   meta-opendreambox contains recipes for packages written specifically for the
+   OpenDreambox distribution. Contents of this directory are neither
+   machine-specific nor likely to get merged into OpenEmbedded.
+
+      1.5.3 meta-openembedded
+
+   This directory contains:
+     * Modifications to recipes from OpenEmbedded
+     * Recipes for software versions older than those available from OpenEmbedded
+     * Recipes for software versions newer than those available from OpenEmbedded
+     * Recipes that are likely to get merged into OpenEmbedded
+
+      1.5.4 openembedded
+
+   This directory is a copy of the OpenEmbedded Git repository at
+   git.openembedded.org. It gets created when building the distribution for the
+   first time.
+
+  2 Prerequisites
+
+    2.1 Required software
+
+   The OpenEmbedded project provides a general list of prerequisites for many
+   Linux distributions and also for some other operating systems.
+     * http://www.openembedded.org/index.php/OEandYourDistro
+     * http://www.openembedded.org/index.php/Required\_software
+
+   It is highly recommended to use Linux to build OpenDreambox. In theory, any
+   recent distribution will do, but not many distributions have been verified to
+   build OpenDreambox without errors. Tested distributions include:
+     * Debian GNU/Linux 6.0 (i386)
+     * Ubuntu Linux 11.04 (amd64)
+
+    2.2 System shell
+
+   Make sure your system's /bin/sh is bash, not dash or any other shell. On Debian
+   or Ubuntu, run sudo dpkg-reconfigure dash and select no, when asked whether
+   dash should be the default shell.
+
+  3 Major changes since previous releases
+
+    3.1 Changes since release 1.6
+
+     * The recipes were split into multiple layers.
+     * Instead of env.source, a file is generated for bitbake (bitbake.env) and
+       every compiler (compiler-mipsel.env and compiler-mipsel-nofp.env). You can
+       use the same bitbake.env for all machines.
+     * All machines share a common tmp directory.
+     * ${MACHINE}/build directories were renamed to build/${MACHINE}.
+     * Kernel packages were renamed from linux-${MACHINE} to linux-dreambox.
+     * Support for machines based on ATI Xilleon or IBM STB was dropped.
+
+  4 Known Bugs
+
+    4.1 Failure to build openssl-native
+
+   On some hosts, building openssl-native fails with the following error message:
+   Makefile is older than Makefile.org, Configure or config.
+   Reconfigure the source tree (via './config' or 'perl Configure'), please.
+
+   As a workaround, please install openssl develoment headers (e.g. libssl-dev)
+   locally and append the following line to build/$MACHINE/conf/local.conf:
+
+   ASSUME_PROVIDED += "^openssl-native$"
+
+  5 Building OpenDreambox
+
+   In the top level directory, there is a Makefile, which is used to set up build
+   directories and to fetch or update all used repositories. The Makefile can be
+   influenced by environment variables, either by specifing them on the
+   command-line or by storing them in a file called build.conf. It is not
+   recommended to edit the Makefile directly in order to avoid conflicts with
+   future updates.
+
+   When the Makefile is run for the first time, the following steps will be
+   executed:
+     * Creation of configuration files
+          * bitbake.env
+          * compiler-mipsel.env
+          * compiler-mipsel-nofp.env
+          * build/${MACHINE}/conf/bblayers.conf
+          * build/${MACHINE}/conf/local.conf
+     * Update or checkout of Git repositories
+          * OpenDreambox
+          * BitBake
+          * OpenEmbedded
+
+    5.1 Makefile targets
+
+   Run make help to get a list of targets of the top level Makefile, together with
+   a brief description.
+
+    5.2 Configuration variables
+
+      5.2.1 BB_NUMBER_THREADS
+
+   Controls how many BitBake tasks may run at a time. Defaults to the number of
+   cores available on the build system. The number of cores is obtained from
+   /proc/cpuinfo. If this file is unavailable, the default value is 1.
+
+      5.2.2 BB_SCHEDULER
+
+   Controls a time-memory tradeoff. Valid values are speed and completion. If set
+   to speed (default), then BitBake will start processing the next recipes as soon
+   as possible. Otherwise, BitBake will complete each recipe, i.e. execute tasks
+   to clean up build directories, before it starts processing new recipes.
+
+   If you're low on disk space, you may want to set this option to completion and
+   keep RM_WORK set to yes.
+
+      5.2.3 MACHINE
+
+   Controls the target machine to build packages for. See section 1.2 for a list
+   of supported products.
+
+      5.2.4 PARALLEL_MAKE
+
+   Controls how many processes per recipe make may use. Defaults to -j1, which
+   means 1 process per recipe. Increasing this value speeds up the build, but not
+   all recipes are safe to build with that options.
+
+   Don't change this option unless you know what you're doing.
+
+      5.2.5 RM_WORK
+
+   Controls whether the temporary work directory of each package may be cleaned
+   automatically after the respective package has been built successfully. Valid
+   values are yes (default) and no.
+
+   If set to yes, only log files will be preserved. Setting RM_WORK to no may be
+   useful to debug packaging errors.
+
+    5.3 Adding custom layers
+
+   Assuming that an additional layer is available at /home/username/custom-layer,
+   you can enable that layer by appending two lines to machine-specific
+   configuration files.
+
+   File build/${MACHINE}/conf/bblayers.conf:
+
+   BBLAYERS =+ "/home/username/custom-layer"
+
+   File build/${MACHINE}/conf/local.conf:
+
+   COLLECTIONS =+ "/home/username/custom-layer"
+
+   In order to append the lines automatically when make generates bblayers.conf
+   and local.conf, you may add them to bblayers.conf.append and local.conf.append,
+   respectively, inside the root directory of OpenDreambox. Note that existing
+   bblayers.conf or local.conf won't get overwritten automatically, if
+   bblayers.conf.append or local.conf.append was modified. To delete generated
+   configuration files, you may run make clean.
+
+    5.4 Adding custom options
+
+   It is possible to tweak a lot more options than those used by the Makefile, by
+   editing local.conf (or local.conf.append). See section 5.3.
+
+   E.g., if the firmware shall use the package feed built on the develoment
+   machine, which happens to be 192.168.1.1 and has a webserver configured to
+   point to tmp/deploy/ipk, a line like the following may be added to
+   local.conf.append:
+
+   DISTRO_FEED_URI = "http://192.168.1.1/${DISTRO}/${DISTRO_VERSION}"
+
+   In general, any variable in OpenEmbedded that uses weak assignment (?=) may be
+   overridden from local.conf.
+
+    5.5 Setting up a build directory
+
+   To set up a build directory for e.g. DM 500 HD run make MACHINE=dm500hd. If
+   MACHINE=dm500hd has been set in build.conf, you can simply run make with no
+   arguments instead. This will create and initialize the directory build/dm500hd.
+
+    5.6 Building a firmware image
+
+   To build a firmware image for e.g. DM 500 HD run make MACHINE=dm500hd image. If
+   MACHINE=dm500hd has been set in build.conf, you can simply run make image
+   instead.
+
+    5.7 Building a package
+
+   To build a single package, BitBake has to be used directly. First, the
+   environment has to be set up, in order to make BitBake available to the shell.
+   This can be done with the following command:
+
+   source bitbake.env
+
+   Don't omit the leading dot. The dot is a special command which, instead of
+   executing a new shell, runs the shell script inside the current session. This
+   way, bitbake.env may set environment variables.
+
+   BitBake must be run from the machine's build directory. For DM 500 HD run:
+
+   cd build/dm500hd
+
+   In order to build enigma2, run:
+
+   bitbake enigma2.
+
+  6 Development hints
+
+    6.1 Cross-compilation of external software using OE's compilers and libraries
+
+   OpenDreambox provides a script called cross-compile.env. Once run, the script
+   will create the following commands (shell aliases), aiming to ease
+   cross-compilation of external source trees:
+     * oe_autoreconf - Calls OE's version of autoreconf. Useful for projects based
+       on GNU autotools.
+     * oe_runconf - Calls ./configure with parameters suitable for OE. Useful for
+       projects based on GNU autotools.
+     * oe_runmake - Calls make with parameters suitable for OE. Useful for
+       projects based on GNU autotools or GNU make.
+     * oe_env - Useful to execute arbitrary commands in the OE environment (e.g.
+       oe_env env).
+     * oe_setenv - Exports the OE environment to the currently running shell
+       session.
+
+   The script needs to know the target architecture, which can be either mipsel or
+   mipsel-nofp. Because the script adds aliases to your currently running shell
+   session, it has to be invoked using source or . (the dot operator), e.g.:
+
+   source cross-compile.env mipsel
+
+   The script may be called from any location, but must reside inside the
+   OpenDreambox Git tree. You may want to create a symlink to cross-compile.env
+   somewhere in your PATH.
+
+    6.2 Coding style
+
+   Run scripts/do_stylize.sh on new recipes to ensure proper coding style.
+
+    6.3 Package architecture
+
+   Set PACKAGE_ARCH = "${MACHINE_ARCH}" if either condition is met:
+     * The recipe uses COMBINED_FEATURES, MACHINE_FEATURES or DREAMBOX_FEATURES.
+     * The recipe is part of meta-bsp.
+
+    6.4 Kernel versions
+
+   When switching kernel versions, run the following commands:
+
+   bitbake -cclean cdfs dreambox-dvb-modules linux-dreambox madwifi-ng \
+
+    task-opendreambox-essential task-opendreambox-base \
+
+    task-boot task-opendreambox-wlan v4l-dvb-modules
+
+   rm ../../tmp/cache/${MACHINE}/bb_*
+
+  7 Bug reports and patches
+
+   Please send bug reports and patches to the Enigma2 development mailing list
+   <enigma2-devel@lists.elitedvb.net>.
+
+   A comfortable way to create patches is to use git format-patch, after all
+   changes have been committed to your local copy of the repository.
