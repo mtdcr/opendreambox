@@ -1,7 +1,8 @@
 DESCRIPTION = "Driver for zd1211b family of wireless USB Dongles"
 HOMEPAGE = "http://zd1211.ath.cx/"
 SECTION = "kernel/modules"
-LICENSE = "GPL"
+LICENSE = "MPL-1.1 | GPLv2"
+LIC_FILES_CHKSUM = "file://src/zd1211.c;endline=31;md5=76cb7cb1283c3b6e20de40280a74f87f"
 RDEPENDS = "wireless-tools"
 
 inherit module

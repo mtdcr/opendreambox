@@ -1,7 +1,8 @@
 DESCRIPTION = "Driver for Ralink rt73 USB 802.11b/g WiFi sticks"
 HOMEPAGE = "http://www.ralinktech.com.tw"
 SECTION = "kernel/modules"
-LICENSE = "GPL"
+LICENSE = "GPLv2+"
+LIC_FILES_CHKSUM = "file://rtmp_main.c;endline=25;md5=10585d272398025e832fa0793385f9a1"
 
 inherit module
 
