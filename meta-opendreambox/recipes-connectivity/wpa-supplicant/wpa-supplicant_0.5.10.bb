@@ -1,6 +1,9 @@
 DESCRIPTION = "A Client for Wi-Fi Protected Access (WPA)."
 SECTION = "network"
-LICENSE = "GPL"
+LICENSE = "GPLv2 | BSD"
+LIC_FILES_CHKSUM = "file://COPYING;md5=c54ce9345727175ff66d17b67ff51f58 \
+                    file://README;beginline=1;endline=61;md5=ca1e815679e09dfa7e523c9b141d928e \
+                    file://wpa_supplicant.c;beginline=1;endline=17;md5=ed4cd86297f95122db05f4f027f0ed81"
 HOMEPAGE = "http://hostap.epitest.fi/wpa_supplicant/"
 DEPENDS = "openssl ${@base_contains("COMBINED_FEATURES", "madwifi", "madwifi-ng", "",d)}"
 
