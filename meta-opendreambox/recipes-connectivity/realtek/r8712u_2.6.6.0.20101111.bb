@@ -19,14 +19,11 @@ do_configure() {
         install -m 644 ${WORKDIR}/config ${S}
         echo "EXTRA_CFLAGS += -DCONFIG_${@base_conditional('SITEINFO_ENDIANNESS', 'le', 'LITTLE', 'BIG', d)}_ENDIAN" >> ${S}/config
 }
+do_compile() {
+        unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
+        oe_runmake -C "${STAGING_KERNEL_DIR}" SUBDIRS="${S}" modules
+}
 do_install() {
         unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
-        oe_runmake -C ${STAGING_KERNEL_DIR} M=${S} DEPMOD=echo INSTALL_MOD_PATH="${D}" ${MODULE_MAKE_FLAGS} modules_install
+        oe_runmake -C "${STAGING_KERNEL_DIR}" SUBDIRS="${S}" DEPMOD="echo" INSTALL_MOD_PATH="${D}" modules_install
 }
-
-MODULE_MAKE_FLAGS += " \
-        ARCH=${ARCH} \
-        CROSS_COMPILE=${TARGET_PREFIX} \
-        KVER=${KERNEL_VERSION} \
-        KSRC=${STAGING_KERNEL_DIR} \
-"
