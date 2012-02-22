@@ -27,3 +27,9 @@ SRC_URI[patch.sha256sum] = "faca8966d65932619bf69d034ed892ac9bb5f5c9b57ba50ba8db
 S = "${WORKDIR}/linux-${PV}"
 
 require linux-dreambox.inc
+
+do_install_append() {
+        cp include/asm/asm-offsets.h $kerneldir/include/asm/asm-offsets.h
+        cp scripts/basic/fixdep $kerneldir/scripts/basic/fixdep
+        cp scripts/mod/modpost $kerneldir/scripts/mod/modpost
+}
