@@ -4,4 +4,4 @@ SRC_URI = "http://dreamboxupdate.com/download/${DISTRO}/${DISTRO_VERSION}/${PN}/
 
 S = "${WORKDIR}/${PN}_${PV}_${PACKAGE_ARCH}"
 
-PACKAGE_STRIP = "no"
+INHIBIT_PACKAGE_STRIP = "1"
