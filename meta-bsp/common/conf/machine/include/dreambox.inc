@@ -6,7 +6,7 @@ GLIBC_EXTRA_OECONF = "--with-tls --with-__thread"
 
 MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "dreambox-dvb-modules"
 MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "task-opendreambox-essential"
-MACHINE_FEATURES += "kernel26"
+MACHINE_FEATURES += "alsa kernel26"
 
 PREFERRED_PROVIDER_virtual/bootloader = "dreambox-secondstage"
 PREFERRED_PROVIDER_virtual/kernel = "linux-dreambox"
