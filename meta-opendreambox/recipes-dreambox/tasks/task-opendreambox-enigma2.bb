@@ -2,23 +2,13 @@ DESCRIPTION = "OpenDreambox: Enigma2 Task for the OpenDreambox Distribution"
 SECTION = "opendreambox/base"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=861a56d19a6e100979e4c596ed785160"
-PR = "r12"
+PR = "r13"
 
 inherit task
-
-PROVIDES = "\
-  task-opendreambox-ui \
-  ${PACKAGES} \
-"
-
-PACKAGES = "\
-  task-opendreambox-enigma2 \
-"
 
 #
 # task-opendreambox-enigma2
 #
-RPROVIDES_task-opendreambox-enigma2 = "task-opendreambox-ui"
 DESCRIPTION_task-opendreambox-enigma2 = "OpenDreambox: Enigma2 Dependencies"
 RDEPENDS_task-opendreambox-enigma2 = "\
   ${@base_contains('DREAMBOX_NIMS', 'cxd1978', 'blindscan-cxd1978', '', d)} \

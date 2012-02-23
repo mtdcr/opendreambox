@@ -1,8 +1,8 @@
 OPENDREAMBOX_COMMON = "\
 	task-boot \
 	task-opendreambox-base \
-	task-opendreambox-dvbapi \
-	task-opendreambox-ui \
+	task-opendreambox-dvbapi3 \
+	task-opendreambox-enigma2 \
 "
 
 # packages to build for the feed
