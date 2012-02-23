@@ -1,6 +1,6 @@
 # dreambox.inc
 
-EXTRA_IMAGEDEPENDS += "dreambox-secondstage dreambox-buildimage-native"
+EXTRA_IMAGEDEPENDS += "dreambox-secondstage"
 
 GLIBC_EXTRA_OECONF = "--with-tls --with-__thread"
 
