@@ -27,12 +27,11 @@ unmount() {
 		unmount
 		# skip /, /proc and /dev
 		case "$mp" in
-		/|/proc)return 0;;
-		/dev)	return 0;;
+		/) return 0;;
 		esac
 		# then unmount this, if nfs
 		case "$type" in
-		nfs|smbfs|ncpfs|cifs) umount -f "$mp";;
+		nfs|smbfs|ncpfs|cifs) umount -f -r "$mp";;
 		esac
 	fi
 }
