@@ -7,14 +7,4 @@ SRC_URI = "file://streamproxy.xinetd.in"
 
 SCHWERKRAFT_PROJECT = "streamproxy"
 
-inherit autotools schwerkraft-git
-
-do_configure_append() {
-        sed -e 's,@BINDIR@,${bindir},' ${WORKDIR}/streamproxy.xinetd.in > streamproxy.xinetd
-}
-do_install_append() {
-        install -d ${D}${sysconfdir}/xinetd.d
-        install -m 644 streamproxy.xinetd ${D}${sysconfdir}/xinetd.d/streamproxy
-}
-
-RDEPENDS_${PN} = "xinetd"
+inherit autotools schwerkraft-git xinetd

@@ -25,7 +25,7 @@ SRC_URI[sha256sum] = "d87ee2987df8f03e1dbe294905f7907b2798deb89c67ca965f6e2f6087
 
 S = "${WORKDIR}/${BP}"
 
-inherit useradd
+inherit useradd xinetd
 
 CFLAGS = "${TARGET_CFLAGS}"
 CFLAGS += "-DVSF_BUILD_SSL=1"
@@ -69,8 +69,6 @@ do_configure() {
         set_default ls_recurse_enable YES
         set_default secure_chroot_dir "${SECURE_CHROOT_DIR}"
         set_default rsa_cert_file "${RSA_CERT_FILE}"
-
-	sed -e 's,@SBINDIR@,${sbindir},' ${WORKDIR}/vsftpd.xinetd.in > vsftpd.xinetd
 }
 do_compile() {
         oe_runmake 'CFLAGS=${CFLAGS}' 'LIBS=${LIBS}' 'LINK=${LINK}'
@@ -84,12 +82,8 @@ do_install() {
         install -m 644 vsftpd.8 ${D}${mandir}/man8/vsftpd.8
         install -d ${D}${mandir}/man5
         install -m 644 vsftpd.conf.5 ${D}${mandir}/man5/vsftpd.conf.5
-        install -d ${D}${sysconfdir}/xinetd.d
-        install -m 644 vsftpd.xinetd ${D}${sysconfdir}/xinetd.d/vsftpd
         install -d ${D}${SECURE_CHROOT_DIR}
 }
-
-RDEPENDS_${PN} = "xinetd"
 
 USERADD_PACKAGES = "${PN}"
 USERADD_PARAM_${PN} = "--home-dir ${SECURE_CHROOT_DIR} --no-create-home --system --shell /bin/false --user-group vsftpd"
