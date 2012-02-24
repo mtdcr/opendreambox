@@ -1,31 +1,80 @@
 DESCRIPTION = "Enigma2 is an experimental, but useful framebuffer-based frontend for DVB functions"
 LICENSE = "Proprietary"
-DEPENDS = "jpeg giflib libpng libsigc++-2.0 \
-	dreambox-dvbincludes freetype libdvbsi++ python swig-native \
-	libfribidi libxmlccwrap libdreamdvd gstreamer \
-	python-wifi task-opendreambox-qt4 qxmpp-e minidlna"
-RDEPENDS = "python-codecs python-core python-lang python-re python-threading \
-	python-xml python-fcntl gst-plugin-decodebin gst-plugin-decodebin2 python-stringold \
-	python-pickle gst-plugin-app \
-	gst-plugin-id3demux gst-plugin-mad gst-plugin-ogg gst-plugin-playbin \
-	gst-plugin-typefindfunctions gst-plugin-audioconvert gst-plugin-audioresample \
-	gst-plugin-wavparse python-netclient gst-plugin-mpegstream \
-	gst-plugin-flac gst-plugin-dvbmediasink gst-plugin-mpegdemux gst-plugin-dvdsub \
-	gst-plugin-souphttpsrc gst-plugin-mpegaudioparse gst-plugin-subparse \
-	gst-plugin-apetag gst-plugin-icydemux gst-plugin-autodetect \
-	glibc-gconv-iso8859-15 ethtool"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=e943a2b66bda2bf828e561a3e6c7ecfc"
 
-GST_RTSP_RDEPENDS = "gst-plugin-udp gst-plugin-rtsp gst-plugin-rtp gst-plugin-rtpmanager"
-GST_ALSA_RDEPENDS = "gst-plugin-alsa alsa-conf"
-GST_MISC_RDEPENDS = "gst-plugin-matroska gst-plugin-isomp4 gst-plugin-vorbis gst-plugin-audioparsers"
-GST_DVD_RDEPENDS = "gst-plugin-cdxaparse gst-plugin-cdio gst-plugin-vcdsrc"
-GST_BASE_RDEPENDS = "${GST_ALSA_RDEPENDS} ${GST_MISC_RDEPENDS} ${GST_RTSP_RDEPENDS}"
+DEPENDS = " \
+	dreambox-dvbincludes \
+	freetype \
+	giflib \
+	gstreamer \
+	jpeg \
+	libdreamdvd \
+	libdvbsi++ \
+	libfribidi \
+	libpng \
+	libsigc++-2.0 \
+	libxmlccwrap \
+	minidlna \
+	python \
+	python-wifi \
+	qt4-embedded \
+	qxmpp-e \
+	swig-native \
+"
 
-RDEPENDS_append_dm800 = " ${GST_BASE_RDEPENDS} gst-plugin-ivorbisdec"
-RDEPENDS_append_dm8000 = " ${GST_BASE_RDEPENDS} ${GST_DVD_RDEPENDS} gst-plugin-avi"
-RDEPENDS_append_dm500hd = " ${GST_BASE_RDEPENDS} ${GST_DVD_RDEPENDS} gst-plugin-avi"
-RDEPENDS_append_dm800se = " ${GST_BASE_RDEPENDS} ${GST_DVD_RDEPENDS} gst-plugin-avi"
-RDEPENDS_append_dm7020hd = " ${GST_BASE_RDEPENDS} ${GST_DVD_RDEPENDS} gst-plugin-avi"
+RDEPENDS = " \
+	alsa-conf \
+	ethtool \
+	glibc-gconv-iso8859-15 \
+	gst-plugin-dvbmediasink \
+	gst-plugins-bad-mpegdemux \
+	gst-plugins-base-alsa \
+	gst-plugins-base-app \
+	gst-plugins-base-audioconvert \
+	gst-plugins-base-audioresample \
+	gst-plugins-base-decodebin \
+	gst-plugins-base-decodebin2 \
+	gst-plugins-base-ogg \
+	gst-plugins-base-playbin \
+	gst-plugins-base-subparse \
+	gst-plugins-base-typefindfunctions \
+	${@base_conditional('TARGET_FPU', 'soft', 'gst-plugins-base-ivorbisdec', 'gst-plugins-base-vorbis', d)} \
+	gst-plugins-good-apetag \
+	gst-plugins-good-audioparsers \
+	gst-plugins-good-autodetect \
+	gst-plugins-good-flac \
+	gst-plugins-good-icydemux \
+	gst-plugins-good-id3demux \
+	gst-plugins-good-isomp4 \
+	gst-plugins-good-matroska \
+	gst-plugins-good-rtp \
+	gst-plugins-good-rtpmanager \
+	gst-plugins-good-rtsp \
+	gst-plugins-good-souphttpsrc \
+	gst-plugins-good-udp \
+	gst-plugins-good-wavparse \
+	gst-plugins-ugly-dvdsub \
+	gst-plugins-ugly-mad \
+	gst-plugins-ugly-mpegaudioparse \
+	gst-plugins-ugly-mpegstream \
+	python-codecs \
+	python-core \
+	python-fcntl \
+	python-lang \
+	python-netclient \
+	python-pickle \
+	python-re \
+	python-stringold \
+	python-threading \
+	python-xml \
+"
+
+GST_DVD_RDEPENDS = "gst-plugins-bad-cdxaparse gst-plugins-ugly-cdio gst-plugins-bad-vcdsrc"
+
+RDEPENDS_append_dm8000 = " ${GST_DVD_RDEPENDS} gst-plugins-good-avi"
+RDEPENDS_append_dm500hd = " ${GST_DVD_RDEPENDS} gst-plugins-good-avi"
+RDEPENDS_append_dm800se = " ${GST_DVD_RDEPENDS} gst-plugins-good-avi"
+RDEPENDS_append_dm7020hd = " ${GST_DVD_RDEPENDS} gst-plugins-good-avi"
 
 # 'forward depends' - no two providers can have the same PACKAGES_DYNAMIC, however both
 # enigma2 and enigma2-plugins produce enigma2-plugin-*.
@@ -60,18 +109,15 @@ RDEPENDS_enigma2-plugin-systemplugins-wirelesslan = "wpa-supplicant wireless-too
 DESCRIPTION_append_enigma2-plugin-systemplugins-networkwizard = "provides easy step by step network configuration"
 
 ENIGMA2_GIT ?= "git://git.opendreambox.org/git/enigma2.git;protocol=git"
-ENIGMA2_BRANCH ?= "experimental"
+ENIGMA2_BRANCH ?= "master"
 
-SRCREV = "71fa0cf0488f36ac2f666c4e08aa536f9e9379a7"
+SRCREV = "134854b10624ddb8eaaac775284b6767a0a11fd4"
 
 RECIPE_PV := "${PV}"
 PV = "${RECIPE_PV}+${@legitimize_package_name(bb.data.getVar('ENIGMA2_BRANCH', d, True))}+gitr${SRCPV}"
 PKGV = "${RECIPE_PV}+${@legitimize_package_name(bb.data.getVar('ENIGMA2_BRANCH', d, True))}+gitr${GITPKGV}"
 
-SRC_URI = " \
-        ${ENIGMA2_GIT};branch=${ENIGMA2_BRANCH};scmdata=keep \
-        file://enigma2-kill-on-exit.patch \
-"
+SRC_URI = "${ENIGMA2_GIT};branch=${ENIGMA2_BRANCH};scmdata=keep"
 
 S = "${WORKDIR}/git"
 
@@ -98,6 +144,3 @@ python populate_packages_prepend() {
 	do_split_packages(d, enigma2_plugindir, '^(\w+/\w+)/.*\.l?a$', 'enigma2-plugin-%s-dev', '%s (development)', recursive=True, match_path=True, prepend=True)
 	do_split_packages(d, enigma2_plugindir, '^(\w+/\w+)/(.*/)?\.debug/.*$', 'enigma2-plugin-%s-dbg', '%s (debug)', recursive=True, match_path=True, prepend=True)
 }
-
-RCONFLICTS_${PN} = "dreambox-keymaps"
-RREPLACES_${PN} = "dreambox-keymaps tuxbox-tuxtxt-32bpp (<= 0.0+cvs20090130-r1)"
