@@ -1,12 +1,7 @@
-OPENDREAMBOX_COMMON = "\
-	task-boot \
-	task-opendreambox-base \
-	task-opendreambox-dvbapi3 \
-	task-opendreambox-enigma2 \
-"
+DESCRIPTION = "A Dreambox firmware image"
 
 # packages to build for the feed
-OPENDREAMBOX_EXTRA = " \
+DEPENDS = " \
 	gdb \
 	lsof \
 	ltrace \
@@ -14,14 +9,27 @@ OPENDREAMBOX_EXTRA = " \
 	strace \
 "
 
-# add bootstrap stuff
-DEPENDS = "${OPENDREAMBOX_COMMON} ${OPENDREAMBOX_EXTRA}"
-IMAGE_INSTALL = "${OPENDREAMBOX_COMMON}"
+# packages to drag into the image
+IMAGE_INSTALL = " \
+	task-core-boot ${ROOTFS_PKGMANAGE} \
+	task-opendreambox-base \
+	task-opendreambox-dvbapi3 \
+	task-opendreambox-enigma2 \
+"
+
+# enable online package management
+IMAGE_FEATURES += "package-management"
 
 # we don't want any locales, at least not in the common way.
 IMAGE_LINGUAS = ""
 
 inherit image
+
+# Create /etc/timestamp during image construction to give a reasonably sane default time setting
+ROOTFS_POSTPROCESS_COMMAND += "rootfs_update_timestamp ; "
+
+# Zap the root password if debug-tweaks feature is not enabled
+ROOTFS_POSTPROCESS_COMMAND += '${@base_contains("IMAGE_FEATURES", "debug-tweaks", "", "zap_root_password ; ",d)}'
 
 opendreambox_rootfs_postprocess() {
     # generate /etc/image-version
