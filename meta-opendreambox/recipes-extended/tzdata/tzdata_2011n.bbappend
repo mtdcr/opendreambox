@@ -1,5 +1,7 @@
 PR .= "-dream1"
 
+DEFAULT_TIMEZONE = "CET"
+
 FILES_${PN} = "                                          \
                 ${datadir}/zoneinfo/Africa/Casablanca    \
                 ${datadir}/zoneinfo/Africa/Harare        \
