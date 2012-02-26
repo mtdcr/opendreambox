@@ -488,12 +488,6 @@ start)
 		exit 0
 	fi
 
-	# ensure pid file directory exists
-	if [ ! -e /var/run/autofs ]
-	then
-		mkdir /var/run/autofs
-	fi
-
 	getmounts | while read cmd rest
 	do
 		mnt=`echo $rest | sed 's/^.* \(\/[^ ]*\) [A-Za-z].*$/\1/'`
