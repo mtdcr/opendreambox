@@ -2,7 +2,7 @@ DESCRIPTION = "Additional plugins for Enigma2"
 LICENSE = "Proprietary"
 LIC_FILES_CHKSUM = "file://COPYING;md5=8e37f34d0e40d32ea2bc90ee812c9131"
 DEPENDS = "enigma2 python-pyopenssl python-gdata streamripper python-mutagen python-daap"
-PR = "r1"
+PR = "r0"
 
 SRC_URI += "file://cdinfo_depends.patch"
 
@@ -12,7 +12,7 @@ inherit autotools schwerkraft-git
 
 EXTRA_OECONF = " \
         BUILD_SYS=${BUILD_SYS} \
-        HOST_SYS=${BASEPKG_HOST_SYS} \
+        HOST_SYS=${HOST_SYS} \
         STAGING_INCDIR=${STAGING_INCDIR} \
         STAGING_LIBDIR=${STAGING_LIBDIR} \
 "
@@ -27,7 +27,8 @@ FILES_${PN}-meta = "${datadir}/meta"
 python populate_packages_prepend() {
         enigma2_plugindir = bb.data.expand('${libdir}/enigma2/python/Plugins', d)
         do_split_packages(d, enigma2_plugindir, '^(\w+/\w+)', 'enigma2-plugin-%s', '%s', recursive=True, match_path=True, prepend=True)
-        do_split_packages(d, enigma2_plugindir, '^(\w+/\w+).*/.*\.l?a$', 'enigma2-plugin-%s-dev', '%s (development)', recursive=True, match_path=True, prepend=True)
+        do_split_packages(d, enigma2_plugindir, '^(\w+/\w+).*/.*\.la$', 'enigma2-plugin-%s-dev', '%s (development)', recursive=True, match_path=True, prepend=True)
+        do_split_packages(d, enigma2_plugindir, '^(\w+/\w+).*/.*\.a$', 'enigma2-plugin-%s-staticdev', '%s (static development)', recursive=True, match_path=True, prepend=True)
         do_split_packages(d, enigma2_plugindir, '^(\w+/\w+).*/\.debug/', 'enigma2-plugin-%s-dbg', '%s (debug)', recursive=True, match_path=True, prepend=True)
         def parseControlFile(dir, d, package):
                 import os
