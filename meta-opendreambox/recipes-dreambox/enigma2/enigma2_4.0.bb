@@ -64,6 +64,7 @@ RDEPENDS = " \
 	python-netclient \
 	python-pickle \
 	python-re \
+	python-shell \
 	python-stringold \
 	python-threading \
 	python-xml \
@@ -107,6 +108,7 @@ RDEPENDS_enigma2-plugin-extensions-modem = "dreambox-modem-ppp-scripts ppp"
 DESCRIPTION_append_enigma2-plugin-systemplugins-wirelesslan = "helps you configuring your wireless lan"
 RDEPENDS_enigma2-plugin-systemplugins-wirelesslan = "wpa-supplicant wireless-tools python-wifi"
 DESCRIPTION_append_enigma2-plugin-systemplugins-networkwizard = "provides easy step by step network configuration"
+RDEPENDS_enigma2-plugin-dreamboxnetwork-core = "python-json"
 
 ENIGMA2_GIT ?= "git://git.opendreambox.org/git/enigma2.git;protocol=git"
 ENIGMA2_BRANCH ?= "master"
