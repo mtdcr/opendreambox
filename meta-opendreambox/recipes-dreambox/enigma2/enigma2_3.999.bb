@@ -17,9 +17,9 @@ DEPENDS = " \
         qxmpp-e \
         swig-native \
 "
-SRCREV = "134854b10624ddb8eaaac775284b6767a0a11fd4"
+SRCREV = "01bcb58a12fe09841bf59cf0417ce680ed8ccbef"
 
-SRC_URI = "${ENIGMA2_GIT};branch=master;protocol=ssh;scmdata=keep"
+SRC_URI = "${ENIGMA2_GIT};branch=master;scmdata=keep"
 
 inherit autotools gettext git-project pkgconfig
 
