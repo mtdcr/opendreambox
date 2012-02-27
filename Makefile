@@ -74,6 +74,7 @@ GIT_REMOTE := $(shell $(GIT) remote)
 GIT_USER_NAME := $(shell $(GIT) config user.name)
 GIT_USER_EMAIL := $(shell $(GIT) config user.email)
 
+.DEFAULT_GOAL := all
 all: update usage
 
 help:
