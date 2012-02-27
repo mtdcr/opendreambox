@@ -45,6 +45,6 @@ python populate_packages_prepend() {
                                 bb.data.setVar('RCONFLICTS_' + package, ' '.join(value.split(', ')), d)
         srcdir = bb.data.getVar('S', d, 1)
         for package in bb.data.getVar('PACKAGES', d, 1).split():
-                if package.startswith('enigma2-plugin-') and not package.endswith('-dev') and not package.endswith('-dbg'):
+                if package.startswith('enigma2-plugin-') and not package.endswith('-dev') and not package.endswith('-dbg') and not package.endswith('-staticdev'):
                         parseControlFile(srcdir, d, package)
 }
