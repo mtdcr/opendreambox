@@ -43,3 +43,7 @@ do_install_append() {
 }
 
 BBCLASSEXTEND = "native nativesdk"
+
+EXCLUDE_FROM_SHLIBS = "1"
+
+PARALLEL_MAKE = ""
