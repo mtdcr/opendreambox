@@ -263,38 +263,38 @@ opendreambox
     5.3 Adding custom layers
 
    Assuming that an additional layer is available at /home/username/custom-layer,
-   you can enable that layer by appending two lines to machine-specific
+   you can enable that layer by appending a single line to machine-specific
    configuration files.
 
    File build/${MACHINE}/conf/bblayers.conf:
 
    BBLAYERS =+ "/home/username/custom-layer"
 
-   File build/${MACHINE}/conf/local.conf:
-
-   COLLECTIONS =+ "/home/username/custom-layer"
-
-   In order to append the lines automatically when make generates bblayers.conf
-   and local.conf, you may add them to bblayers.conf.append and local.conf.append,
-   respectively, inside the root directory of OpenDreambox. Note that existing
-   bblayers.conf or local.conf won't get overwritten automatically, if
-   bblayers.conf.append or local.conf.append was modified. To delete generated
-   configuration files, you may run make clean.
+   In order to append custom lines automatically when make generates
+   bblayers.conf, you may add them to bblayers.conf.append inside the root
+   directory of OpenDreambox. Note that an existing bblayers.conf won't get
+   overwritten automatically, after bblayers.conf.append was modified. To delete
+   generated configuration files, you may run make clean.
 
     5.4 Adding custom options
 
    It is possible to tweak a lot more options than those used by the Makefile, by
-   editing local.conf (or local.conf.append). See section 5.3.
+   editing local.conf.
 
-   E.g., if the firmware shall use the package feed built on the develoment
+   For example, if the firmware shall use the package feed built on the develoment
    machine, which happens to be 192.168.1.1 and has a webserver configured to
-   point to tmp/deploy/ipk, a line like the following may be added to
-   local.conf.append:
+   point to tmp/deploy/ipk, a line like the following may be added to local.conf:
 
    DISTRO_FEED_URI = "http://192.168.1.1/${DISTRO}/${DISTRO_VERSION}"
 
    In general, any variable in OpenEmbedded that uses weak assignment (?=) may be
    overridden from local.conf.
+
+   In order to append custom lines automatically when make generates local.conf,
+   you may add them to local.conf.append inside the root directory of
+   OpenDreambox. Note that an existing local.conf won't get overwritten
+   automatically, after local.conf.append was modified. To delete generated
+   configuration files, you may run make clean.
 
     5.5 Setting up a build directory
 

@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="opendreambox.tex"> 
-<meta name="date" content="2012-02-21 23:59:00"> 
+<meta name="date" content="2012-02-28 14:35:00"> 
 <link rel="stylesheet" type="text/css" href="opendreambox.css"> 
 </head><body 
 >
@@ -517,7 +517,7 @@ debug packaging errors.
  id="x1-250005.3"></a>Adding custom layers</h4>
 <!--l. 301--><p class="noindent" >Assuming that an additional layer is available at <span 
 class="cmtt-9">/home/username/custom-layer</span>, you
-can enable that layer by appending two lines to machine-specific configuration
+can enable that layer by appending a single line to machine-specific configuration
 files.
 <!--l. 305--><p class="noindent" >File <span 
 class="cmtt-9">build/$</span><span 
@@ -527,45 +527,30 @@ class="cmsy-9">}</span><span
 class="cmtt-9">/conf/bblayers.conf</span>:
 <!--l. 307--><p class="noindent" ><span 
 class="cmtt-9">BBLAYERS =+ "/home/username/custom-layer"</span>
-<!--l. 309--><p class="noindent" >File <span 
-class="cmtt-9">build/$</span><span 
-class="cmsy-9">{</span><span 
-class="cmtt-9">MACHINE</span><span 
-class="cmsy-9">}</span><span 
-class="cmtt-9">/conf/local.conf</span>:
-<!--l. 311--><p class="noindent" ><span 
-class="cmtt-9">COLLECTIONS =+ "/home/username/custom-layer"</span>
-<!--l. 313--><p class="noindent" >In order to append the lines automatically when <span 
+<!--l. 309--><p class="noindent" >In order to append custom lines automatically when <span 
 class="cmtt-9">make </span>generates <span 
-class="cmtt-9">bblayers.conf </span>and
-<span 
-class="cmtt-9">local.conf</span>, you may add them to <span 
-class="cmtt-9">bblayers.conf.append </span>and <span 
-class="cmtt-9">local.conf.append</span>,
-respectively, inside the root directory of OpenDreambox. Note that existing <span 
-class="cmtt-9">bblayers.conf</span>
-or <span 
-class="cmtt-9">local.conf </span>won&#8217;t get overwritten automatically, if <span 
-class="cmtt-9">bblayers.conf.append </span>or
-<span 
-class="cmtt-9">local.conf.append </span>was modified. To delete generated configuration files, you may run
-<span 
+class="cmtt-9">bblayers.conf</span>,
+you may add them to <span 
+class="cmtt-9">bblayers.conf.append </span>inside the root directory of
+OpenDreambox. Note that an existing <span 
+class="cmtt-9">bblayers.conf </span>won&#8217;t get overwritten
+automatically, after <span 
+class="cmtt-9">bblayers.conf.append </span>was modified. To delete generated
+configuration files, you may run <span 
 class="cmtt-9">make clean</span>.
-<!--l. 321--><p class="noindent" >
+<!--l. 315--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">5.4   </span> <a 
  id="x1-260005.4"></a>Adding custom options</h4>
-<!--l. 322--><p class="noindent" >It is possible to tweak a lot more options than those used by the <span 
+<!--l. 316--><p class="noindent" >It is possible to tweak a lot more options than those used by the <span 
 class="cmtt-9">Makefile</span>, by editing
 <span 
-class="cmtt-9">local.conf </span>(or <span 
-class="cmtt-9">local.conf.append</span>). See section <a 
-href="#x1-250005.3">5.3<!--tex4ht:ref: custom_layers --></a>.
-<!--l. 326--><p class="noindent" >E.g., if the firmware shall use the package feed built on the develoment machine,
-which happens to be 192.168.1.1 and has a webserver configured to point to
+class="cmtt-9">local.conf</span>.
+<!--l. 319--><p class="noindent" >For example, if the firmware shall use the package feed built on the develoment
+machine, which happens to be 192.168.1.1 and has a webserver configured to point to
 <span 
 class="cmtt-9">tmp/deploy/ipk</span>, a line like the following may be added to <span 
-class="cmtt-9">local.conf.append</span>:
-<!--l. 330--><p class="noindent" ><span 
+class="cmtt-9">local.conf</span>:
+<!--l. 323--><p class="noindent" ><span 
 class="cmtt-9">DISTRO</span><span 
 class="cmtt-9">_FEED</span><span 
 class="cmtt-9">_URI = "http://192.168.1.1/$</span><span 
@@ -578,17 +563,28 @@ class="cmtt-9">DISTRO</span><span
 class="cmtt-9">_VERSION</span><span 
 class="cmsy-9">}</span><span 
 class="cmtt-9">"</span>
-<!--l. 332--><p class="noindent" >In general, any variable in OpenEmbedded that uses weak assignment (<span 
+<!--l. 325--><p class="noindent" >In general, any variable in OpenEmbedded that uses weak assignment (<span 
 class="cmtt-9">?=</span>) may be
 overridden from <span 
 class="cmtt-9">local.conf</span>.
+<!--l. 328--><p class="noindent" >In order to append custom lines automatically when <span 
+class="cmtt-9">make </span>generates <span 
+class="cmtt-9">local.conf</span>, you
+may add them to <span 
+class="cmtt-9">local.conf.append </span>inside the root directory of OpenDreambox.
+Note that an existing <span 
+class="cmtt-9">local.conf </span>won&#8217;t get overwritten automatically, after
+<span 
+class="cmtt-9">local.conf.append </span>was modified. To delete generated configuration files, you may run
+<span 
+class="cmtt-9">make clean</span>.
                                                                   
 
                                                                   
-<!--l. 335--><p class="noindent" >
+<!--l. 334--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">5.5   </span> <a 
  id="x1-270005.5"></a>Setting up a build directory</h4>
-<!--l. 336--><p class="noindent" >To set up a build directory for e.g. <span 
+<!--l. 335--><p class="noindent" >To set up a build directory for e.g. <span 
 class="cmbx-10">DM 500 HD </span>run <span 
 class="cmtt-9">make MACHINE=dm500hd</span>. If
 <span 
@@ -597,10 +593,10 @@ class="cmtt-9">build.conf</span>, you can simply run <span
 class="cmtt-9">make </span>with no
 arguments instead. This will create and initialize the directory <span 
 class="cmtt-9">build/dm500hd</span>.
-<!--l. 340--><p class="noindent" >
+<!--l. 339--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">5.6   </span> <a 
  id="x1-280005.6"></a>Building a firmware image</h4>
-<!--l. 341--><p class="noindent" >To build a firmware image for e.g. <span 
+<!--l. 340--><p class="noindent" >To build a firmware image for e.g. <span 
 class="cmbx-10">DM 500 HD </span>run <span 
 class="cmtt-9">make MACHINE=dm500hd image</span>. If
 <span 
@@ -608,34 +604,34 @@ class="cmtt-9">MACHINE=dm500hd </span>has been set in <span
 class="cmtt-9">build.conf</span>, you can simply run <span 
 class="cmtt-9">make image</span>
 instead.
-<!--l. 345--><p class="noindent" >
+<!--l. 344--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">5.7   </span> <a 
  id="x1-290005.7"></a>Building a package</h4>
-<!--l. 346--><p class="noindent" >To build a single package, BitBake has to be used directly. First, the environment has
+<!--l. 345--><p class="noindent" >To build a single package, BitBake has to be used directly. First, the environment has
 to be set up, in order to make BitBake available to the shell. This can be done with
 the following command:
-<!--l. 350--><p class="noindent" ><span 
+<!--l. 349--><p class="noindent" ><span 
 class="cmtt-9">source bitbake.env</span>
-<!--l. 352--><p class="noindent" >This way, <span 
+<!--l. 351--><p class="noindent" >This way, <span 
 class="cmtt-9">bitbake.env </span>may set environment variables.
-<!--l. 354--><p class="noindent" >BitBake must be run from the machine&#8217;s build directory. For <span 
+<!--l. 353--><p class="noindent" >BitBake must be run from the machine&#8217;s build directory. For <span 
 class="cmbx-10">DM 500 HD</span>
 run:
-<!--l. 356--><p class="noindent" ><span 
+<!--l. 355--><p class="noindent" ><span 
 class="cmtt-9">cd build/dm500hd</span>
-<!--l. 358--><p class="noindent" >In order to build enigma2, run:
-<!--l. 360--><p class="noindent" ><span 
+<!--l. 357--><p class="noindent" >In order to build enigma2, run:
+<!--l. 359--><p class="noindent" ><span 
 class="cmtt-9">bitbake enigma2</span>.
-<!--l. 362--><p class="noindent" >
+<!--l. 361--><p class="noindent" >
 <h3 class="sectionHead"><span class="titlemark">6   </span> <a 
  id="x1-300006"></a>Development hints</h3>
-<!--l. 364--><p class="noindent" >
+<!--l. 363--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">6.1   </span> <a 
  id="x1-310006.1"></a>Cross-compilation of external software</h4>
                                                                   
 
                                                                   
-<!--l. 365--><p class="noindent" >OpenDreambox provides a script called <span 
+<!--l. 364--><p class="noindent" >OpenDreambox provides a script called <span 
 class="cmtt-9">cross-compile.env</span>. Once run, the script will
 create the following commands (shell aliases), aiming to ease cross-compilation of
 external source trees:
@@ -669,30 +665,30 @@ class="cmtt-9">_env env</span>).
 class="cmtt-9">oe</span><span 
 class="cmtt-9">_setenv </span>- Exports the OE environment to the currently running shell
      session.</li></ul>
-<!--l. 376--><p class="noindent" >The script needs to know the target architecture, which can be either <span 
+<!--l. 375--><p class="noindent" >The script needs to know the target architecture, which can be either <span 
 class="cmtt-9">mipsel </span>or
 <span 
 class="cmtt-9">mipsel-nf</span>. Because the script adds aliases to your currently running shell session, it
 has to be invoked using <span 
 class="cmtt-9">source </span>or <span 
 class="cmtt-9">. </span>(the dot operator), e.g.:
-<!--l. 379--><p class="noindent" ><span 
+<!--l. 378--><p class="noindent" ><span 
 class="cmtt-9">source cross-compile.env mipsel</span>
-<!--l. 381--><p class="noindent" >The script may be called from any location, but must reside inside the OpenDreambox
+<!--l. 380--><p class="noindent" >The script may be called from any location, but must reside inside the OpenDreambox
 Git tree. You may want to create a symlink to <span 
 class="cmtt-9">cross-compile.env </span>somewhere in your
 <span 
 class="cmtt-9">PATH</span>.
-<!--l. 384--><p class="noindent" >
+<!--l. 383--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">6.2   </span> <a 
  id="x1-320006.2"></a>Coding style</h4>
-<!--l. 385--><p class="noindent" >Run <span 
+<!--l. 384--><p class="noindent" >Run <span 
 class="cmtt-9">scripts/do</span><span 
 class="cmtt-9">_stylize.sh </span>on new recipes to ensure proper coding style.
-<!--l. 387--><p class="noindent" >
+<!--l. 386--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">6.3   </span> <a 
  id="x1-330006.3"></a>Package architecture</h4>
-<!--l. 388--><p class="noindent" >Set <span 
+<!--l. 387--><p class="noindent" >Set <span 
 class="cmtt-9">PACKAGE</span><span 
 class="cmtt-9">_ARCH = "$</span><span 
 class="cmsy-9">{</span><span 
@@ -715,11 +711,11 @@ class="cmtt-9">_FEATURES</span>.
      </li>
      <li class="itemize">The recipe is part of <span 
 class="cmtt-9">meta-bsp</span>.</li></ul>
-<!--l. 394--><p class="noindent" >
+<!--l. 393--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">6.4   </span> <a 
  id="x1-340006.4"></a>Kernel versions</h4>
-<!--l. 395--><p class="noindent" >When switching kernel versions, run the following commands:
-<!--l. 400--><p class="noindent" >
+<!--l. 394--><p class="noindent" >When switching kernel versions, run the following commands:
+<!--l. 399--><p class="noindent" >
 <table  
 cellpadding="0" border="0" cellspacing="0" 
 class="tabbing"><tr  
@@ -730,7 +726,7 @@ class="tabbing"><span
 class="cmtt-9">cdfs dreambox-dvb-modules linux-dreambox madwifi-ng </span><span 
 class="cmsy-9">\</span>
 </td></tr></table>
-<!--l. 400--><p class="noindent" >     <table  
+<!--l. 399--><p class="noindent" >     <table  
 cellpadding="0" border="0" cellspacing="0" 
 class="tabbing"><tr  
 style="vertical-align:baseline;" class="tabbing"><td style="width:113;" 
@@ -738,28 +734,28 @@ class="tabbing">           </td><td
 class="tabbing"><span 
 class="cmtt-9">task-opendreambox-essential task-opendreambox-base </span><span 
 class="cmsy-9">\</span></td></tr></table>
-<!--l. 400--><p class="noindent" >        <table  
+<!--l. 399--><p class="noindent" >        <table  
 cellpadding="0" border="0" cellspacing="0" 
 class="tabbing"><tr  
 style="vertical-align:baseline;" class="tabbing"><td style="width:113;" 
 class="tabbing">           </td><td  
 class="tabbing"><span 
 class="cmtt-9">task-boot task-opendreambox-wlan v4l-dvb-modules</span></td></tr></table>
-<!--l. 400--><p class="noindent" >
-<!--l. 400--><p class="noindent" ><span 
+<!--l. 399--><p class="noindent" >
+<!--l. 399--><p class="noindent" ><span 
 class="cmtt-9">rm ../../tmp/cache/$</span><span 
 class="cmsy-9">{</span><span 
 class="cmtt-9">MACHINE</span><span 
 class="cmsy-9">}</span><span 
 class="cmtt-9">/bb</span><span 
 class="cmtt-9">_*</span>
-<!--l. 402--><p class="noindent" >
+<!--l. 401--><p class="noindent" >
 <h3 class="sectionHead"><span class="titlemark">7   </span> <a 
  id="x1-350007"></a>Bug reports and patches</h3>
-<!--l. 404--><p class="noindent" >Please send bug reports and patches to the Enigma2 development mailing list
+<!--l. 403--><p class="noindent" >Please send bug reports and patches to the Enigma2 development mailing list
 <span 
 class="cmtt-9">&#x003C;enigma2-devel@lists.elitedvb.net&#x003E;</span>.
-<!--l. 406--><p class="noindent" >A comfortable way to create patches is to use <span 
+<!--l. 405--><p class="noindent" >A comfortable way to create patches is to use <span 
 class="cmtt-9">git format-patch</span>, after all changes
 have been committed to your local copy of the repository.
  

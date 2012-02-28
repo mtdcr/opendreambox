@@ -299,38 +299,37 @@ THE SOFTWARE.
   \subsection{Adding custom layers}
   \label{custom_layers}
      Assuming that an additional layer is available at \shell{/home/username/custom-layer},
-     you can enable that layer by appending two lines to machine-specific configuration
+     you can enable that layer by appending a single line to machine-specific configuration
      files.
 
      File \shell{build/\$\{MACHINE\}/conf/bblayers.conf}:
 
      \shell{BBLAYERS =+ "/home/username/custom-layer"}
 
-     File \shell{build/\$\{MACHINE\}/conf/local.conf}:
-
-     \shell{COLLECTIONS =+ "/home/username/custom-layer"}
-
-     In order to append the lines automatically when \shell{make} generates
-     \shell{bblayers.conf} and \shell{local.conf}, you may add them to
-     \shell{bblayers.conf.append} and \shell{local.conf.append}, respectively,
-     inside the root directory of OpenDreambox. Note that existing \shell{bblayers.conf}
-     or \shell{local.conf} won't get overwritten automatically, if \shell{bblayers.conf.append}
-     or \shell{local.conf.append} was modified. To delete generated configuration
-     files, you may run \shell{make clean}.
+     In order to append custom lines automatically when \shell{make} generates
+     \shell{bblayers.conf}, you may add them to \shell{bblayers.conf.append}
+     inside the root directory of OpenDreambox. Note that an existing \shell{bblayers.conf}
+     won't get overwritten automatically, after \shell{bblayers.conf.append}
+     was modified. To delete generated configuration files, you may run \shell{make clean}.
 
   \subsection{Adding custom options}
      It is possible to tweak a lot more options than those used by the
-     \shell{Makefile}, by editing \shell{local.conf} (or
-     \shell{local.conf.append}). See section \ref{custom_layers}.
+     \shell{Makefile}, by editing \shell{local.conf}.
 
-     E.g., if the firmware shall use the package feed built on the develoment machine, which
+     For example, if the firmware shall use the package feed built on the develoment machine, which
      happens to be 192.168.1.1 and has a webserver configured to point to \shell{tmp/deploy/ipk},
-     a line like the following may be added to \shell{local.conf.append}:
+     a line like the following may be added to \shell{local.conf}:
 
      \shell{DISTRO\_FEED\_URI = "http://192.168.1.1/\$\{DISTRO\}/\$\{DISTRO\_VERSION\}"}
 
      In general, any variable in OpenEmbedded that uses weak assignment (\shell{?=}) may be
      overridden from \shell{local.conf}.
+
+     In order to append custom lines automatically when \shell{make} generates
+     \shell{local.conf}, you may add them to \shell{local.conf.append}
+     inside the root directory of OpenDreambox. Note that an existing \shell{local.conf}
+     won't get overwritten automatically, after \shell{local.conf.append}
+     was modified. To delete generated configuration files, you may run \shell{make clean}.
 
   \subsection{Setting up a build directory}
      To set up a build directory for e.g. \textbf{DM 500 HD} run \shell{make MACHINE=dm500hd}. If
