@@ -1,4 +1,4 @@
-DEPENDS = ""
+DEPENDS = "libsigc++-1.2"
 
 SRC_URI = "http://dreamboxupdate.com/download/snapshots/enigma2_${PV}_${MACHINE}.tar.bz2;name=${PACKAGE_ARCH}"
 SRC_URI[dm500hd.md5sum] = "f549dbbd92f4bf2feb5daa57c43bacdb"
