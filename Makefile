@@ -178,7 +178,6 @@ $(TOPDIR)/conf/local.conf:
 	@echo 'CONF_VERSION = "1"' >> $@
 	@echo 'BB_GENERATE_MIRROR_TARBALLS = "0"' >> $@
 	@echo 'BB_SCHEDULER = "$(BB_SCHEDULER)"' >> $@
-	@echo 'BB_SIGNATURE_HANDLER = "OEBasicHash"' >> $@
 	@echo 'BBINCLUDELOGS = "yes"' >> $@
 	@echo 'DISTRO = "opendreambox"' >> $@
 	@test "$(RM_WORK)" = "yes" && echo 'INHERIT += "rm_work"' >> $@ || true
