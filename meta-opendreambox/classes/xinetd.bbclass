@@ -14,7 +14,7 @@ do_install_append() {
 }
 
 xinetd_reload() {
-PID=`pidof xinetd` && kill -HUP $PID || true
+[ -z "$D" ] && PID=`pidof xinetd` && kill -HUP $PID || true
 }
 
 python populate_packages_append () {
