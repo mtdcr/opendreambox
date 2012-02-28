@@ -32,7 +32,6 @@ RDEPENDS_task-opendreambox-enigma2 = "\
   enigma2-skins-meta \
   enigma2-streamproxy \
   ${@base_contains('DREAMBOX_FEATURES', 'libpassthrough', 'libpassthrough', '', d)} \
-  task-opendreambox-qt4 \
   tuxbox-tuxtxt-32bpp \
 "
 

@@ -6,7 +6,7 @@ PACKAGES += "${PN}-meta"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-RDEPENDS_${PN} = " \
+RDEPENDS_${PN} += " \
         alsa-conf \
         ethtool \
         glibc-gconv-iso8859-15 \

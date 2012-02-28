@@ -32,6 +32,11 @@ EXTRA_OECONF = " \
 "
 EXTRA_OECONF_append_mipsel = " --without-libunwind"
 
+RDEPENDS_${PN} += " \
+        qt4-embedded-fonts-ttf-dejavu \
+        qt4-embedded-fonts-ttf-vera \
+"
+
 python () {
         if not d.getVar('ENIGMA2_GIT', True):
                 raise bb.parse.SkipPackage('ENIGMA2_GIT has not been set')

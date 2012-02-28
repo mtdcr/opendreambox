@@ -19,6 +19,13 @@ RDEPENDS_enigma2-plugin-dreamboxnetwork-core = " \
 "
 RDEPENDS_enigma2-plugin-extensions-browser = " \
         python-sqlite3 \
+        qt4-embedded-plugin-imageformat-gif \
+        qt4-embedded-plugin-imageformat-ico \
+        qt4-embedded-plugin-imageformat-jpeg \
+        qt4-embedded-plugin-imageformat-svg \
+        qt4-embedded-plugin-imageformat-tiff \
+        qt4-embedded-plugin-phonon-backend-gstreamer \
+        qt4-embedded-plugin-sqldriver-sqlite2 \
 "
 RDEPENDS_enigma2-plugin-extensions-cutlisteditor = " \
         aio-grab \
