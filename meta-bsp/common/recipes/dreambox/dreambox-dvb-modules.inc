@@ -1,10 +1,9 @@
 DESCRIPTION = "Hardware drivers for Dreambox"
 SECTION = "base"
-PRIORITY = "required"
 LICENSE = "CLOSED"
 DEPENDS += "virtual/kernel"
-RDEPENDS_${PN} += "dreambox-secondstage kernel-${DM_LOCALVERSION}"
-INC_PR = "r2"
+PRIORITY = "required"
+INC_PR = "r3"
 
 DREAMBOX_DVB_MODULES_MIRROR ?= "http://sources.dreamboxupdate.com/snapshots"
 
@@ -24,6 +23,10 @@ do_install() {
         install -m 0644 ${WORKDIR}/LICENSE ${D}/lib/modules/${DM_LOCALVERSION}/extra
         install -m 0644 ${WORKDIR}/*.ko ${D}/lib/modules/${DM_LOCALVERSION}/extra
 }
+
+PACKAGES = "${PN}"
+
+RDEPENDS_${PN} += "dreambox-secondstage kernel-${DM_LOCALVERSION}"
 
 python __anonymous () {
         import bb, re
