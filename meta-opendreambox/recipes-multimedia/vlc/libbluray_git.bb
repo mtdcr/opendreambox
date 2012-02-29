@@ -1,13 +1,12 @@
 DESCRIPTION = "Library to access Blu-Ray disks"
 SECTION = "libs/multimedia"
-PRIORITY = "optional"
-LICENSE = "LGPLv2.1"
-PV = "0.0.0+${PR}+gitr${SRCREV}"
-PR = "r1"
+LICENSE = "LGPLv2.1+"
+LIC_FILES_CHKSUM = "file://COPYING;md5=435ed639f84d4585d93824e7da3d85da"
+SRCREV = "3b9a9f044644a6abe9cb09377f714ded9fdd6c87"
+PV = "0.2.1+git${SRCPV}"
 
-SRC_URI = "git://git.videolan.org/${PN}.git;branch=master;protocol=git"
+SRC_URI = "git://git.videolan.org/${PN}.git;protocol=git"
 
-SRCREV = "8e5d241ea1ebb131941c3279b2363d4eb2479eca"
 S = "${WORKDIR}/git"
 
 inherit autotools lib_package pkgconfig
