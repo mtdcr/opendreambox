@@ -4,12 +4,13 @@ PRIORITY = "required"
 LICENSE = "CLOSED"
 DEPENDS += "virtual/kernel"
 RDEPENDS_${PN} += "dreambox-secondstage kernel-${DM_LOCALVERSION}"
-INC_PR = "r1"
+INC_PR = "r2"
 
 DREAMBOX_DVB_MODULES_MIRROR ?= "http://sources.dreamboxupdate.com/snapshots"
 
 SRC_URI = " \
         ${DREAMBOX_DVB_MODULES_MIRROR}/dreambox-dvb-modules-${MACHINE}-${PV}.tar.bz2;name=modules \
+        file://modules \
 "
 
 inherit module
@@ -17,6 +18,8 @@ inherit module
 do_compile() {
 }
 do_install() {
+        install -d ${D}${sysconfdir}/modutils
+        install -m 0644 ${WORKDIR}/modules ${D}${sysconfdir}/modutils/${PN}
         install -d ${D}/lib/modules/${DM_LOCALVERSION}/extra
         install -m 0644 ${WORKDIR}/LICENSE ${D}/lib/modules/${DM_LOCALVERSION}/extra
         install -m 0644 ${WORKDIR}/*.ko ${D}/lib/modules/${DM_LOCALVERSION}/extra
