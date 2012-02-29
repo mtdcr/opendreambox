@@ -1,9 +1,9 @@
 DESCRIPTION = "Dreambox second stage bootloader"
-LICENSE = "CLOSED"
 SECTION = "base"
-PRIORITY = "required"
+LICENSE = "CLOSED"
 PROVIDES = "virtual/bootloader"
-INC_PR = "r3"
+PRIORITY = "required"
+INC_PR = "r4"
 
 SRC_URI = " \
         http://sources.dreamboxupdate.com/download/7020/secondstage-${MACHINE}-${PV}.bin;name=second-bin \
@@ -21,8 +21,9 @@ do_install() {
         install -m 0755 ${WORKDIR}/writenfi-mipsel-2.6.18-r1 ${D}/tmp/writenfi
 }
 
+PACKAGES = "${PN} ${PN}-bin"
+
 PACKAGE_ARCH := "${MACHINE_ARCH}"
-PACKAGES =+ "${PN}-bin"
 
 FILES_${PN} = "/tmp"
 FILES_${PN}-bin = "${datadir}/${PN}/secondstage-${MACHINE}.bin"
