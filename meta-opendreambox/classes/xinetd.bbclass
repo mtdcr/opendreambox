@@ -2,6 +2,8 @@
 # xinetd.bbclass
 #
 
+DEPENDS += "xinetd"
+
 do_install_append() {
 	install -d ${D}${sysconfdir}/xinetd.d
 	for srcfile in ${WORKDIR}/*.xinetd.in; do
