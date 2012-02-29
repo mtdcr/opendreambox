@@ -1,5 +1,3 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${P}:"
-
-PR .= "-dream1"
+PR .= "-dream2"
 
 RDEPENDS_${PN} = ""
