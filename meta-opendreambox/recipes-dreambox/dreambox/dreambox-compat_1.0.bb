@@ -4,7 +4,7 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=861a56d19a6e100979e4c596ed785160"
 DEPENDS = "openssl-0.9.8"
 PRIORITY = "required"
-PR = "r2"
+PR = "r3"
 
 inherit allarch
 
@@ -17,5 +17,7 @@ do_install() {
         ln -sf libjpeg.so.8 ${D}${libdir}/libjpeg.so.62
         ln -sf libssl.so.0.9.8 ${D}${libdir}/libssl.so.0.9.7
 }
+
+PACKAGES = "${PN}"
 
 RDEPENDS_${PN} = "libcrypto0.9.8"
