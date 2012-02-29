@@ -4,11 +4,14 @@ DEPENDS = " \
         giflib \
         gstreamer \
         jpeg \
+        libbluray \
         libdreamdvd \
         libdvbsi++ \
         libfribidi \
         libpng \
         libsigc++-2.0 \
+        ${LIBUNWIND} \
+        libxml2 \
         libxmlccwrap \
         minidlna \
         python \
@@ -17,7 +20,7 @@ DEPENDS = " \
         qxmpp-e \
         swig-native \
 "
-SRCREV = "01bcb58a12fe09841bf59cf0417ce680ed8ccbef"
+SRCREV = "3fd74fcfd5666b57c017234520829478d3a21441"
 
 SRC_URI = "${ENIGMA2_GIT};branch=master;scmdata=keep"
 
@@ -40,3 +43,5 @@ RDEPENDS_${PN} += " \
 require enigma2-common.inc
 
 ENIGMA2_GIT ?= "git://dummy/git/enigma2.git;protocol=git"
+LIBUNWIND = "libunwind"
+LIBUNWIND_mipsel = ""
