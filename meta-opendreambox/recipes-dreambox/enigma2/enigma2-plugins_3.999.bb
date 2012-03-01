@@ -17,7 +17,6 @@ EXTRA_OECONF = " \
         STAGING_LIBDIR=${STAGING_LIBDIR} \
 "
 
-PACKAGE_ARCH = "${MACHINE_ARCH}"
 PACKAGES_DYNAMIC = "enigma2-plugin-*"
 PACKAGES += "${PN}-meta"
 
