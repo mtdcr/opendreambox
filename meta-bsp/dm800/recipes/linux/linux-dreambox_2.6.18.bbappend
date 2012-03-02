@@ -1,6 +1,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${P}:"
 
-PR .= "-bsp2"
+PR .= "-bsp3"
 
 SRC_URI += "\
         file://linux-2.6.18-fix-serial.patch \
