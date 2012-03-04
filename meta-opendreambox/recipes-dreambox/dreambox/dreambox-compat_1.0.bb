@@ -2,7 +2,6 @@ DESCRIPTION = "Dreambox compatibility links"
 SECTION = "base"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=861a56d19a6e100979e4c596ed785160"
-DEPENDS = "openssl-0.9.8"
 PRIORITY = "required"
 PR = "r3"
 
@@ -19,5 +18,3 @@ do_install() {
 }
 
 PACKAGES = "${PN}"
-
-RDEPENDS_${PN} = "libcrypto0.9.8"
