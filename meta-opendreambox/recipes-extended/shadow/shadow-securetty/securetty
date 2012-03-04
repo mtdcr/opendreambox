@@ -209,6 +209,7 @@ vc/62
 vc/63
 
 # Pseudo terminals
+pts/0
 pts/1
 pts/2
 pts/3

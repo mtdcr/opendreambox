@@ -1,3 +1,3 @@
-PR .= "-dream1"
+PR .= "-dream2"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
