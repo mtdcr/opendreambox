@@ -4,5 +4,4 @@ none		/proc/bus/usb	usbfs	nodev,noexec,nosuid		0 0
 none		/sys		sysfs	nodev,noexec,nosuid		0 0
 none		/dev/pts	devpts	noexec,nosuid,mode=0620,gid=5	0 0
 none		/dev/shm	tmpfs	nosuid,nodev			0 0
-none		/tmp		tmpfs	defaults			0 0
 none		/var/volatile	tmpfs	mode=0755			0 0
