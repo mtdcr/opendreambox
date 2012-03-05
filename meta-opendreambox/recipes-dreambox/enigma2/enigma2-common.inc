@@ -58,7 +58,7 @@ RDEPENDS_${PN} += " \
         python-xml \
 "
 
-FILES_${PN} += "${datadir}/fonts ${datadir}/keymaps"
+FILES_${PN} += "${datadir}/fonts ${datadir}/keymaps ${libdir}/libopen.so"
 FILES_${PN}-meta = "${datadir}/meta"
 
 require enigma2-core-plugins.inc
