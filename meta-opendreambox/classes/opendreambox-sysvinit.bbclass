@@ -1,5 +1,7 @@
 inherit update-rc.d
 
+SRC_URI += "file://${INITSCRIPT_NAME}.sysvinit"
+
 INITSCRIPT_NAME ?= "${PN}"
 
 do_install_append() {

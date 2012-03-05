@@ -4,9 +4,6 @@ PR = "r2"
 
 inherit opendreambox-precompiled-binary opendreambox-sysvinit
 
-SRC_URI += " \
-        file://dccamd.sysvinit \
-"
 SRC_URI[mipsel.md5sum] = "162282fa2c8de55693d6a2497d4632bf"
 SRC_URI[mipsel.sha256sum] = "123d8a284fa6b2caff8369f80040ef04f9852bbfe5837aca7b625c564ea5a867"
 SRC_URI[mipsel-nf.md5sum] = "6454f6b19d270342299e28e86914fe04"
