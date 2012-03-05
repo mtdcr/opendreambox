@@ -185,7 +185,6 @@ $(TOPDIR)/conf/local.conf:
 
 bitbake.env:
 	@echo '[*] Generating $@'
-	@echo 'export BBFETCH2=True' > $@
 	@echo 'export BUILDDIR=$(TMPDIR)' >> $@
 	@echo 'export PATH=$(PWD)/openembedded-core/scripts:$(PWD)/bitbake/bin:$${PATH}' >> $@
 
