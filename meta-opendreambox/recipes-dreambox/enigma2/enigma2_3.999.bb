@@ -20,7 +20,7 @@ DEPENDS = " \
         qxmpp-e \
         swig-native \
 "
-SRCREV = "3fd74fcfd5666b57c017234520829478d3a21441"
+SRCREV = "c742400e09ce69fe07408b9e18f4ff1f336ac9df"
 
 SRC_URI = "${ENIGMA2_GIT};branch=master;scmdata=keep"
 
