@@ -28,9 +28,6 @@ inherit image
 # Create /etc/timestamp during image construction to give a reasonably sane default time setting
 ROOTFS_POSTPROCESS_COMMAND += "rootfs_update_timestamp ; "
 
-# Zap the root password if debug-tweaks feature is not enabled
-ROOTFS_POSTPROCESS_COMMAND += '${@base_contains("IMAGE_FEATURES", "debug-tweaks", "", "zap_root_password ; ",d)}'
-
 opendreambox_rootfs_postprocess() {
     # generate /etc/image-version
     IMAGE_DATE=`date +%Y%m%d%H%M`
