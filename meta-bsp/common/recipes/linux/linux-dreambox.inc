@@ -1,6 +1,6 @@
 require recipes/linux/linux.inc
 
-INC_PR = "r2"
+INC_PR = "r3"
 
 PACKAGES_DYNAMIC = "kernel-*"
 
@@ -18,9 +18,9 @@ USB_ROOT_dm8000 = "/dev/sdf2"
 do_install_append() {
         gzip -9 ${D}/${KERNEL_IMAGEDEST}/${KERNEL_IMAGETYPE}-${KERNEL_VERSION}
         echo "/boot/bootlogo-${MACHINE}.elf.gz filename=/boot/bootlogo-${MACHINE}.jpg" > ${D}/${KERNEL_IMAGEDEST}/autoexec.bat
-        echo "/boot/${KERNEL_IMAGETYPE}-${KERNEL_VERSION}.gz" >> ${D}/${KERNEL_IMAGEDEST}/autoexec.bat
+        echo "/boot/${KERNEL_IMAGETYPE}-${KERNEL_VERSION}.gz ${CMDLINE}" >> ${D}/${KERNEL_IMAGEDEST}/autoexec.bat
         echo "/boot/bootlogo-${MACHINE}.elf.gz filename=/boot/bootlogo-${MACHINE}.jpg" > ${D}/${KERNEL_IMAGEDEST}/autoexec_${MACHINE}.bat
-        echo "/boot/${KERNEL_IMAGETYPE}-${KERNEL_VERSION}.gz console=ttyS0,115200 root=${USB_ROOT} rootdelay=10 rw" >> ${D}/${KERNEL_IMAGEDEST}/autoexec_${MACHINE}.bat
+        echo "/boot/${KERNEL_IMAGETYPE}-${KERNEL_VERSION}.gz ${USB_CMDLINE}" >> ${D}/${KERNEL_IMAGEDEST}/autoexec_${MACHINE}.bat
 }
 
 FILES_kernel-image += "/${KERNEL_IMAGEDEST}/autoexec*.bat"
@@ -53,5 +53,6 @@ pkg_postrm_kernel () {
 }
 
 CMDLINE = "root=/dev/mtdblock3 rootfstype=jffs2 rootflags=noatime rw ${CMDLINE_CONSOLE}"
+USB_CMDLINE = "root=${USB_ROOT} rootdelay=10 rootflags=noatime rw ${CMDLINE_CONSOLE}"
 
 LOCALVERSION = "-${MACHINE}"
