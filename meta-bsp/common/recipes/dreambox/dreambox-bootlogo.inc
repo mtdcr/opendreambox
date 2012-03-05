@@ -1,11 +1,10 @@
 DESCRIPTION = "Bootlogo support"
 SECTION = "base"
-PRIORITY = "required"
 LICENSE = "CLOSED"
-RDEPENDS_${PN} = "${PN}-data"
-INC_PR = "r9"
+PRIORITY = "required"
+INC_PR = "r10"
 
-inherit opendreambox-precompiled-binary
+inherit opendreambox-precompiled-binary opendreambox-sysvinit
 
 do_install() {
         install -d ${D}/boot ${D}${datadir}/${PN}
@@ -17,11 +16,14 @@ do_install() {
         done
 }
 
-PACKAGE_ARCH := "${MACHINE_ARCH}"
 PACKAGES += "${PN}-data"
 
+PACKAGE_ARCH := "${MACHINE_ARCH}"
+
+RDEPENDS_${PN} = "${PN}-data"
+
 FILES_${PN} = "/boot/bootlogo-${MACHINE}.elf.gz"
-FILES_${PN}-data = "/boot/bootlogo-${MACHINE}.jpg ${datadir}"
+FILES_${PN}-data = "/boot/bootlogo-${MACHINE}.jpg ${datadir} ${sysconfdir}"
 
 pkg_preinst() {
         if [ -z "$D" ] && mountpoint -q /boot; then mount -o remount,rw /boot; fi
@@ -35,3 +37,5 @@ pkg_postinst() {
 pkg_postrm() {
         if [ -z "$D" ] && mountpoint -q /boot; then mount -o remount,ro /boot; fi
 }
+
+INITSCRIPT_PARAMS = "start 3 S ."
