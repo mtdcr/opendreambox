@@ -1,6 +1,6 @@
 require recipes/linux/linux.inc
 
-INC_PR = "r3"
+INC_PR = "r4"
 
 PACKAGES_DYNAMIC = "kernel-*"
 
@@ -52,7 +52,7 @@ pkg_postinst_kernel () {
 pkg_postrm_kernel () {
 }
 
-CMDLINE = "root=/dev/mtdblock3 rootfstype=jffs2 rootflags=noatime rw ${CMDLINE_CONSOLE}"
-USB_CMDLINE = "root=${USB_ROOT} rootdelay=10 rootflags=noatime rw ${CMDLINE_CONSOLE}"
+CMDLINE = "root=/dev/mtdblock3 rootfstype=jffs2 rw ${CMDLINE_CONSOLE}"
+USB_CMDLINE = "root=${USB_ROOT} rootdelay=10 rw ${CMDLINE_CONSOLE}"
 
 LOCALVERSION = "-${MACHINE}"
