@@ -2,7 +2,7 @@ DESCRIPTION = "OpenDreambox: Enigma2 Task for the OpenDreambox Distribution"
 SECTION = "opendreambox/base"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=861a56d19a6e100979e4c596ed785160"
-PR = "r14"
+PR = "r15"
 
 inherit task
 
@@ -74,7 +74,7 @@ RRECOMMENDS_task-opendreambox-enigma2 = "\
   aio-grab \
   enigma2-plugin-dreamboxnetwork-core \
   enigma2-plugin-extensions-audiosync \
-  enigma2-plugin-extensions-browser \
+  ${@base_less_or_equal('DREAMBOX_IMAGE_SIZE', 64, '', 'enigma2-plugin-extensions-browser', d)} \
   enigma2-plugin-extensions-cutlisteditor \
   enigma2-plugin-extensions-graphmultiepg \
   enigma2-plugin-extensions-mediaplayer \
@@ -82,7 +82,7 @@ RRECOMMENDS_task-opendreambox-enigma2 = "\
   enigma2-plugin-extensions-webbouqueteditor \
   enigma2-plugin-extensions-webinterface \
   enigma2-plugin-systemplugins-crashlogautosubmit \
-  enigma2-plugin-systemplugins-minidlnasetup \
+  ${@base_less_or_equal('DREAMBOX_IMAGE_SIZE', 64, '', 'enigma2-plugin-systemplugins-minidlnasetup', d)} \
   enigma2-plugin-systemplugins-positionersetup \
   enigma2-plugin-systemplugins-satfinder \
   enigma2-plugin-systemplugins-skinselector \
