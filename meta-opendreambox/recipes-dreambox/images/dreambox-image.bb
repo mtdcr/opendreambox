@@ -25,9 +25,6 @@ IMAGE_LINGUAS = ""
 
 inherit image
 
-# Create /etc/timestamp during image construction to give a reasonably sane default time setting
-ROOTFS_POSTPROCESS_COMMAND += "rootfs_update_timestamp ; "
-
 opendreambox_rootfs_postprocess() {
     # generate /etc/image-version
     IMAGE_DATE=`date +%Y%m%d%H%M`
