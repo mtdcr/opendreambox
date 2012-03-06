@@ -22,7 +22,7 @@ DEPENDS = " \
 "
 SRCREV = "c742400e09ce69fe07408b9e18f4ff1f336ac9df"
 
-SRC_URI = "${ENIGMA2_GIT};branch=master;scmdata=keep"
+SRC_URI = "${ENIGMA2_GIT};scmdata=keep"
 
 inherit autotools gettext git-project pkgconfig
 
