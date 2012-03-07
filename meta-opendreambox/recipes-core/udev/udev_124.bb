@@ -19,21 +19,13 @@ SRC_URI += "file://noasmlinkage.patch \
 	    file://run.rules \
 	    file://default \
 	    file://local.rules \
+	    file://41-od-linux-2.6.18-misc.rules \
 	   "
-
-SRC_URI += "${@base_conditional('DREAMBOX_KERNEL_VERSION', '2.6.18', 'file://41-od-linux-2.6.18-misc.rules', '', d)}"
-
-SRC_URI_append_h2200 = " file://50-hostap_cs.rules "
-PACKAGE_ARCH_h2200 = "h2200"
 
 FILES_${PN} += "${base_libdir}/udev/*"
 FILES_${PN}-dbg += "${base_libdir}/udev/.debug"
 UDEV_EXTRAS = "extras/firmware/ extras/scsi_id/ extras/volume_id/"
 EXTRA_OEMAKE += "libudevdir=/lib/udev libdir=${base_libdir} prefix="
-
-do_configure_prepend_libc-uclibc() {
-	eval "${@base_contains('DISTRO_FEATURES', 'largefile', '', 'sed -i -e "s/-D_FILE_OFFSET_BITS=64//" ${S}/Makefile', d)}"
-}
 
 do_install () {
 	install -d ${D}${usrsbindir} \
@@ -67,16 +59,9 @@ do_install () {
 	install -m 0755 ${WORKDIR}/network.sh ${D}${sysconfdir}/udev/scripts
 
 	install -d ${D}${base_libdir}/udev/
-}
 
-do_install_append_h2200() {
-	install -m 0644 ${WORKDIR}/50-hostap_cs.rules         ${D}${sysconfdir}/udev/rules.d/50-hostap_cs.rules
-}
+	install -m 0644 ${WORKDIR}/41-od-linux-2.6.18-misc.rules ${D}${sysconfdir}/udev/rules.d
 
-do_install_append_opendreambox() {
-	if [ -f ${WORKDIR}/41-od-linux-2.6.18-misc.rules ]; then
-		install -m 0644 ${WORKDIR}/41-od-linux-2.6.18-misc.rules ${D}${sysconfdir}/udev/rules.d
-	fi
 	# disable automatic mounts
 	sed -e 's,^\(.*/mount\.sh.*\)$,#\1,' -i ${D}${sysconfdir}/udev/rules.d/local.rules
 }
