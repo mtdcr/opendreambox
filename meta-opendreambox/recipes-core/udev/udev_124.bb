@@ -5,7 +5,7 @@ RPROVIDES_${PN} = "hotplug"
 
 require udev_124.inc
 
-PR = "${INC_PR}.2"
+PR = "${INC_PR}.3"
 
 LD = "${CC}"
 
@@ -20,6 +20,8 @@ SRC_URI += "file://noasmlinkage.patch \
 	    file://default \
 	    file://local.rules \
 	   "
+
+SRC_URI += "${@base_conditional('DREAMBOX_KERNEL_VERSION', '2.6.18', 'file://41-od-linux-2.6.18-misc.rules', '', d)}"
 
 SRC_URI_append_h2200 = " file://50-hostap_cs.rules "
 PACKAGE_ARCH_h2200 = "h2200"
@@ -69,6 +71,14 @@ do_install () {
 
 do_install_append_h2200() {
 	install -m 0644 ${WORKDIR}/50-hostap_cs.rules         ${D}${sysconfdir}/udev/rules.d/50-hostap_cs.rules
+}
+
+do_install_append_opendreambox() {
+	if [ -f ${WORKDIR}/41-od-linux-2.6.18-misc.rules ]; then
+		install -m 0644 ${WORKDIR}/41-od-linux-2.6.18-misc.rules ${D}${sysconfdir}/udev/rules.d
+	fi
+	# disable automatic mounts
+	sed -e 's,^\(.*/mount\.sh.*\)$,#\1,' -i ${D}${sysconfdir}/udev/rules.d/local.rules
 }
 
 SRC_URI[md5sum] = "2ea9229208154229c5d6df6222f74ad7"
