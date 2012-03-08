@@ -1,4 +1,4 @@
-PR .= "-dream1"
+PR .= "-dream2"
 
 SRC_URI += " \
 	file://init \
@@ -10,7 +10,7 @@ INITSCRIPT_NAME = "udev"
 INITSCRIPT_PARAMS = "start 03 S ."
 
 do_install_append () {
-	rm ${WORKDIR}/*rules || /bin/true
+	rm ${D}${sysconfdir}/udev/rules.d/*.rules || /bin/true
 	install -d ${D}${sysconfdir}/init.d
 	install -m 0755 ${WORKDIR}/init ${D}${sysconfdir}/init.d/udev
 }
