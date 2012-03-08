@@ -1,4 +1,4 @@
-PR .= "-dream3"
+PR .= "-dream4"
 
 SRC_URI += " \
         file://67_init_hddown.dpatch \
@@ -7,6 +7,7 @@ SRC_URI += " \
 "
 
 do_install_append() {
+        rm ${D}${sysconfdir}/rc*.d/*bootlogd
         patch -d ${D}${sysconfdir}/init.d -p1 -i ${WORKDIR}/proc_progress.patch
 }
 
