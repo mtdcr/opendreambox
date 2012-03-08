@@ -26,12 +26,10 @@ WORKDIR and cannot be selectively applied on another source file.
  [ -d /sys/class ] || exit 1
  [ -r /proc/mounts ] || exit 1
  [ -x $UDEVD ] || exit 1
-@@ -21,6 +32,8 @@
-         if [ -x pidof ]; then
-                 pid=`pidof -x udevd`
-                 [ -n "$pid" ] && kill $pid
-+                pid=`pidof -x udevd-compat`
-+                [ -n "$pid" ] && kill $pid
-         fi
+@@ -21,4 +32,6 @@
+         pid=`pidof -x udevd`
+         [ -n "$pid" ] && kill $pid
++        pid=`pidof -x udevd-compat`
++        [ -n "$pid" ] && kill $pid
  }
  
