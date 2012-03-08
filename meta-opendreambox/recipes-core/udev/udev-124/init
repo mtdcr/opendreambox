@@ -18,8 +18,8 @@ export TZ=/etc/localtime
 [ -f /etc/udev/udev.conf ] && . /etc/udev/udev.conf
 
 kill_udevd() {
-        if [ -x /sbin/pidof ]; then
-                pid=`/sbin/pidof -x udevd`
+        if [ -x pidof ]; then
+                pid=`pidof -x udevd`
                 [ -n "$pid" ] && kill $pid
         fi
 }
