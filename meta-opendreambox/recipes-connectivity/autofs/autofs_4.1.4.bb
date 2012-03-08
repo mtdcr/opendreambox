@@ -2,7 +2,7 @@ DESCRIPTION = "kernel-based automounter for Linux"
 SECTION = "base"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3"
-PR = "r5"
+PR = "r6"
 
 SRC_URI = "${KERNELORG_MIRROR}/linux/daemons/autofs/v4/${BP}.tar.bz2;name=archive \
            ${KERNELORG_MIRROR}/linux/daemons/autofs/v4/${BP}-misc-fixes.patch;name=patch1 \

@@ -389,7 +389,7 @@ signal_automounts()
 		done
 	done
 
-	if [ -n "`/sbin/pidof $DAEMON`" ] ; then
+	if [ -n "`pidof $DAEMON`" ] ; then
 		RETVAL=1
 	fi
 
