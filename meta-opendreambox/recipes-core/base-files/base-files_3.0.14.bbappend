@@ -1,4 +1,4 @@
-PR .= "-dream2"
+PR .= "-dream3"
 
 do_install_append() {
         ln -s media/hdd ${D}/hdd
@@ -8,6 +8,8 @@ do_install_append() {
 
         rmdir ${D}/tmp
         ln -s var/tmp ${D}/tmp
+
+        ln -s var/run ${D}/run
 }
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
