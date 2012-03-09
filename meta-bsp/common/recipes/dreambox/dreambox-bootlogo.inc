@@ -38,4 +38,4 @@ pkg_postrm() {
         if [ -z "$D" ] && mountpoint -q /boot; then mount -o remount,ro /boot; fi
 }
 
-INITSCRIPT_PARAMS = "start 3 S ."
+INITSCRIPT_PARAMS = "start 3 S . stop 89 0 ."

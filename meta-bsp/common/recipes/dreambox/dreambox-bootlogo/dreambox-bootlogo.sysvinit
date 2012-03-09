@@ -18,6 +18,8 @@ case "$1" in
     echo "."
     ;;
   stop)
+    LOGO=/usr/share/dreambox-bootlogo/switchoff.mvi
+    [ -f $LOGO ] && $SHOWIFRAME $LOGO
     ;;
   restart)
     ;;
