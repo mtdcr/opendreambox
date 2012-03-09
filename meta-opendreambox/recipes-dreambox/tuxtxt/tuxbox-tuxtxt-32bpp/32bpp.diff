@@ -79,9 +79,9 @@ diff -u tuxtxt_orig/tuxtxt.c tuxtxt/tuxtxt.c
 +	}
 +
 +	/* open Framebuffer */
-+	if ((renderinfo.fb=open("/dev/fb/0", O_RDWR)) == -1)
++	if ((renderinfo.fb=open("/dev/fb0", O_RDWR)) == -1)
 +	{
-+		perror("TuxTxt <open /dev/fb/0>");
++		perror("TuxTxt <open /dev/fb0>");
 +		return 0;
 +	}
 +	rc=-1;
