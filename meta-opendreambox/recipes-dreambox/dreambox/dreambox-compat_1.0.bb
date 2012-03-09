@@ -3,7 +3,7 @@ SECTION = "base"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=861a56d19a6e100979e4c596ed785160"
 PRIORITY = "required"
-PR = "r3"
+PR = "r4"
 
 inherit allarch
 
@@ -15,6 +15,7 @@ do_install() {
         ln -sf libgif.so.4.1.6 ${D}${libdir}/libungif.so.4
         ln -sf libjpeg.so.8 ${D}${libdir}/libjpeg.so.62
         ln -sf libssl.so.0.9.8 ${D}${libdir}/libssl.so.0.9.7
+        ln -sf libpython2.7.so.1.0 ${D}${libdir}/libpython2.6.so.1.0
 }
 
 PACKAGES = "${PN}"
