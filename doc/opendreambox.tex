@@ -198,8 +198,22 @@ THE SOFTWARE.
    verified to build OpenDreambox without errors. Tested distributions include:
 
    \begin{itemize}
-     \item Debian GNU/Linux 6.0 (i386)
-     \item Ubuntu Linux 11.10 (amd64)
+     \item Debian "squeeze" 6.0 (i386)
+     \item Debian "wheezy" (i386)
+     \item Ubuntu "oneiric" 11.10 (amd64)
+   \end{itemize}
+
+   Distributions known to cause problems:
+
+   \begin{itemize}
+     \item Ubuntu "lucid" 10.04 LTS (i386): The dynamic linker crashes
+           frequently, interrupting the build process.
+   \end{itemize}
+
+   Distributions known not to work:
+
+   \begin{itemize}
+     \item Debian "lenny" 5.0: Comes with Python 2.5, which is too old.
    \end{itemize}
 
   \subsection{System shell}
