@@ -1,0 +1,2 @@
+SRC_URI[dm7020hd.md5sum] = "9ca196a9894b3dd8a8a5d2ed5c1621ee"
+SRC_URI[dm7020hd.sha256sum] = "6caea4379d1528a21aa7d691b0c93f462dda4e29c6697787318d3f4171fcd5f2"
