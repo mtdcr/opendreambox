@@ -2,7 +2,7 @@ DESCRIPTION = "Additional plugins for Enigma2"
 LICENSE = "Proprietary"
 LIC_FILES_CHKSUM = "file://COPYING;md5=8e37f34d0e40d32ea2bc90ee812c9131"
 DEPENDS = "enigma2 python-pyopenssl python-gdata streamripper python-mutagen python-daap"
-SRCREV = "901e2615a04111f069392dde323a0818db165b75"
+SRCREV = "bb4b44665e744b0c64399dcc674ecac97a4bcbfd"
 PR = "r0"
 
 SRC_URI += "file://cdinfo_depends.patch"
