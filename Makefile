@@ -75,10 +75,21 @@ GIT_USER_NAME := $(shell $(GIT) config user.name)
 GIT_USER_EMAIL := $(shell $(GIT) config user.email)
 
 .DEFAULT_GOAL := all
-all: update usage
+all: init usage
+
+init:
+	@for layer in $(BBLAYERS); do \
+		if [ ! -d $$layer ]; then \
+			$(MAKE) $(MAKEFLAGS) update; \
+			break; \
+		fi; \
+	done
 
 help:
 	@echo "Your options:"
+	@echo
+	@echo "  * Update the SDK"
+	@echo "      $$ make update"
 	@echo
 	@echo "  * Build the PDF documentation (doc/opendreambox.pdf, requires pdfTeX):"
 	@echo "      $$ make doc"
@@ -153,7 +164,7 @@ update: $(CONFFILES)
 	@$(GIT) submodule update --init
 	@echo "[*] The Dreambox SDK is now up-to-date."
 
-.PHONY: all clean doc help image update usage
+.PHONY: all clean doc help image init update usage
 
 $(TOPDIR)/conf/bblayers.conf:
 	@echo '[*] Generating $@'
