@@ -149,7 +149,7 @@ clean:
 doc:
 	@make -C doc
 
-image: update
+image: init
 	@echo '[*] Building image'
 	@. $(PWD)/bitbake.env && cd $(TOPDIR) && bitbake dreambox-image
 
