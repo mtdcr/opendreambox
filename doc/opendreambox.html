@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="opendreambox.tex"> 
-<meta name="date" content="2012-03-14 18:00:00"> 
+<meta name="date" content="2012-03-14 18:03:00"> 
 <link rel="stylesheet" type="text/css" href="opendreambox.css"> 
 </head><body 
 >
@@ -72,35 +72,33 @@ href="#x1-190005.2" id="QQ2-1-19">Configuration variables</a></span>
 <br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.2.1 <a 
 href="#x1-200005.2.1" id="QQ2-1-20">BB_NUMBER_THREADS</a></span>
 <br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.2.2 <a 
-href="#x1-210005.2.2" id="QQ2-1-21">BB_SCHEDULER</a></span>
+href="#x1-210005.2.2" id="QQ2-1-21">MACHINE</a></span>
 <br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.2.3 <a 
-href="#x1-220005.2.3" id="QQ2-1-22">MACHINE</a></span>
+href="#x1-220005.2.3" id="QQ2-1-22">PARALLEL_MAKE</a></span>
 <br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.2.4 <a 
-href="#x1-230005.2.4" id="QQ2-1-23">PARALLEL_MAKE</a></span>
-<br />&#x00A0;&#x00A0;<span class="subsubsectionToc" >5.2.5 <a 
-href="#x1-240005.2.5" id="QQ2-1-24">RM_WORK</a></span>
+href="#x1-230005.2.4" id="QQ2-1-23">RM_WORK</a></span>
 <br />&#x00A0;<span class="subsectionToc" >5.3 <a 
-href="#x1-250005.3" id="QQ2-1-25">Adding custom layers</a></span>
+href="#x1-240005.3" id="QQ2-1-24">Adding custom layers</a></span>
 <br />&#x00A0;<span class="subsectionToc" >5.4 <a 
-href="#x1-260005.4" id="QQ2-1-26">Adding custom options</a></span>
+href="#x1-250005.4" id="QQ2-1-25">Adding custom options</a></span>
 <br />&#x00A0;<span class="subsectionToc" >5.5 <a 
-href="#x1-270005.5" id="QQ2-1-27">Setting up a build directory</a></span>
+href="#x1-260005.5" id="QQ2-1-26">Setting up a build directory</a></span>
 <br />&#x00A0;<span class="subsectionToc" >5.6 <a 
-href="#x1-280005.6" id="QQ2-1-28">Building a firmware image</a></span>
+href="#x1-270005.6" id="QQ2-1-27">Building a firmware image</a></span>
 <br />&#x00A0;<span class="subsectionToc" >5.7 <a 
-href="#x1-290005.7" id="QQ2-1-29">Building a package</a></span>
+href="#x1-280005.7" id="QQ2-1-28">Building a package</a></span>
 <br /><span class="sectionToc" >6 <a 
-href="#x1-300006" id="QQ2-1-30">Development hints</a></span>
+href="#x1-290006" id="QQ2-1-29">Development hints</a></span>
 <br />&#x00A0;<span class="subsectionToc" >6.1 <a 
-href="#x1-310006.1" id="QQ2-1-31">Cross-compilation of external software</a></span>
+href="#x1-300006.1" id="QQ2-1-30">Cross-compilation of external software</a></span>
 <br />&#x00A0;<span class="subsectionToc" >6.2 <a 
-href="#x1-320006.2" id="QQ2-1-32">Coding style</a></span>
+href="#x1-310006.2" id="QQ2-1-31">Coding style</a></span>
 <br />&#x00A0;<span class="subsectionToc" >6.3 <a 
-href="#x1-330006.3" id="QQ2-1-33">Package architecture</a></span>
+href="#x1-320006.3" id="QQ2-1-32">Package architecture</a></span>
 <br />&#x00A0;<span class="subsectionToc" >6.4 <a 
-href="#x1-340006.4" id="QQ2-1-34">Kernel versions</a></span>
+href="#x1-330006.4" id="QQ2-1-33">Kernel versions</a></span>
 <br /><span class="sectionToc" >7 <a 
-href="#x1-350007" id="QQ2-1-35">Bug reports and patches</a></span>
+href="#x1-340007" id="QQ2-1-34">Bug reports and patches</a></span>
 </div>
                                                                   
 
@@ -474,68 +472,52 @@ class="cmtt-9">/proc/cpuinfo</span>. If
 this file is unavailable, the default value is 1.
 <!--l. 287--><p class="noindent" >
 <h5 class="subsubsectionHead"><span class="titlemark">5.2.2   </span> <a 
- id="x1-210005.2.2"></a>BB_SCHEDULER</h5>
-<!--l. 288--><p class="noindent" >Controls a time-memory tradeoff. Valid values are <span 
-class="cmtt-9">speed </span>and <span 
-class="cmtt-9">completion</span>. If set to
-<span 
-class="cmtt-9">speed </span>(default), then BitBake will start processing the next recipes as soon as
-possible. Otherwise, BitBake will complete each recipe, i.e. execute tasks to clean up
-build directories, before it starts processing new recipes.
-<!--l. 294--><p class="noindent" >If you&#8217;re low on disk space, you may want to set this option to <span 
-class="cmtt-9">completion </span>and keep
-<span 
-class="cmtt-9">RM</span><span 
-class="cmtt-9">_WORK </span>set to <span 
-class="cmtt-9">yes</span>.
-<!--l. 297--><p class="noindent" >
-<h5 class="subsubsectionHead"><span class="titlemark">5.2.3   </span> <a 
- id="x1-220005.2.3"></a>MACHINE</h5>
-<!--l. 298--><p class="noindent" >Controls the target machine to build packages for. See section <a 
+ id="x1-210005.2.2"></a>MACHINE</h5>
+<!--l. 288--><p class="noindent" >Controls the target machine to build packages for. See section <a 
 href="#x1-40001.2">1.2<!--tex4ht:ref: products --></a> for a list of
 supported products.
-<!--l. 301--><p class="noindent" >
-<h5 class="subsubsectionHead"><span class="titlemark">5.2.4   </span> <a 
- id="x1-230005.2.4"></a>PARALLEL_MAKE</h5>
-<!--l. 302--><p class="noindent" >Controls how many processes per recipe <span 
+<!--l. 291--><p class="noindent" >
+<h5 class="subsubsectionHead"><span class="titlemark">5.2.3   </span> <a 
+ id="x1-220005.2.3"></a>PARALLEL_MAKE</h5>
+<!--l. 292--><p class="noindent" >Controls how many processes per recipe <span 
 class="cmtt-9">make </span>may use. Defaults to <span 
 class="cmtt-9">-j1</span>, which means
 1 process per recipe. Increasing this value speeds up the build, but not all recipes are
 safe to build with that options.
-<!--l. 306--><p class="noindent" >Don&#8217;t change this option unless you know what you&#8217;re doing.
-                                                                  
-
-                                                                  
-<!--l. 308--><p class="noindent" >
-<h5 class="subsubsectionHead"><span class="titlemark">5.2.5   </span> <a 
- id="x1-240005.2.5"></a>RM_WORK</h5>
-<!--l. 309--><p class="noindent" >Controls whether the temporary work directory of each package may be cleaned
+<!--l. 296--><p class="noindent" >Don&#8217;t change this option unless you know what you&#8217;re doing.
+<!--l. 298--><p class="noindent" >
+<h5 class="subsubsectionHead"><span class="titlemark">5.2.4   </span> <a 
+ id="x1-230005.2.4"></a>RM_WORK</h5>
+<!--l. 299--><p class="noindent" >Controls whether the temporary work directory of each package may be cleaned
 automatically after the respective package has been built successfully. Valid values
 are <span 
 class="cmtt-9">yes </span>(default) and <span 
 class="cmtt-9">no</span>.
-<!--l. 313--><p class="noindent" >If set to <span 
+<!--l. 303--><p class="noindent" >If set to <span 
 class="cmtt-9">yes</span>, only log files will be preserved. Setting <span 
 class="cmtt-9">RM</span><span 
 class="cmtt-9">_WORK </span>to <span 
 class="cmtt-9">no </span>may be useful to
 debug packaging errors.
-<!--l. 316--><p class="noindent" >
+                                                                  
+
+                                                                  
+<!--l. 306--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">5.3   </span> <a 
- id="x1-250005.3"></a>Adding custom layers</h4>
-<!--l. 318--><p class="noindent" >Assuming that an additional layer is available at <span 
+ id="x1-240005.3"></a>Adding custom layers</h4>
+<!--l. 308--><p class="noindent" >Assuming that an additional layer is available at <span 
 class="cmtt-9">/home/username/custom-layer</span>, you
 can enable that layer by appending a single line to machine-specific configuration
 files.
-<!--l. 322--><p class="noindent" >File <span 
+<!--l. 312--><p class="noindent" >File <span 
 class="cmtt-9">build/$</span><span 
 class="cmsy-9">{</span><span 
 class="cmtt-9">MACHINE</span><span 
 class="cmsy-9">}</span><span 
 class="cmtt-9">/conf/bblayers.conf</span>:
-<!--l. 324--><p class="noindent" ><span 
+<!--l. 314--><p class="noindent" ><span 
 class="cmtt-9">BBLAYERS =+ "/home/username/custom-layer"</span>
-<!--l. 326--><p class="noindent" >In order to append custom lines automatically when <span 
+<!--l. 316--><p class="noindent" >In order to append custom lines automatically when <span 
 class="cmtt-9">make </span>generates <span 
 class="cmtt-9">bblayers.conf</span>,
 you may add them to <span 
@@ -546,19 +528,19 @@ automatically, after <span
 class="cmtt-9">bblayers.conf.append </span>was modified. To delete generated
 configuration files, you may run <span 
 class="cmtt-9">make clean</span>.
-<!--l. 332--><p class="noindent" >
+<!--l. 322--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">5.4   </span> <a 
- id="x1-260005.4"></a>Adding custom options</h4>
-<!--l. 333--><p class="noindent" >It is possible to tweak a lot more options than those used by the <span 
+ id="x1-250005.4"></a>Adding custom options</h4>
+<!--l. 323--><p class="noindent" >It is possible to tweak a lot more options than those used by the <span 
 class="cmtt-9">Makefile</span>, by editing
 <span 
 class="cmtt-9">local.conf</span>.
-<!--l. 336--><p class="noindent" >For example, if the firmware shall use the package feed built on the develoment
+<!--l. 326--><p class="noindent" >For example, if the firmware shall use the package feed built on the develoment
 machine, which happens to be 192.168.1.1 and has a webserver configured to point to
 <span 
 class="cmtt-9">tmp/deploy/ipk</span>, a line like the following may be added to <span 
 class="cmtt-9">local.conf</span>:
-<!--l. 340--><p class="noindent" ><span 
+<!--l. 330--><p class="noindent" ><span 
 class="cmtt-9">DISTRO</span><span 
 class="cmtt-9">_FEED</span><span 
 class="cmtt-9">_URI = "http://192.168.1.1/$</span><span 
@@ -571,11 +553,11 @@ class="cmtt-9">DISTRO</span><span
 class="cmtt-9">_VERSION</span><span 
 class="cmsy-9">}</span><span 
 class="cmtt-9">"</span>
-<!--l. 342--><p class="noindent" >In general, any variable in OpenEmbedded that uses weak assignment (<span 
+<!--l. 332--><p class="noindent" >In general, any variable in OpenEmbedded that uses weak assignment (<span 
 class="cmtt-9">?=</span>) may be
 overridden from <span 
 class="cmtt-9">local.conf</span>.
-<!--l. 345--><p class="noindent" >In order to append custom lines automatically when <span 
+<!--l. 335--><p class="noindent" >In order to append custom lines automatically when <span 
 class="cmtt-9">make </span>generates <span 
 class="cmtt-9">local.conf</span>, you
 may add them to <span 
@@ -586,13 +568,10 @@ class="cmtt-9">local.conf </span>won&#8217;t get overwritten automatically, afte
 class="cmtt-9">local.conf.append </span>was modified. To delete generated configuration files, you may run
 <span 
 class="cmtt-9">make clean</span>.
-                                                                  
-
-                                                                  
-<!--l. 351--><p class="noindent" >
+<!--l. 341--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">5.5   </span> <a 
- id="x1-270005.5"></a>Setting up a build directory</h4>
-<!--l. 352--><p class="noindent" >To set up a build directory for e.g. <span 
+ id="x1-260005.5"></a>Setting up a build directory</h4>
+<!--l. 342--><p class="noindent" >To set up a build directory for e.g. <span 
 class="cmbx-10">DM 500 HD </span>run <span 
 class="cmtt-9">make MACHINE=dm500hd</span>. If
 <span 
@@ -601,10 +580,13 @@ class="cmtt-9">build.conf</span>, you can simply run <span
 class="cmtt-9">make </span>with no
 arguments instead. This will create and initialize the directory <span 
 class="cmtt-9">build/dm500hd</span>.
-<!--l. 356--><p class="noindent" >
+                                                                  
+
+                                                                  
+<!--l. 346--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">5.6   </span> <a 
- id="x1-280005.6"></a>Building a firmware image</h4>
-<!--l. 357--><p class="noindent" >To build a firmware image for e.g. <span 
+ id="x1-270005.6"></a>Building a firmware image</h4>
+<!--l. 347--><p class="noindent" >To build a firmware image for e.g. <span 
 class="cmbx-10">DM 500 HD </span>run <span 
 class="cmtt-9">make MACHINE=dm500hd image</span>. If
 <span 
@@ -612,34 +594,31 @@ class="cmtt-9">MACHINE=dm500hd </span>has been set in <span
 class="cmtt-9">build.conf</span>, you can simply run <span 
 class="cmtt-9">make image</span>
 instead.
-<!--l. 361--><p class="noindent" >
+<!--l. 351--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">5.7   </span> <a 
- id="x1-290005.7"></a>Building a package</h4>
-<!--l. 362--><p class="noindent" >To build a single package, BitBake has to be used directly. First, the environment has
+ id="x1-280005.7"></a>Building a package</h4>
+<!--l. 352--><p class="noindent" >To build a single package, BitBake has to be used directly. First, the environment has
 to be set up, in order to make BitBake available to the shell. This can be done with
 the following command:
-<!--l. 366--><p class="noindent" ><span 
+<!--l. 356--><p class="noindent" ><span 
 class="cmtt-9">source bitbake.env</span>
-<!--l. 368--><p class="noindent" >This way, <span 
+<!--l. 358--><p class="noindent" >This way, <span 
 class="cmtt-9">bitbake.env </span>may set environment variables.
-<!--l. 370--><p class="noindent" >BitBake must be run from the machine&#8217;s build directory. For <span 
+<!--l. 360--><p class="noindent" >BitBake must be run from the machine&#8217;s build directory. For <span 
 class="cmbx-10">DM 500 HD</span>
 run:
-<!--l. 372--><p class="noindent" ><span 
+<!--l. 362--><p class="noindent" ><span 
 class="cmtt-9">cd build/dm500hd</span>
-<!--l. 374--><p class="noindent" >In order to build enigma2, run:
-<!--l. 376--><p class="noindent" ><span 
+<!--l. 364--><p class="noindent" >In order to build enigma2, run:
+<!--l. 366--><p class="noindent" ><span 
 class="cmtt-9">bitbake enigma2</span>.
-<!--l. 378--><p class="noindent" >
+<!--l. 368--><p class="noindent" >
 <h3 class="sectionHead"><span class="titlemark">6   </span> <a 
- id="x1-300006"></a>Development hints</h3>
-<!--l. 380--><p class="noindent" >
+ id="x1-290006"></a>Development hints</h3>
+<!--l. 370--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">6.1   </span> <a 
- id="x1-310006.1"></a>Cross-compilation of external software</h4>
-                                                                  
-
-                                                                  
-<!--l. 381--><p class="noindent" >OpenDreambox provides a script called <span 
+ id="x1-300006.1"></a>Cross-compilation of external software</h4>
+<!--l. 371--><p class="noindent" >OpenDreambox provides a script called <span 
 class="cmtt-9">cross-compile.env</span>. Once run, the script will
 create the following commands (shell aliases), aiming to ease cross-compilation of
 external source trees:
@@ -655,6 +634,9 @@ class="cmtt-9">oe</span><span
 class="cmtt-9">_runconf </span>- Calls <span 
 class="cmtt-9">./configure </span>with parameters suitable for OE. Useful
      for projects based on GNU autotools.
+                                                                  
+
+                                                                  
      </li>
      <li class="itemize"><span 
 class="cmtt-9">oe</span><span 
@@ -673,29 +655,29 @@ class="cmtt-9">_env env</span>).
 class="cmtt-9">oe</span><span 
 class="cmtt-9">_setenv </span>- Exports the OE environment to the currently running shell
      session.</li></ul>
-<!--l. 392--><p class="noindent" >The script needs to know the target machine, which can be one of the supported
+<!--l. 382--><p class="noindent" >The script needs to know the target machine, which can be one of the supported
 products (see <a 
 href="#x1-40001.2">1.2<!--tex4ht:ref: products --></a>). Because the script adds aliases to your currently running shell
 session, it has to be invoked using <span 
 class="cmtt-9">source </span>or <span 
 class="cmtt-9">. </span>(the dot operator), e.g.:
-<!--l. 395--><p class="noindent" ><span 
+<!--l. 385--><p class="noindent" ><span 
 class="cmtt-9">source cross-compile.env dm7020hd</span>
-<!--l. 397--><p class="noindent" >The script may be called from any location, but must reside inside the OpenDreambox
+<!--l. 387--><p class="noindent" >The script may be called from any location, but must reside inside the OpenDreambox
 Git tree. You may want to create a symlink to <span 
 class="cmtt-9">cross-compile.env </span>somewhere in your
 <span 
 class="cmtt-9">PATH</span>.
-<!--l. 400--><p class="noindent" >
+<!--l. 390--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">6.2   </span> <a 
- id="x1-320006.2"></a>Coding style</h4>
-<!--l. 401--><p class="noindent" >Run <span 
+ id="x1-310006.2"></a>Coding style</h4>
+<!--l. 391--><p class="noindent" >Run <span 
 class="cmtt-9">scripts/do</span><span 
 class="cmtt-9">_stylize.sh </span>on new recipes to ensure proper coding style.
-<!--l. 403--><p class="noindent" >
+<!--l. 393--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">6.3   </span> <a 
- id="x1-330006.3"></a>Package architecture</h4>
-<!--l. 404--><p class="noindent" >Set <span 
+ id="x1-320006.3"></a>Package architecture</h4>
+<!--l. 394--><p class="noindent" >Set <span 
 class="cmtt-9">PACKAGE</span><span 
 class="cmtt-9">_ARCH = "$</span><span 
 class="cmsy-9">{</span><span 
@@ -712,17 +694,17 @@ class="cmtt-9">_FEATURES    </span>or
      <span 
 class="cmtt-9">DREAMBOX</span><span 
 class="cmtt-9">_FEATURES</span>.
-                                                                  
-
-                                                                  
      </li>
      <li class="itemize">The recipe is part of <span 
 class="cmtt-9">meta-bsp</span>.</li></ul>
-<!--l. 410--><p class="noindent" >
+<!--l. 400--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">6.4   </span> <a 
- id="x1-340006.4"></a>Kernel versions</h4>
-<!--l. 411--><p class="noindent" >When switching kernel versions, run the following commands:
-<!--l. 416--><p class="noindent" >
+ id="x1-330006.4"></a>Kernel versions</h4>
+<!--l. 401--><p class="noindent" >When switching kernel versions, run the following commands:
+<!--l. 406--><p class="noindent" >
+                                                                  
+
+                                                                  
 <table  
 cellpadding="0" border="0" cellspacing="0" 
 class="tabbing"><tr  
@@ -733,7 +715,7 @@ class="tabbing"><span
 class="cmtt-9">cdfs dreambox-dvb-modules linux-dreambox madwifi-ng </span><span 
 class="cmsy-9">\</span>
 </td></tr></table>
-<!--l. 416--><p class="noindent" >     <table  
+<!--l. 406--><p class="noindent" >     <table  
 cellpadding="0" border="0" cellspacing="0" 
 class="tabbing"><tr  
 style="vertical-align:baseline;" class="tabbing"><td style="width:113;" 
@@ -741,28 +723,28 @@ class="tabbing">           </td><td
 class="tabbing"><span 
 class="cmtt-9">task-opendreambox-essential task-opendreambox-base </span><span 
 class="cmsy-9">\</span></td></tr></table>
-<!--l. 416--><p class="noindent" >        <table  
+<!--l. 406--><p class="noindent" >        <table  
 cellpadding="0" border="0" cellspacing="0" 
 class="tabbing"><tr  
 style="vertical-align:baseline;" class="tabbing"><td style="width:113;" 
 class="tabbing">           </td><td  
 class="tabbing"><span 
 class="cmtt-9">task-boot task-opendreambox-wlan v4l-dvb-modules</span></td></tr></table>
-<!--l. 416--><p class="noindent" >
-<!--l. 416--><p class="noindent" ><span 
+<!--l. 406--><p class="noindent" >
+<!--l. 406--><p class="noindent" ><span 
 class="cmtt-9">rm ../../tmp/cache/$</span><span 
 class="cmsy-9">{</span><span 
 class="cmtt-9">MACHINE</span><span 
 class="cmsy-9">}</span><span 
 class="cmtt-9">/bb</span><span 
 class="cmtt-9">_*</span>
-<!--l. 418--><p class="noindent" >
+<!--l. 408--><p class="noindent" >
 <h3 class="sectionHead"><span class="titlemark">7   </span> <a 
- id="x1-350007"></a>Bug reports and patches</h3>
-<!--l. 420--><p class="noindent" >Please send bug reports and patches to the Enigma2 development mailing list
+ id="x1-340007"></a>Bug reports and patches</h3>
+<!--l. 410--><p class="noindent" >Please send bug reports and patches to the Enigma2 development mailing list
 <span 
 class="cmtt-9">&#x003C;enigma2-devel@lists.elitedvb.net&#x003E;</span>.
-<!--l. 422--><p class="noindent" >A comfortable way to create patches is to use <span 
+<!--l. 412--><p class="noindent" >A comfortable way to create patches is to use <span 
 class="cmtt-9">git format-patch</span>, after all changes
 have been committed to your local copy of the repository.
  

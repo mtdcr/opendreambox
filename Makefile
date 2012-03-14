@@ -45,9 +45,6 @@ PARALLEL_MAKE ?= -j $(NR_CPU)
 # Remove work directories after successful builds
 RM_WORK ?= yes
 
-# Dependency generation algorithm: speed or completion.
-BB_SCHEDULER ?= speed
-
 PWD := $(shell pwd)
 
 TOPDIR = $(PWD)/build/$(MACHINE)
@@ -121,7 +118,6 @@ help:
 	@echo "  MACHINE = $(MACHINE)"
 	@echo
 	@echo "  BB_NUMBER_THREADS = $(BB_NUMBER_THREADS)"
-	@echo "  BB_SCHEDULER = $(BB_SCHEDULER)"
 	@echo "  PARALLEL_MAKE = $(PARALLEL_MAKE)"
 	@echo "  RM_WORK = $(RM_WORK)"
 	@echo
@@ -188,7 +184,6 @@ $(TOPDIR)/conf/local.conf:
 	@echo 'USER_CLASSES = "buildstats"' >> $@
 	@echo 'CONF_VERSION = "1"' >> $@
 	@echo 'BB_GENERATE_MIRROR_TARBALLS = "0"' >> $@
-	@echo 'BB_SCHEDULER = "$(BB_SCHEDULER)"' >> $@
 	@echo 'BBINCLUDELOGS = "yes"' >> $@
 	@echo 'DISTRO = "opendreambox"' >> $@
 	@test "$(RM_WORK)" = "yes" && echo 'INHERIT += "rm_work"' >> $@ || true

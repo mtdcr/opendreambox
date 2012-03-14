@@ -24,10 +24,9 @@ opendreambox
     5.1 Makefile targets
     5.2 Configuration variables
      5.2.1 BB_NUMBER_THREADS
-     5.2.2 BB_SCHEDULER
-     5.2.3 MACHINE
-     5.2.4 PARALLEL_MAKE
-     5.2.5 RM_WORK
+     5.2.2 MACHINE
+     5.2.3 PARALLEL_MAKE
+     5.2.4 RM_WORK
     5.3 Adding custom layers
     5.4 Adding custom options
     5.5 Setting up a build directory
@@ -238,22 +237,12 @@ opendreambox
    cores available on the build system. The number of cores is obtained from
    /proc/cpuinfo. If this file is unavailable, the default value is 1.
 
-      5.2.2 BB_SCHEDULER
-
-   Controls a time-memory tradeoff. Valid values are speed and completion. If set
-   to speed (default), then BitBake will start processing the next recipes as soon
-   as possible. Otherwise, BitBake will complete each recipe, i.e. execute tasks
-   to clean up build directories, before it starts processing new recipes.
-
-   If you're low on disk space, you may want to set this option to completion and
-   keep RM_WORK set to yes.
-
-      5.2.3 MACHINE
+      5.2.2 MACHINE
 
    Controls the target machine to build packages for. See section 1.2 for a list
    of supported products.
 
-      5.2.4 PARALLEL_MAKE
+      5.2.3 PARALLEL_MAKE
 
    Controls how many processes per recipe make may use. Defaults to -j1, which
    means 1 process per recipe. Increasing this value speeds up the build, but not
@@ -261,7 +250,7 @@ opendreambox
 
    Don't change this option unless you know what you're doing.
 
-      5.2.5 RM_WORK
+      5.2.4 RM_WORK
 
    Controls whether the temporary work directory of each package may be cleaned
    automatically after the respective package has been built successfully. Valid

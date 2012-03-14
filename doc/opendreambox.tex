@@ -284,16 +284,6 @@ THE SOFTWARE.
       obtained from \shell{/proc/cpuinfo}. If this file is unavailable, the
       default value is 1.
 
-    \subsubsection{BB\_SCHEDULER}
-      Controls a time-memory tradeoff. Valid values are \shell{speed} and
-      \shell{completion}. If set to \shell{speed} (default), then BitBake
-      will start processing the next recipes as soon as possible. Otherwise,
-      BitBake will complete each recipe, i.e. execute tasks to clean up
-      build directories, before it starts processing new recipes.
-
-      If you're low on disk space, you may want to set this option to
-      \shell{completion} and keep \shell{RM\_WORK} set to \shell{yes}.
-
     \subsubsection{MACHINE}
       Controls the target machine to build packages for. See section \ref{products}
       for a list of supported products.
