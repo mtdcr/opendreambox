@@ -44,7 +44,7 @@
 \begin{document}
 \title{opendreambox}
 \author{Andreas Oberritter \shell{<obi@opendreambox.org>}}
-\date{February 2012}
+\date{March 2012}
 \maketitle
 %\thispagestyle{empty}
 %\pagestyle{empty}
@@ -126,6 +126,13 @@ THE SOFTWARE.
 
     \shell{git clone git://git.opendreambox.org/git/opendreambox.git}
 
+  \subsection{Quick start}
+    For the impatient:
+
+    \shell{make -C opendreambox image}
+
+    If this command fails, prerequisites my be missing. See section \ref{prerequisites}.
+
   \subsection{Directory structure}
     OpenDreambox consists of a set of layers containing build instructions.
     This meta data is used by BitBake to download and compile source code
@@ -182,6 +189,7 @@ THE SOFTWARE.
       \end{itemize}
 
 \section{Prerequisites}
+  \label{prerequisites}
 
   \subsection{Required software}
 
@@ -215,11 +223,6 @@ THE SOFTWARE.
    \begin{itemize}
      \item Debian "lenny" 5.0: Comes with Python 2.5, which is too old.
    \end{itemize}
-
-  \subsection{System shell}
-    Make sure your system's \shell{/bin/sh} is bash, not dash or any other
-    shell. On Debian or Ubuntu, run \shell{sudo dpkg-reconfigure dash} and
-    select \shell{no}, when asked whether dash should be the default shell.
 
 \pagebreak
 

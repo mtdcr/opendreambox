@@ -1,7 +1,7 @@
 opendreambox
 
    Andreas Oberritter <obi@opendreambox.org>
-   February 2012
+   March 2012
 
   Contents
 
@@ -10,13 +10,13 @@ opendreambox
     1.2 Supported products
     1.3 License
     1.4 Obtaining the source code
-    1.5 Directory structure
-     1.5.1 openembedded-core and meta-openembedded
-     1.5.2 meta-opendreambox
-     1.5.3 meta-bsp
+    1.5 Quick start
+    1.6 Directory structure
+     1.6.1 openembedded-core and meta-openembedded
+     1.6.2 meta-opendreambox
+     1.6.3 meta-bsp
    2 Prerequisites
     2.1 Required software
-    2.2 System shell
    3 Major changes since previous releases
     3.1 Changes since release 1.6
    4 Known Bugs
@@ -110,7 +110,15 @@ opendreambox
 
    git clone git://git.opendreambox.org/git/opendreambox.git
 
-    1.5 Directory structure
+    1.5 Quick start
+
+   For the impatient:
+
+   make -C opendreambox image
+
+   If this command fails, prerequisites my be missing. See section 2.
+
+    1.6 Directory structure
 
    OpenDreambox consists of a set of layers containing build instructions. This
    meta data is used by BitBake to download and compile source code and to
@@ -130,7 +138,7 @@ opendreambox
    openembedded-core. The recipe in meta-openembedded will be used, because
    openembedded-core has lower priority.
 
-      1.5.1 openembedded-core and meta-openembedded
+      1.6.1 openembedded-core and meta-openembedded
 
    These directories are copies of Git repositories at git.openembedded.org, i.e.
    the OpenEmbedded Core layer and the OpenEmbedded meta layer. The get created
@@ -139,7 +147,7 @@ opendreambox
    Throughout this document, the combination of these directories will be referred
    to as OpenEmbedded.
 
-      1.5.2 meta-opendreambox
+      1.6.2 meta-opendreambox
 
    This directory contains:
      * Recipes for packages written specifically for the OpenDreambox distribution
@@ -147,7 +155,7 @@ opendreambox
      * Recipes for software versions older than those available from OpenEmbedded
      * Recipes for software versions newer than those available from OpenEmbedded
 
-      1.5.3 meta-bsp
+      1.6.3 meta-bsp
 
    The directory meta-bsp contains Board Support Packages (BSP) for the supported
    Dreambox models. This includes:
@@ -179,12 +187,6 @@ opendreambox
 
    Distributions known not to work:
      * Debian "lenny" 5.0: Comes with Python 2.5, which is too old.
-
-    2.2 System shell
-
-   Make sure your system's /bin/sh is bash, not dash or any other shell. On Debian
-   or Ubuntu, run sudo dpkg-reconfigure dash and select no, when asked whether
-   dash should be the default shell.
 
   3 Major changes since previous releases
 
