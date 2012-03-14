@@ -1,4 +1,4 @@
-PR = "r0"
+PR = "${INC_PR}.0"
 
 SRC_URI = "file://0001-Screens-RecordPaths.py-allow-selection-of-enigma2-co.patch \
            file://0002-Components-Harddisk.py-reconfigure-old-linked-defaul.patch"

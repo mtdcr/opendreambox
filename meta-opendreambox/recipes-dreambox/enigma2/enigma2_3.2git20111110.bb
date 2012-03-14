@@ -1,4 +1,4 @@
-PR = "r2"
+PR = "${INC_PR}.0"
 
 SRC_URI[dm500hd.md5sum] = "f549dbbd92f4bf2feb5daa57c43bacdb"
 SRC_URI[dm500hd.sha256sum] = "e604be4c8b9556f193771c836409fb18830a18a8ba88ed534a3e52aae24132e7"
