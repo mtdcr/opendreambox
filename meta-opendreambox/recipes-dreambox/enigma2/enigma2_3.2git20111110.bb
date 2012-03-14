@@ -1,7 +1,5 @@
-DEPENDS = ""
-PR = "r1"
+PR = "r2"
 
-SRC_URI = "http://dreamboxupdate.com/download/snapshots/enigma2_${PV}_${MACHINE}.tar.bz2;name=${PACKAGE_ARCH}"
 SRC_URI[dm500hd.md5sum] = "f549dbbd92f4bf2feb5daa57c43bacdb"
 SRC_URI[dm500hd.sha256sum] = "e604be4c8b9556f193771c836409fb18830a18a8ba88ed534a3e52aae24132e7"
 SRC_URI[dm7020hd.md5sum] = "10319798762789bc98c21f990f5dbfe8"
@@ -13,14 +11,4 @@ SRC_URI[dm8000.sha256sum] = "553dc5364ec2eb68315557c34c3da585d5e66f3ff9f6608a87a
 SRC_URI[dm800se.md5sum] = "f6b802c5bf41992466b2be8ed64da8e0"
 SRC_URI[dm800se.sha256sum] = "460ebcd228ef34f6f60e6a3872933c550ecce3220ea395909c73fad447719285"
 
-S = "${WORKDIR}"
-
-do_compile() {
-}
-do_install() {
-        cp -a enigma2_${PV}_${MACHINE}/* ${D}
-}
-
-RDEPENDS_${PN} += "libsigc++-1.2"
-
-require enigma2-common.inc
+require enigma2-bin-3.2.inc
