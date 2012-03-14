@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="opendreambox.tex"> 
-<meta name="date" content="2012-03-12 22:36:00"> 
+<meta name="date" content="2012-03-14 14:15:00"> 
 <link rel="stylesheet" type="text/css" href="opendreambox.css"> 
 </head><body 
 >
@@ -674,15 +674,14 @@ class="cmtt-9">_env env</span>).
 class="cmtt-9">oe</span><span 
 class="cmtt-9">_setenv </span>- Exports the OE environment to the currently running shell
      session.</li></ul>
-<!--l. 389--><p class="noindent" >The script needs to know the target architecture, which can be either <span 
-class="cmtt-9">mipsel </span>or
-<span 
-class="cmtt-9">mipsel-nf</span>. Because the script adds aliases to your currently running shell session, it
-has to be invoked using <span 
+<!--l. 389--><p class="noindent" >The script needs to know the target machine, which can be one of the supported
+products (see <a 
+href="#x1-40001.2">1.2<!--tex4ht:ref: products --></a>). Because the script adds aliases to your currently running shell
+session, it has to be invoked using <span 
 class="cmtt-9">source </span>or <span 
 class="cmtt-9">. </span>(the dot operator), e.g.:
 <!--l. 392--><p class="noindent" ><span 
-class="cmtt-9">source cross-compile.env mipsel</span>
+class="cmtt-9">source cross-compile.env dm7020hd</span>
 <!--l. 394--><p class="noindent" >The script may be called from any location, but must reside inside the OpenDreambox
 Git tree. You may want to create a symlink to <span 
 class="cmtt-9">cross-compile.env </span>somewhere in your

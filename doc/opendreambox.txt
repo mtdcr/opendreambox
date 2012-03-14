@@ -352,11 +352,11 @@ opendreambox
      * oe_setenv - Exports the OE environment to the currently running shell
        session.
 
-   The script needs to know the target architecture, which can be either mipsel or
-   mipsel-nf. Because the script adds aliases to your currently running shell
-   session, it has to be invoked using source or . (the dot operator), e.g.:
+   The script needs to know the target machine, which can be one of the supported
+   products (see 1.2). Because the script adds aliases to your currently running
+   shell session, it has to be invoked using source or . (the dot operator), e.g.:
 
-   source cross-compile.env mipsel
+   source cross-compile.env dm7020hd
 
    The script may be called from any location, but must reside inside the
    OpenDreambox Git tree. You may want to create a symlink to cross-compile.env

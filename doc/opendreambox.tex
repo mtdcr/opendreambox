@@ -386,10 +386,10 @@ THE SOFTWARE.
       \item \shell{oe\_setenv} - Exports the OE environment to the currently running shell session.
     \end{itemize}
 
-    The script needs to know the target architecture, which can be either \shell{mipsel} or \shell{mipsel-nf}. Because the script
+    The script needs to know the target machine, which can be one of the supported products (see \ref{products}). Because the script
     adds aliases to your currently running shell session, it has to be invoked using \shell{source} or \shell{.} (the dot operator), e.g.:
 
-    \shell{source cross-compile.env mipsel}
+    \shell{source cross-compile.env dm7020hd}
 
     The script may be called from any location, but must reside inside the OpenDreambox Git tree.
     You may want to create a symlink to \shell{cross-compile.env} somewhere in your \shell{PATH}.
