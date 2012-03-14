@@ -47,7 +47,8 @@ RM_WORK ?= yes
 
 PWD := $(shell pwd)
 
-TOPDIR = $(PWD)/build/$(MACHINE)
+BUILD_DIR = $(PWD)/build
+TOPDIR = $(BUILD_DIR)/$(MACHINE)
 DL_DIR = $(PWD)/sources
 SSTATE_DIR = $(PWD)/sstate-cache
 TMPDIR = $(PWD)/tmp
@@ -74,22 +75,19 @@ GIT_USER_EMAIL := $(shell $(GIT) config user.email)
 .DEFAULT_GOAL := all
 all: init usage
 
-init:
-	@for layer in $(BBLAYERS); do \
-		if [ ! -d $$layer ]; then \
-			$(MAKE) $(MAKEFLAGS) update; \
-			break; \
-		fi; \
-	done
+$(BBLAYERS):
+	[ -d $@ ] || $(MAKE) $(MAKEFLAGS) update
+
+init: $(BBLAYERS) $(CONFFILES)
 
 help:
 	@echo "Your options:"
 	@echo
 	@echo "  * Update the SDK"
-	@echo "      $$ make update"
+	@echo "      $$ $(MAKE) update"
 	@echo
 	@echo "  * Build the PDF documentation (doc/opendreambox.pdf, requires pdfTeX):"
-	@echo "      $$ make doc"
+	@echo "      $$ $(MAKE) doc"
 	@echo
 	@echo "  * View the documentation in text format:"
 	@echo "      $$ view doc/opendreambox.txt"
@@ -99,14 +97,14 @@ help:
 	@echo "    [Valid values: dm500hd, dm800, dm800se, dm7020hd, dm8000]"
 	@echo
 	@echo "  * Build a firmware image for the selected target machine:"
-	@echo "      $$ make image"
+	@echo "      $$ $(MAKE) image"
 	@echo
 	@echo "  * Build a firmware image for a different target machine:"
-	@echo "      $$ make image MACHINE=dm800se"
+	@echo "      $$ $(MAKE) image MACHINE=dm800se"
 	@echo "    [Valid values: dm500hd, dm800, dm800se, dm7020hd, dm8000]"
 	@echo
 	@echo "  * Download all source files at once:"
-	@echo "      $$ make download"
+	@echo "      $$ $(MAKE) download"
 	@echo
 	@echo "  * Set up the environment to build recipes manually:"
 	@echo "      $$ source bitbake.env"
@@ -136,24 +134,37 @@ help:
 	fi
 
 usage:
-	@echo "[*] Please run 'make help' to display further information!"
+	@echo "[*] Please run '$(MAKE) help' to display further information!"
 
 clean:
 	@echo '[*] Deleting generated configuration files'
 	@$(RM) $(CONFFILES)
+	@$(MAKE) $(MAKEFLAGS) -C doc clean
+
+distclean: clean
+	@echo '[*] Deleting download directory'
+	@$(RM) -r $(DL_DIR)
+	@echo '[*] Deleting tmp directory'
+	@$(RM) -r $(TMPDIR)
+	@echo '[*] Deleting sstate directory'
+	@$(RM) -r $(SSTATE_DIR)
+	@echo '[*] Deleting build directory'
+	@$(RM) -r $(BUILD_DIR)
+	@echo '[*] Deleting git submodules'
+	@$(GIT) submodule foreach 'rm -rf .* * 2>/dev/null || true'
 
 doc:
-	@make -C doc
+	@$(MAKE) $(MAKEFLAGS) -C doc
 
 image: init
 	@echo '[*] Building image'
 	@. $(PWD)/bitbake.env && cd $(TOPDIR) && bitbake dreambox-image
 
-download: $(CONFFILES)
+download: init
 	@echo '[*] Downloading sources'
 	@. $(PWD)/bitbake.env && cd $(TOPDIR) && bitbake -cfetchall -k dreambox-image
 
-update: $(CONFFILES)
+update:
 	@echo '[*] Updating Git repositories...'
 	@if [ -n "$(GIT_REMOTE)" ]; then $(GIT) pull --ff-only || $(GIT) pull --rebase; fi
 	@$(GIT) submodule sync
