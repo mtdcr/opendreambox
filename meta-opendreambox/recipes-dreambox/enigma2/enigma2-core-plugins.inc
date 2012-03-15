@@ -16,9 +16,17 @@ DESCRIPTION_enigma2-plugin-systemplugins-wirelesslan = "Wireless network setting
 
 RDEPENDS_enigma2-plugin-dreamboxnetwork-core = " \
         python-json \
+        python-stringold \
+        python-twisted-core \
+        python-twisted-web \
+        python-xml \
+"
+RDEPENDS_enigma2-plugin-dreamboxnetwork-demo = " \
+        python-stringold \
 "
 RDEPENDS_enigma2-plugin-extensions-browser = " \
         python-sqlite3 \
+        python-xml \
         qt4-embedded-plugin-imageformat-gif \
         qt4-embedded-plugin-imageformat-ico \
         qt4-embedded-plugin-imageformat-jpeg \
@@ -30,12 +38,22 @@ RDEPENDS_enigma2-plugin-extensions-browser = " \
 RDEPENDS_enigma2-plugin-extensions-cutlisteditor = " \
         aio-grab \
 "
+RDEPENDS_enigma2-plugin-extensions-dvdburn = " \
+        python-xml \
+"
+RDEPENDS_enigma2-plugin-systemplugins-commoninterfaceassignment = " \
+        python-xml \
+"
 RDEPENDS_enigma2-plugin-systemplugins-crashlogautosubmit = " \
         python-compression \
         python-email \
         python-mime \
         python-twisted-mail \
         python-twisted-names \
+"
+RDEPENDS_enigma2-plugin-systemplugins-hotplug = " \
+        python-fcntl \
+        python-threading \
 "
 RDEPENDS_enigma2-plugin-systemplugins-minidlnasetup = " \
         minidlna \
@@ -44,6 +62,9 @@ RDEPENDS_enigma2-plugin-extensions-modem = " \
         dreambox-modem-ppp-scripts \
         ppp \
 "
+RDEPENDS_enigma2-plugin-systemplugins-networksetup = " \
+        ethtool \
+"
 RDEPENDS_enigma2-plugin-systemplugins-nfiflash = " \
         python-twisted-web \
 "
@@ -51,6 +72,7 @@ RDEPENDS_enigma2-plugin-systemplugins-softwaremanager = " \
         python-twisted-web \
 "
 RDEPENDS_enigma2-plugin-systemplugins-wirelesslan = " \
+        python-stringold \
         python-wifi \
         wireless-tools \
         wpa-supplicant \

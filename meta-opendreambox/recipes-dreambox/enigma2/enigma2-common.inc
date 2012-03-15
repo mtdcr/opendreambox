@@ -5,7 +5,6 @@ PACKAGES += "${PN}-meta"
 
 RDEPENDS_${PN} += " \
         alsa-conf \
-        ethtool \
         glibc-gconv-iso8859-15 \
         python-codecs \
         python-core \
@@ -17,10 +16,7 @@ RDEPENDS_${PN} += " \
         python-pickle \
         python-re \
         python-shell \
-        python-stringold \
-        python-threading \
         python-twisted-core \
-        python-twisted-protocols \
         python-twisted-web \
         python-xml \
         python-zopeinterface \
