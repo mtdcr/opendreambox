@@ -9,15 +9,21 @@ RDEPENDS_${PN} += " \
         glibc-gconv-iso8859-15 \
         python-codecs \
         python-core \
+        python-crypt \
         python-fcntl \
         python-lang \
         python-netclient \
+        python-netserver \
         python-pickle \
         python-re \
         python-shell \
         python-stringold \
         python-threading \
+        python-twisted-core \
+        python-twisted-protocols \
+        python-twisted-web \
         python-xml \
+        python-zopeinterface \
 "
 
 FILES_${PN} += "${datadir}/fonts ${datadir}/keymaps ${libdir}/libopen.so"

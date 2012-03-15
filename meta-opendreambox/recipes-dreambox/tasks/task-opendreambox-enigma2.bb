@@ -2,7 +2,7 @@ DESCRIPTION = "OpenDreambox: Enigma2 Task for the OpenDreambox Distribution"
 SECTION = "opendreambox/base"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=861a56d19a6e100979e4c596ed785160"
-PR = "r15"
+PR = "r16"
 
 inherit task
 
@@ -86,12 +86,6 @@ RRECOMMENDS_task-opendreambox-enigma2 = "\
   enigma2-plugin-systemplugins-positionersetup \
   enigma2-plugin-systemplugins-satfinder \
   enigma2-plugin-systemplugins-skinselector \
-  python-crypt \
-  python-netserver \
-  python-twisted-core \
-  python-twisted-protocols \
-  python-twisted-web \
-  python-zopeinterface \
   ${@base_contains('DREAMBOX_FEATURES', 'dvd', 'task-opendreambox-cdplayer', '', d)} \
   ${@base_contains('DREAMBOX_FEATURES', 'dvd', 'task-opendreambox-dvdburn', '', d)} \
   ${@base_contains('DREAMBOX_FEATURES', 'dvd', 'task-opendreambox-dvdplayer', '', d)} \
