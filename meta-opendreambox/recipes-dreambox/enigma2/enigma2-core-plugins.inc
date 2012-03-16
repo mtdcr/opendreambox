@@ -11,6 +11,7 @@ DESCRIPTION_enigma2-plugin-systemplugins-positionersetup = "Install a motorized 
 DESCRIPTION_enigma2-plugin-systemplugins-satelliteequipmentcontrol = "Fine-tune DiSEqC settings"
 DESCRIPTION_enigma2-plugin-systemplugins-satfinder = "Find satellites"
 DESCRIPTION_enigma2-plugin-systemplugins-skinselector = "Select installed skins"
+DESCRIPTION_enigma2-plugin-systemplugins-upnp = "UPnP tools based on python-coherence"
 DESCRIPTION_enigma2-plugin-systemplugins-videomode = "Select custom video modes"
 DESCRIPTION_enigma2-plugin-systemplugins-wirelesslan = "Wireless network settings"
 
@@ -70,6 +71,9 @@ RDEPENDS_enigma2-plugin-systemplugins-nfiflash = " \
 "
 RDEPENDS_enigma2-plugin-systemplugins-softwaremanager = " \
         python-twisted-web \
+"
+RDEPENDS__enigma2-plugin-systemplugins-upnp = " \
+        python-coherence \
 "
 RDEPENDS_enigma2-plugin-systemplugins-wirelesslan = " \
         python-stringold \

@@ -4,10 +4,11 @@ SECTION = "devel/python"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENCE;md5=3f7c147addd67ce1d53239c68a6b7022"
 DEPENDS = "libxml2"
-SRCREV = "67d5135e299a4ecefe8303a62e17b53edd21c896"
+SRCREV = "4d72896dbb3ffa7dcf1087081b79b8d0c5b414b2"
 PV = "0.6.7"
+PR = "r1"
 
-SRC_URI = "git://github.com/htgoebel/coherence.git;protocol=git \
+SRC_URI = "git://github.com/sreichholf/coherence.git;protocol=git \
            file://fix-setup-py.patch"
 
 S = "${WORKDIR}/git/Coherence"
@@ -24,8 +25,10 @@ do_install_append() {
         rm -r ${D}${PYTHON_SITEPACKAGES_DIR}/misc/Desktop-Applet
 }
 
+RDEPENDS_${PN} = "python-xmlrpc python-twisted-web"
+
 PACKAGES =+ "${PN}-bin"
 
-RDEPENDS_${PN}-bin = "${PN} python-xmlrpc python-zopeinterface"
+RDEPENDS_${PN}-bin = "${PN} python-zopeinterface"
 
 FILES_${PN}-bin = "${bindir} ${PYTHON_SITEPACKAGES_DIR}/misc/*.py"
