@@ -72,7 +72,7 @@ RDEPENDS_enigma2-plugin-systemplugins-nfiflash = " \
 RDEPENDS_enigma2-plugin-systemplugins-softwaremanager = " \
         python-twisted-web \
 "
-RDEPENDS__enigma2-plugin-systemplugins-upnp = " \
+RDEPENDS_enigma2-plugin-systemplugins-upnp = " \
         python-coherence \
 "
 RDEPENDS_enigma2-plugin-systemplugins-wirelesslan = " \
