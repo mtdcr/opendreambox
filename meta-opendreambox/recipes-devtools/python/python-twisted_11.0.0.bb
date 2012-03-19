@@ -13,6 +13,7 @@ SRC_URI[md5sum] = "d7f94a1609a1b8f3b8c8d0146d4cfe54"
 SRC_URI[sha256sum] = "dd91254a4c946f51c4248590ca31b496ad3e4fd1b5a9fbc3a82c39a41131a2e2"
 
 S = "${WORKDIR}/Twisted-${PV}"
+PR = "r1"
 
 inherit setuptools
 
@@ -39,7 +40,6 @@ PACKAGES += "\
   ${PN}-core \
 "
 
-RDEPENDS_${PN} = "python-core python-zopeinterface"
 RDEPENDS_${PN} += "\
   ${PN}-bin \
   ${PN}-conch \
@@ -59,6 +59,7 @@ FILES_${PN}-test = " \
   ${libdir}/${PYTHON_DIR}/site-packages/twisted/test \
   ${libdir}/${PYTHON_DIR}/site-packages/twisted/*/test \
 "
+RDEPENDS_${PN}-test = "${PN}"
 
 FILES_${PN}-protocols = " \
   ${libdir}/${PYTHON_DIR}/site-packages/twisted/protocols/ \
@@ -83,6 +84,7 @@ FILES_${PN}-conch = " \
   ${libdir}/${PYTHON_DIR}/site-packages/twisted/plugins/twisted_conch.py* \
   ${libdir}/${PYTHON_DIR}/site-packages/twisted/conch  \
 "
+RDEPENDS_${PN}-conch = "${PN}-core ${PN}-protocols"
 
 FILES_${PN}-core = " \
 ${bindir}/manhole \
@@ -154,6 +156,8 @@ ${libdir}/${PYTHON_DIR}/site-packages/twisted/python/zshcomp.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/python/procutils.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/python/text.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/python/_twisted_zsh_stub \
+${libdir}/${PYTHON_DIR}/site-packages/twisted/python/_epoll.so \
+${libdir}/${PYTHON_DIR}/site-packages/twisted/python/_initgroups.so \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/scripts/ \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/spread/ \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/tap/ \
@@ -166,6 +170,7 @@ ${libdir}/${PYTHON_DIR}/site-packages/twisted/*.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/python/*.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/plugins/*.py* \
 "
+RDEPENDS_${PN}-core = "python-core python-zopeinterface"
 
 FILES_${PN}-lore = " \
 ${bindir}/bookify \
@@ -173,51 +178,60 @@ ${bindir}/lore \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/plugins/twisted_lore.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/lore \
 "
+RDEPENDS_${PN}-lore = "${PN}-core"
 
 FILES_${PN}-mail = " \
 ${bindir}/mailmail \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/plugins/twisted_mail.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/mail \
 "
+RDEPENDS_${PN}-mail = "${PN}-core ${PN}-protocols"
 
 FILES_${PN}-names = " \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/plugins/twisted_names.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/names \
 "
+RDEPENDS_${PN}-names = "${PN}-core"
 
 FILES_${PN}-news = " \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/plugins/twisted_news.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/news \
 "
+RDEPENDS_${PN}-news = "${PN}-core ${PN}-protocols"
 
 FILES_${PN}-runner = " \
 ${libdir}/site-packages/twisted/runner/portmap.so \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/runner\
 "
+RDEPENDS_${PN}-runner = "${PN}-core ${PN}-protocols"
 
 FILES_${PN}-web = " \
 ${bindir}/websetroot \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/plugins/twisted_web.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/web\
 "
+RDEPENDS_${PN}-web += "${PN}-core ${PN}-protocols"
 
 FILES_${PN}-words = " \
 ${bindir}/im \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/plugins/twisted_words.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/words\
 "
+RDEPENDS_${PN}-words += "${PN}-core"
 
 FILES_${PN}-flow = " \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/plugins/twisted_flow.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/flow \"
+RDEPENDS_${PN}-flow += "${PN}-core"
 
 FILES_${PN}-pair = " \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/plugins/twisted_pair.py* \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/pair \
 "
+RDEPENDS_${PN}-pair += "${PN}-core"
 
 FILES_${PN}-dbg += " \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/*/.debug \
 ${libdir}/${PYTHON_DIR}/site-packages/twisted/*/*/.debug \
 "
-
+RDEPENDS_${PN}-dbg = "${PN}"
