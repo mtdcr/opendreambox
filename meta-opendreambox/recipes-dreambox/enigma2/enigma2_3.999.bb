@@ -6,6 +6,7 @@ DEPENDS = " \
         gstreamer \
         jpeg \
         libbluray \
+        libdlsym \
         libdreamdvd \
         libdvbsi++ \
         libfribidi \
@@ -21,7 +22,7 @@ DEPENDS = " \
         qxmpp-e \
         swig-native \
 "
-SRCREV = "4db53e146ff3656460ac4572c2ea7f3ccd0ae33e"
+SRCREV = "07d7379eeb128c0bcf98a8a4c2199c9fee1a9736"
 
 SRC_URI = "${ENIGMA2_GIT};scmdata=keep"
 
