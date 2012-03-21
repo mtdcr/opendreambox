@@ -176,10 +176,18 @@ download: init
 
 update:
 	@echo '[*] Updating Git repositories...'
-	@if [ -n "$(GIT_REMOTE)" ]; then $(GIT) pull --ff-only || $(GIT) pull --rebase; fi
-	@$(GIT) submodule sync
-	@$(GIT) submodule update --init
-	@echo "[*] The Dreambox SDK is now up-to-date."
+	@HASH=`$(XSUM) $(MAKEFILE_LIST)`; \
+	if [ -n "$(GIT_REMOTE)" ]; then \
+		$(GIT) pull --ff-only || $(GIT) pull --rebase; \
+	fi; \
+	if [ "$$HASH" != "`$(XSUM) $(MAKEFILE_LIST)`" ]; then \
+		echo '[*] Makefile changed. Restarting...'; \
+		$(MAKE) $(MFLAGS) --no-print-directory $(MAKECMDGOALS); \
+	else \
+		$(GIT) submodule sync && \
+		$(GIT) submodule update --init && \
+		echo "[*] The Dreambox SDK is now up-to-date."; \
+	fi
 
 .PHONY: all clean doc help image init update usage
 
