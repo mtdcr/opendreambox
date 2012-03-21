@@ -1,10 +1,7 @@
 build/
+.deps/
 sources/
 sstate-cache/
 tmp/
-bblayers.conf.append
 bitbake.env
-build.conf
-compiler-*.env
-local.conf.append
 *.swp

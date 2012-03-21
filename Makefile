@@ -25,8 +25,8 @@
 #
 
 # Note: You can override all variables by storing them
-# in an external file called "build.conf".
--include build.conf
+# in an external file called "make.conf".
+-include conf/make.conf
 
 # Target platform:
 # dm500hd, dm800, dm800se, dm7020hd, dm8000
@@ -45,32 +45,38 @@ PARALLEL_MAKE ?= -j $(NR_CPU)
 # Remove work directories after successful builds
 RM_WORK ?= yes
 
-PWD := $(shell pwd)
-
-BUILD_DIR = $(PWD)/build
+BUILD_DIR = $(CURDIR)/build
 TOPDIR = $(BUILD_DIR)/$(MACHINE)
-DL_DIR = $(PWD)/sources
-SSTATE_DIR = $(PWD)/sstate-cache
-TMPDIR = $(PWD)/tmp
+DL_DIR = $(CURDIR)/sources
+SSTATE_DIR = $(CURDIR)/sstate-cache
+TMPDIR = $(CURDIR)/tmp
+DEPDIR = $(CURDIR)/.deps
 
 BBLAYERS = \
-	$(PWD)/meta-bsp/$(MACHINE) \
-	$(PWD)/meta-bsp/common \
-	$(PWD)/meta-opendreambox \
-	$(PWD)/meta-openembedded/meta-oe \
-	$(PWD)/openembedded-core/meta
+	$(CURDIR)/meta-bsp/$(MACHINE) \
+	$(CURDIR)/meta-bsp/common \
+	$(CURDIR)/meta-opendreambox \
+	$(CURDIR)/meta-openembedded/meta-oe \
+	$(CURDIR)/openembedded-core/meta
 
 CONFFILES = \
 	bitbake.env \
-	compiler-mipsel.env \
-	compiler-mipsel-nf.env \
+	conf/opendreambox.conf \
 	$(TOPDIR)/conf/bblayers.conf \
 	$(TOPDIR)/conf/local.conf
+
+CONFDEPS = \
+	$(DEPDIR)/.bitbake.env.$(BITBAKE_ENV_HASH) \
+	$(DEPDIR)/.opendreambox.conf.$(OPENDREAMBOX_CONF_HASH) \
+	$(DEPDIR)/.bblayers.conf.$(MACHINE).$(BBLAYERS_CONF_HASH) \
+	$(DEPDIR)/.local.conf.$(MACHINE).$(LOCAL_CONF_HASH)
 
 GIT ?= git
 GIT_REMOTE := $(shell $(GIT) remote)
 GIT_USER_NAME := $(shell $(GIT) config user.name)
 GIT_USER_EMAIL := $(shell $(GIT) config user.email)
+
+hash = $(shell echo "$(1)" | md5sum | awk '{print $$1}')
 
 .DEFAULT_GOAL := all
 all: init usage
@@ -138,10 +144,12 @@ usage:
 
 clean:
 	@echo '[*] Deleting generated configuration files'
-	@$(RM) $(CONFFILES)
+	@$(RM) $(CONFFILES) $(CONFDEPS)
 	@$(MAKE) $(MAKEFLAGS) -C doc clean
 
 distclean: clean
+	@echo '[*] Deleting dependencies directory'
+	@$(RM) -r $(DEPDIR)
 	@echo '[*] Deleting download directory'
 	@$(RM) -r $(DL_DIR)
 	@echo '[*] Deleting tmp directory'
@@ -158,11 +166,11 @@ doc:
 
 image: init
 	@echo '[*] Building image'
-	@. $(PWD)/bitbake.env && cd $(TOPDIR) && bitbake dreambox-image
+	@. $(CURDIR)/bitbake.env && cd $(TOPDIR) && bitbake dreambox-image
 
 download: init
 	@echo '[*] Downloading sources'
-	@. $(PWD)/bitbake.env && cd $(TOPDIR) && bitbake -cfetchall -k dreambox-image
+	@. $(CURDIR)/bitbake.env && cd $(TOPDIR) && bitbake -cfetchall -k dreambox-image
 
 update:
 	@echo '[*] Updating Git repositories...'
@@ -173,38 +181,84 @@ update:
 
 .PHONY: all clean doc help image init update usage
 
-$(TOPDIR)/conf/bblayers.conf:
-	@echo '[*] Generating $@'
-	@test -d $(@D) || mkdir -p $(@D)
-	@echo 'LCONF_VERSION = "4"' > $@
-	@echo 'BBFILES = ""' >> $@
-	@echo 'BBLAYERS = "$(BBLAYERS)"' >> $@
-	@test -f $(@F).append && cat $(@F).append >> $@ || true
+MACHINE_INCLUDE_CONF = $(CURDIR)/conf/$(basename $(@F))-$(MACHINE)-ext.conf
+DISTRO_INCLUDE_CONF = $(CURDIR)/conf/$(basename $(@F))-ext.conf
 
-$(TOPDIR)/conf/local.conf:
+BITBAKE_ENV_HASH = $(call hash, \
+	BITBAKE_ENV_VERSION=0 \
+	CURDIR=$(CURDIR) \
+	TMPDIR=$(TMPDIR) \
+	)
+
+bitbake.env: $(DEPDIR)/.bitbake.env.$(BITBAKE_ENV_HASH)
+	@echo '[*] Generating $@'
+	@echo '# Automatically generated file. Do not edit!' > $@
+	@echo 'export PSEUDODONE=$(TMPDIR)/pseudodone' >> $@
+	@echo 'export PATH=$(CURDIR)/openembedded-core/scripts:$(CURDIR)/bitbake/bin:$${PATH}' >> $@
+
+OPENDREAMBOX_CONF_HASH = $(call hash, \
+	OPENDREAMBOX_CONF_VERSION=0 \
+	CURDIR=$(CURDIR) \
+	BB_NUMBER_THREADS=$(BB_NUMBER_THREADS) \
+	PARALLEL_MAKE=$(PARALLEL_MAKE) \
+	DL_DIR=$(DL_DIR) \
+	SSTATE_DIR=$(SSTATE_DIR) \
+	TMPDIR=$(TMPDIR) \
+	RM_WORK=$(RM_WORK) \
+	)
+
+conf/opendreambox.conf: $(DEPDIR)/.opendreambox.conf.$(OPENDREAMBOX_CONF_HASH)
 	@echo '[*] Generating $@'
 	@test -d $(@D) || mkdir -p $(@D)
-	@echo 'TOPDIR = "$(TOPDIR)"' > $@
+	@echo '# Automatically generated file. Do not edit!' > $@
 	@echo 'BB_NUMBER_THREADS = "$(BB_NUMBER_THREADS)"' >> $@
 	@echo 'PARALLEL_MAKE = "$(PARALLEL_MAKE)"' >> $@
-	@echo 'MACHINE = "$(MACHINE)"' >> $@
 	@echo 'DL_DIR = "$(DL_DIR)"' >> $@
 	@echo 'SSTATE_DIR = "$(SSTATE_DIR)"' >> $@
 	@echo 'TMPDIR = "$(TMPDIR)"' >> $@
-	@echo 'EXTRA_IMAGE_FEATURES = "debug-tweaks"' >> $@
-	@echo 'USER_CLASSES = "buildstats"' >> $@
-	@echo 'CONF_VERSION = "1"' >> $@
+	@test "$(RM_WORK)" = "yes" && echo 'INHERIT += "rm_work"' >> $@ || true
 	@echo 'BB_GENERATE_MIRROR_TARBALLS = "0"' >> $@
 	@echo 'BBINCLUDELOGS = "yes"' >> $@
+	@echo 'CONF_VERSION = "1"' >> $@
 	@echo 'DISTRO = "opendreambox"' >> $@
-	@test "$(RM_WORK)" = "yes" && echo 'INHERIT += "rm_work"' >> $@ || true
-	@test -f $(@F).append && cat $(@F).append >> $@ || true
+	@echo 'EXTRA_IMAGE_FEATURES = "debug-tweaks"' >> $@
+	@echo 'USER_CLASSES = "buildstats"' >> $@
+	@echo 'include $(DISTRO_INCLUDE_CONF)' >> $@
 
-bitbake.env:
-	@echo '[*] Generating $@'
-	@echo 'export BUILDDIR=$(TMPDIR)' >> $@
-	@echo 'export PATH=$(PWD)/openembedded-core/scripts:$(PWD)/bitbake/bin:$${PATH}' >> $@
+LOCAL_CONF_HASH = $(call hash, \
+	LOCAL_CONF_VERSION=0 \
+	CURDIR=$(CURDIR) \
+	TOPDIR=$(TOPDIR) \
+	MACHINE=$(MACHINE) \
+	)
 
-compiler-%.env:
+$(TOPDIR)/conf/local.conf: $(DEPDIR)/.local.conf.$(MACHINE).$(LOCAL_CONF_HASH)
 	@echo '[*] Generating $@'
-	@echo 'export PATH=$(TMPDIR)/sysroots/$(shell uname -m)-linux/usr/bin/$*-oe-linux:$${PATH}' > $@
+	@test -d $(@D) || mkdir -p $(@D)
+	@echo '# Automatically generated file. Do not edit!' > $@
+	@echo 'TOPDIR = "$(TOPDIR)"' >> $@
+	@echo 'MACHINE = "$(MACHINE)"' >> $@
+	@echo 'require $(CURDIR)/conf/opendreambox.conf' >> $@
+	@echo 'include $(DISTRO_INCLUDE_CONF)' >> $@
+	@echo 'include $(MACHINE_INCLUDE_CONF)' >> $@
+
+BBLAYERS_CONF_HASH = $(call hash, \
+	BBLAYERS_CONF_VERSION=0 \
+	CURDIR=$(CURDIR) \
+	BBLAYERS=$(BBLAYERS) \
+	)
+
+$(TOPDIR)/conf/bblayers.conf: $(DEPDIR)/.bblayers.conf.$(MACHINE).$(BBLAYERS_CONF_HASH)
+	@echo '[*] Generating $@'
+	@test -d $(@D) || mkdir -p $(@D)
+	@echo '# Automatically generated file. Do not edit!' > $@
+	@echo 'LCONF_VERSION = "4"' >> $@
+	@echo 'BBFILES = ""' >> $@
+	@echo 'BBLAYERS = "$(BBLAYERS)"' >> $@
+	@echo 'include $(DISTRO_INCLUDE_CONF)' >> $@
+	@echo 'include $(MACHINE_INCLUDE_CONF)' >> $@
+
+$(CONFDEPS):
+	@test -d $(@D) || mkdir -p $(@D)
+	@$(RM) $(basename $@).*
+	@touch $@
