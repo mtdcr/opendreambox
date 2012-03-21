@@ -1,6 +1,17 @@
---- gst-plugins-bad-0.10.20-org/gst/mpegdemux/gstmpegtsdemux.c	2010-12-24 10:51:18.592735708 +0100
-+++ gst-plugins-bad-0.10.20/gst/mpegdemux/gstmpegtsdemux.c	2010-12-24 11:39:52.360746518 +0100
-@@ -612,6 +612,18 @@
+From 55091d9a55ad100b99638503da038432549632f8 Mon Sep 17 00:00:00 2001
+From: Andreas Oberritter <obi@opendreambox.org>
+Date: Wed, 21 Mar 2012 15:45:17 +0100
+Subject: [PATCH 1/3] mpegtsdemux-fix-bd-streamtype-detection.diff
+
+---
+ gst/mpegdemux/gstmpegtsdemux.c |  134 +++++++++++++++++++++++----------------
+ 1 files changed, 79 insertions(+), 55 deletions(-)
+
+diff --git a/gst/mpegdemux/gstmpegtsdemux.c b/gst/mpegdemux/gstmpegtsdemux.c
+index 012c1cc..fffc50f 100644
+--- a/gst/mpegdemux/gstmpegtsdemux.c
++++ b/gst/mpegdemux/gstmpegtsdemux.c
+@@ -647,6 +647,18 @@ gst_mpegts_demux_get_stream_for_PID (GstMpegTSDemux * demux, guint16 PID)
  }
  
  static gboolean
@@ -19,7 +30,7 @@
  gst_mpegts_demux_fill_stream (GstMpegTSStream * stream, guint8 id,
      guint8 stream_type)
  {
-@@ -620,6 +632,8 @@
+@@ -655,6 +667,8 @@ gst_mpegts_demux_fill_stream (GstMpegTSStream * stream, guint8 id,
    GstMpegTSDemuxClass *klass;
    GstMpegTSDemux *demux;
    GstCaps *caps;
@@ -28,7 +39,7 @@
  
    if (stream->stream_type && stream->stream_type != stream_type)
      goto wrong_type;
-@@ -631,6 +645,31 @@
+@@ -666,6 +680,31 @@ gst_mpegts_demux_fill_stream (GstMpegTSStream * stream, guint8 id,
    template = NULL;
    caps = NULL;
  
@@ -60,27 +71,7 @@
    switch (stream_type) {
      case ST_VIDEO_MPEG1:
      case ST_VIDEO_MPEG2:
-@@ -650,7 +689,8 @@
-     case ST_PRIVATE_DATA:
-       /* check if there is an AC3 descriptor associated with this stream
-        * from the PMT */
--      if (gst_mpeg_descriptor_find (stream->ES_info, DESC_DVB_AC3)) {
-+      if (gst_mpeg_descriptor_find (stream->ES_info,
-+              DESC_DVB_AC3)) {
-         template = klass->audio_template;
-         name = g_strdup_printf ("audio_%04x", stream->PID);
-         caps = gst_caps_new_simple ("audio/x-ac3", NULL);
-@@ -659,7 +699,8 @@
-         template = klass->private_template;
-         name = g_strdup_printf ("audio_%04x", stream->PID);
-         caps = gst_caps_new_simple ("audio/x-eac3", NULL);
--      } else if (gst_mpeg_descriptor_find (stream->ES_info, DESC_DVB_TELETEXT)) {
-+      } else if (gst_mpeg_descriptor_find (stream->ES_info,
-+              DESC_DVB_TELETEXT)) {
-         template = klass->private_template;
-         name = g_strdup_printf ("private_%04x", stream->PID);
-         caps = gst_caps_new_simple ("private/teletext", NULL);
-@@ -711,13 +752,10 @@
+@@ -756,11 +795,8 @@ gst_mpegts_demux_fill_stream (GstMpegTSStream * stream, guint8 id,
        break;
      case ST_PRIVATE_EA:        /* Try to detect a VC1 stream */
      {
@@ -92,12 +83,9 @@
 +      if (!(stream_desc_reg_array &&
 +          gst_mpeg_desc_reg_format_id_in_array(stream_desc_reg_array, DRF_ID_VC1))) {
          GST_WARNING ("0xea private stream type found but no descriptor "
--            "for VC1. Assuming plain VC1.");
-+                "for VC1. Assuming plain VC1.");
+             "for VC1. Assuming plain VC1.");
        }
-       template = klass->video_template;
-       name = g_strdup_printf ("video_%04x", stream->PID);
-@@ -727,47 +765,7 @@
+@@ -772,47 +808,7 @@ gst_mpegts_demux_fill_stream (GstMpegTSStream * stream, guint8 id,
            NULL);
        break;
      }
@@ -145,7 +133,7 @@
        template = klass->audio_template;
        name = g_strdup_printf ("audio_%04x", stream->PID);
        caps = gst_caps_new_simple ("audio/x-dts", NULL);
-@@ -777,24 +775,52 @@
+@@ -822,24 +818,52 @@ gst_mpegts_demux_fill_stream (GstMpegTSStream * stream, guint8 id,
        name = g_strdup_printf ("audio_%04x", stream->PID);
        caps = gst_caps_new_simple ("audio/x-lpcm", NULL);
        break;
@@ -205,6 +193,9 @@
 +  if (stream_desc_reg_array)
 +    g_array_free(stream_desc_reg_array, TRUE);
 +
-   if (name == NULL || template == NULL || caps == NULL)
-     return FALSE;
- 
+   if (name == NULL || template == NULL || caps == NULL) {
+     if (name)
+       g_free (name);
+-- 
+1.7.5.4
+

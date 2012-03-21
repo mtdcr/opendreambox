@@ -1,4 +1,4 @@
-PR .= "-dream3"
+PR .= "-dream1"
 
 SRC_URI += "file://dropbear.xinetd.in"
 

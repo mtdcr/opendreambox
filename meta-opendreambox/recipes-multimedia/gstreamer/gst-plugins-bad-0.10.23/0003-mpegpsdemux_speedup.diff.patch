@@ -1,7 +1,18 @@
-Upstream: pending
---- gst/mpegdemux/gstmpegdemux.c	2009-08-11 00:50:05.000000000 +0200
-+++ gst/mpegdemux/gstmpegdemux.c	2009-09-10 11:31:04.000000000 +0200
-@@ -310,7 +309,10 @@
+From 9fce0ed5dd37daa6d98d0a4aaed05faafb2e6771 Mon Sep 17 00:00:00 2001
+From: Andreas Oberritter <obi@opendreambox.org>
+Date: Wed, 21 Mar 2012 15:55:42 +0100
+Subject: [PATCH 3/3] mpegpsdemux_speedup.diff
+
+---
+ gst/mpegdemux/gstmpegdemux.c |   52 +++++++++++++++++++++++++++++++++++++-----
+ gst/mpegdemux/gstmpegdemux.h |    4 +++
+ 2 files changed, 50 insertions(+), 6 deletions(-)
+
+diff --git a/gst/mpegdemux/gstmpegdemux.c b/gst/mpegdemux/gstmpegdemux.c
+index 8359285..35a7ee9 100644
+--- a/gst/mpegdemux/gstmpegdemux.c
++++ b/gst/mpegdemux/gstmpegdemux.c
+@@ -285,7 +285,10 @@ gst_flups_demux_reset (GstFluPSDemux * demux)
      if (stream != NULL) {
        if (stream->pad)
          gst_element_remove_pad (GST_ELEMENT_CAST (demux), stream->pad);
@@ -13,7 +24,7 @@ Upstream: pending
        g_free (stream);
        demux->streams[i] = NULL;
      }
-@@ -427,6 +429,15 @@
+@@ -415,6 +418,15 @@ gst_flups_demux_create_stream (GstFluPSDemux * demux, gint id, gint stream_type)
    stream->type = stream_type;
    stream->pad = gst_pad_new_from_template (template, name);
    stream->segment_thresh = threshold;
@@ -29,7 +40,7 @@ Upstream: pending
    gst_pad_set_event_function (stream->pad,
        GST_DEBUG_FUNCPTR (gst_flups_demux_src_event));
    gst_pad_set_query_function (stream->pad,
-@@ -478,6 +488,7 @@
+@@ -466,6 +478,7 @@ gst_flups_demux_send_data (GstFluPSDemux * demux, GstFluPSStream * stream,
    GstFlowReturn result;
    guint64 timestamp;
    guint size;
@@ -37,7 +48,7 @@ Upstream: pending
  
    if (stream == NULL)
      goto no_stream;
-@@ -580,11 +591,38 @@
+@@ -568,11 +581,38 @@ gst_flups_demux_send_data (GstFluPSDemux * demux, GstFluPSStream * stream,
    demux->next_pts = G_MAXUINT64;
    demux->next_dts = G_MAXUINT64;
  
@@ -81,9 +92,11 @@ Upstream: pending
  
    return result;
  
---- gst/mpegdemux/gstmpegdemux.h	2009-08-11 00:50:05.000000000 +0200
-+++ gst/mpegdemux/gstmpegdemux.h	2009-09-10 11:27:46.000000000 +0200
-@@ -93,6 +93,10 @@
+diff --git a/gst/mpegdemux/gstmpegdemux.h b/gst/mpegdemux/gstmpegdemux.h
+index 6cf7aed..5977578 100644
+--- a/gst/mpegdemux/gstmpegdemux.h
++++ b/gst/mpegdemux/gstmpegdemux.h
+@@ -92,6 +92,10 @@ struct _GstFluPSStream
    gboolean discont;
    gboolean notlinked;
    gboolean need_segment;
@@ -94,3 +107,6 @@ Upstream: pending
  };
  
  struct _GstFluPSDemux
+-- 
+1.7.5.4
+
