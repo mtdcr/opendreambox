@@ -36,7 +36,6 @@ opendreambox
     6.1 Cross-compilation of external software
     6.2 Coding style
     6.3 Package architecture
-    6.4 Kernel versions
    7 Bug reports and patches
 
   1 Introduction
@@ -130,18 +129,25 @@ opendreambox
      * meta-bsp/common
      * meta-bsp/${MACHINE}
 
-   If a recipe for the same version of a package exists in multiple layers, then
-   the higher priority layer takes precedence over the lower priority layer.
+   If a recipe for the same package exists in multiple layers, then the higher
+   priority layer takes precedence over the lower priority layer.
 
    For example, libmad_0.15.1b.bb exists in both meta-openembedded and
    openembedded-core. The recipe in meta-openembedded will be used, because
    openembedded-core has lower priority.
 
+   NOTE: This would still be true even if the version of libmad in
+   openembeded-core was higher than the version in meta-openembedded, unless
+   PREFERRED_VERSION_libmad was set to the version in openembedded-core. There is
+   currently no way to prefer a version of a lower priority layer, if the same
+   version is present in a higher priority layer.
+
       1.6.1 openembedded-core and meta-openembedded
 
-   These directories are copies of Git repositories at git.openembedded.org, i.e.
-   the OpenEmbedded Core layer and the OpenEmbedded meta layer. The get created
-   automatically when building the distribution for the first time.
+   These directories contain copies of Git repositories from git.openembedded.org,
+   including the OpenEmbedded Core layer ("meta") and the OpenEmbedded layer
+   ("meta-oe"). They get created automatically when building the distribution for
+   the first time.
 
    Throughout this document, the combination of these directories will be referred
    to as OpenEmbedded.
@@ -162,7 +168,7 @@ opendreambox
      * Machine specific overrides
      * The Linux kernel
      * The boot loader
-     * Splash images for display at startup
+     * Splash images
 
   2 Prerequisites
 
@@ -191,10 +197,11 @@ opendreambox
 
     3.1 Changes since release 1.6
 
-     * The recipes were split into multiple layers.
-     * Instead of env.source, a file is generated for bitbake (bitbake.env) and
-       every compiler (compiler-mipsel.env and compiler-mipsel-nf.env). You can
-       use the same bitbake.env for all machines.
+     * Recipes were split across multiple layers and categorized.
+     * env.source has been replaced by two files, bitbake.env and
+       cross-compile.env. The former sets a minimal environment that is needed to
+       execute bitbake. The latter creates machine-specific command aliases, in
+       order to compile external software.
      * All machines share a common tmp directory.
      * ${MACHINE}/build directories were renamed to build/${MACHINE}.
      * Kernel packages were renamed from linux-${MACHINE} to linux-dreambox.
@@ -202,12 +209,14 @@ opendreambox
 
   4 Known Bugs
 
+   None.
+
   5 Building OpenDreambox
 
    In the top level directory, there is a Makefile, which is used to set up build
    directories and to fetch or update all used repositories. The Makefile can be
    influenced by environment variables, either by specifing them on the
-   command-line or by storing them in a file called build.conf. It is not
+   command-line or by storing them in a file called conf/make.conf. It is not
    recommended to edit the Makefile directly in order to avoid conflicts with
    future updates.
 
@@ -215,8 +224,7 @@ opendreambox
    executed:
      * Creation of configuration files
           * bitbake.env
-          * compiler-mipsel.env
-          * compiler-mipsel-nf.env
+          * conf/opendreambox.conf
           * build/${MACHINE}/conf/bblayers.conf
           * build/${MACHINE}/conf/local.conf
      * Update or checkout of Git repositories
@@ -244,11 +252,11 @@ opendreambox
 
       5.2.3 PARALLEL_MAKE
 
-   Controls how many processes per recipe make may use. Defaults to -j1, which
-   means 1 process per recipe. Increasing this value speeds up the build, but not
-   all recipes are safe to build with that options.
+   Controls how many processes per recipe make may use. Defaults to the number of
+   cores available on the build system. The number of cores is obtained from
+   /proc/cpuinfo. If this file is unavailable, the default value is 1.
 
-   Don't change this option unless you know what you're doing.
+   Don't increase this option unless you know what you're doing.
 
       5.2.4 RM_WORK
 
@@ -261,50 +269,38 @@ opendreambox
 
     5.3 Adding custom layers
 
+   It is possible to add custom layers to the configuration. This can be done
+   globally and per machine. To add a layer globally, edit conf/bblayers-ext.conf.
+   To add a machine-specific layer, edit conf/bblayers-${MACHINE}-ext.conf.
    Assuming that an additional layer is available at /home/username/custom-layer,
-   you can enable that layer by appending a single line to machine-specific
-   configuration files.
-
-   File build/${MACHINE}/conf/bblayers.conf:
+   the entry to add to the file will look like this:
 
    BBLAYERS =+ "/home/username/custom-layer"
 
-   In order to append custom lines automatically when make generates
-   bblayers.conf, you may add them to bblayers.conf.append inside the root
-   directory of OpenDreambox. Note that an existing bblayers.conf won't get
-   overwritten automatically, after bblayers.conf.append was modified. To delete
-   generated configuration files, you may run make clean.
-
     5.4 Adding custom options
 
-   It is possible to tweak a lot more options than those used by the Makefile, by
-   editing local.conf.
+   It is possible to tweak a lot more options than those used by the Makefile by
+   editing conf/local-ext.conf or conf/local-${MACHINE}-ext.conf.
 
    For example, if the firmware shall use the package feed built on the develoment
    machine, which happens to be 192.168.1.1 and has a webserver configured to
-   point to tmp/deploy/ipk, a line like the following may be added to local.conf:
+   point to tmp/deploy/ipk, a line like the following may be added:
 
    DISTRO_FEED_URI = "http://192.168.1.1/${DISTRO}/${DISTRO_VERSION}"
 
    In general, any variable in OpenEmbedded that uses weak assignment (?=) may be
-   overridden from local.conf.
-
-   In order to append custom lines automatically when make generates local.conf,
-   you may add them to local.conf.append inside the root directory of
-   OpenDreambox. Note that an existing local.conf won't get overwritten
-   automatically, after local.conf.append was modified. To delete generated
-   configuration files, you may run make clean.
+   overridden from those files.
 
     5.5 Setting up a build directory
 
    To set up a build directory for e.g. DM 500 HD run make MACHINE=dm500hd. If
-   MACHINE=dm500hd has been set in build.conf, you can simply run make with no
+   MACHINE=dm500hd has been set in conf/make.conf, you can simply run make with no
    arguments instead. This will create and initialize the directory build/dm500hd.
 
     5.6 Building a firmware image
 
    To build a firmware image for e.g. DM 500 HD run make MACHINE=dm500hd image. If
-   MACHINE=dm500hd has been set in build.conf, you can simply run make image
+   MACHINE=dm500hd has been set in conf/make.conf, you can simply run make image
    instead.
 
     5.7 Building a package
@@ -314,8 +310,6 @@ opendreambox
    This can be done with the following command:
 
    source bitbake.env
-
-   This way, bitbake.env may set environment variables.
 
    BitBake must be run from the machine's build directory. For DM 500 HD run:
 
@@ -362,18 +356,6 @@ opendreambox
    Set PACKAGE_ARCH = "${MACHINE_ARCH}" if either condition is met:
      * The recipe uses COMBINED_FEATURES, MACHINE_FEATURES or DREAMBOX_FEATURES.
      * The recipe is part of meta-bsp.
-
-    6.4 Kernel versions
-
-   When switching kernel versions, run the following commands:
-
-   bitbake -cclean cdfs dreambox-dvb-modules linux-dreambox madwifi-ng \
-
-    task-opendreambox-essential task-opendreambox-base \
-
-    task-boot task-opendreambox-wlan v4l-dvb-modules
-
-   rm ../../tmp/cache/${MACHINE}/bb_*
 
   7 Bug reports and patches
 
