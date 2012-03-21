@@ -82,7 +82,7 @@ hash = $(shell echo "$(1)" | md5sum | awk '{print $$1}')
 all: init usage
 
 $(BBLAYERS):
-	[ -d $@ ] || $(MAKE) $(MAKEFLAGS) update
+	[ -d $@ ] || $(MAKE) $(MFLAGS) update
 
 init: $(BBLAYERS) $(CONFFILES)
 
@@ -145,7 +145,7 @@ usage:
 clean:
 	@echo '[*] Deleting generated configuration files'
 	@$(RM) $(CONFFILES) $(CONFDEPS)
-	@$(MAKE) $(MAKEFLAGS) -C doc clean
+	@$(MAKE) $(MFLAGS) -C doc clean
 
 distclean: clean
 	@echo '[*] Deleting dependencies directory'
@@ -162,7 +162,7 @@ distclean: clean
 	@$(GIT) submodule foreach 'rm -rf .* * 2>/dev/null || true'
 
 doc:
-	@$(MAKE) $(MAKEFLAGS) -C doc
+	@$(MAKE) $(MFLAGS) -C doc
 
 image: init
 	@echo '[*] Building image'
