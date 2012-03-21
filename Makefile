@@ -197,7 +197,7 @@ bitbake.env: $(DEPDIR)/.bitbake.env.$(BITBAKE_ENV_HASH)
 	@echo 'export PATH=$(CURDIR)/openembedded-core/scripts:$(CURDIR)/bitbake/bin:$${PATH}' >> $@
 
 OPENDREAMBOX_CONF_HASH = $(call hash, \
-	OPENDREAMBOX_CONF_VERSION=0 \
+	OPENDREAMBOX_CONF_VERSION=1 \
 	CURDIR=$(CURDIR) \
 	BB_NUMBER_THREADS=$(BB_NUMBER_THREADS) \
 	PARALLEL_MAKE=$(PARALLEL_MAKE) \
@@ -223,7 +223,6 @@ conf/opendreambox.conf: $(DEPDIR)/.opendreambox.conf.$(OPENDREAMBOX_CONF_HASH)
 	@echo 'DISTRO = "opendreambox"' >> $@
 	@echo 'EXTRA_IMAGE_FEATURES = "debug-tweaks"' >> $@
 	@echo 'USER_CLASSES = "buildstats"' >> $@
-	@echo 'include $(DISTRO_INCLUDE_CONF)' >> $@
 
 LOCAL_CONF_HASH = $(call hash, \
 	LOCAL_CONF_VERSION=0 \
