@@ -45,6 +45,8 @@ PARALLEL_MAKE ?= -j $(NR_CPU)
 # Remove work directories after successful builds
 RM_WORK ?= yes
 
+XSUM ?= md5sum
+
 BUILD_DIR = $(CURDIR)/build
 TOPDIR = $(BUILD_DIR)/$(MACHINE)
 DL_DIR = $(CURDIR)/sources
@@ -76,7 +78,7 @@ GIT_REMOTE := $(shell $(GIT) remote)
 GIT_USER_NAME := $(shell $(GIT) config user.name)
 GIT_USER_EMAIL := $(shell $(GIT) config user.email)
 
-hash = $(shell echo "$(1)" | md5sum | awk '{print $$1}')
+hash = $(shell echo "$(1)" | $(XSUM) | awk '{print $$1}')
 
 .DEFAULT_GOAL := all
 all: init usage
