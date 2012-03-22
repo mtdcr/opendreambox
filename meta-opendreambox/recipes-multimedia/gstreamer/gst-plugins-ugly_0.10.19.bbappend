@@ -1,8 +1,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${P}:"
 
-PR .= "-dream1"
-
-DEPENDS += "orc"
+PR .= "-dream2"
 
 EXTRA_OECONF += "--with-plugins="
 

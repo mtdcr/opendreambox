@@ -1,8 +1,8 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${P}:"
 
-PR .= "-dream1"
+PR .= "-dream2"
 
-DEPENDS += "cdparanoia orc"
+DEPENDS += "cdparanoia orc orc-native"
 
 SRC_URI += " \
         file://samihack.patch \
