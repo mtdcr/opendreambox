@@ -1,6 +1,7 @@
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e943a2b66bda2bf828e561a3e6c7ecfc"
 DEPENDS = " \
         dreambox-dvbincludes \
+        ethtool \
         freetype \
         giflib \
         gstreamer \

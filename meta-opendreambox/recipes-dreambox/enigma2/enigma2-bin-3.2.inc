@@ -1,5 +1,5 @@
-DEPENDS = "freetype gstreamer libdreamdvd libfribidi libpng libsigc++-1.2 libxml2 libxmlccwrap openssl"
-INC_PR = "r3"
+DEPENDS = "ethtool freetype gstreamer libdreamdvd libfribidi libpng libsigc++-1.2 libxml2 libxmlccwrap openssl"
+INC_PR = "r4"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
