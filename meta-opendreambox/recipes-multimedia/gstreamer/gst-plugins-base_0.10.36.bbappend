@@ -1,9 +1,5 @@
 DEPENDS += "cdparanoia orc orc-native"
-PR .= "-dream1"
-
-SRC_URI += " \
-        file://samihack.patch \
-"
+PR .= "-dream2"
 
 EXTRA_OECONF += "--enable-orc"
 
