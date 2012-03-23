@@ -9,6 +9,16 @@
 # On most distributions, this file should be called:
 # /etc/rc.d/init.d/autofs or /etc/init.d/autofs
 #
+### BEGIN INIT INFO
+# Provides:            autofs
+# Required-Start:      $local_fs
+# Required-Stop:       $local_fs
+# Default-Start:       2 3 4 5
+# Default-Stop:                0 1 6
+# Short-Description:   automount daemon
+# Description:         daemon to mount (possibly remote) filesystems
+#                      automatically upon entering the mountpoint
+### END INIT INFO
 
 # For Redhat-ish systems
 #
@@ -39,7 +49,21 @@ test -e $DAEMON || exit 0
 # Determine which kind of configuration we're using
 #
 system=debian
+if [ -f /etc/redhat-release ]; then
+	system=redhat
+fi
 
+if [ $system = redhat ]; then
+	. $initdir/functions
+fi
+
+if [ $system = debian ]; then
+	thisscript="$0"
+	if [ ! -f "$thisscript" ]; then
+		echo "$0: Cannot find myself" 1>&2
+		exit 1
+	fi
+fi
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 export PATH
@@ -50,17 +74,42 @@ export PATH
 #
 localoptions=''
 
-daemonoptions='--ghost '
+#
+# Daemon options
+# e.g. --timeout=60
+#
+daemonoptions=''
 
 #
 # load custom settings
 #
-TIMEOUT=5
-DISABLE_DIRECT=1
-DAEMON_EXIT_WAIT=20
+if [ "$system" = "redhat" ]; then
+	LOCALOPTIONS=""
+	DAEMONOPTIONS=""
+	UNDERSCORETODOT=1
+	DISABLE_DIRECT=1
+	DAEMON_EXIT_WAIT=20
 
-daemonoptions="$daemonoptions --timeout=$TIMEOUT"
+	[ -f /etc/sysconfig/autofs ] && . /etc/sysconfig/autofs
 
+	# Over-ride localoptions if set
+	if [ -n "$LOCALOPTIONS" ]; then
+		localoptions=$LOCALOPTIONS
+	fi
+
+	# Over-ride daemonoptions if set
+	if [ -n "$DAEMONOPTIONS" ]; then
+		daemonoptions=$DAEMONOPTIONS
+	fi
+elif [ "$system" = "debian" ]; then
+	TIMEOUT=300
+	DISABLE_DIRECT=1
+	DAEMON_EXIT_WAIT=20
+
+	[ -f /etc/default/autofs ] && . /etc/default/autofs
+
+	daemonoptions="$daemonoptions --timeout=$TIMEOUT"
+fi
 
 #
 # Check for all maps that are to be loaded
@@ -85,7 +134,17 @@ catnismap()
     else
         map="$1"
     fi
-    /usr/bin/ypcat -k "$map" 2> /dev/null | sed -e '/^#/d' -e '/^$/d'
+
+    # Append the map's options at the _start_ if there are any options already
+    # (ie. myopt -> $2,myopt), otherwise just append them at the end.
+    if [ -z "$2" ]; then
+        /usr/bin/ypcat -k "$map" 2> /dev/null | sed -e '/^#/d' -e '/^$/d'
+    else
+        /usr/bin/ypcat -k "$map" 2> /dev/null |
+        sed -e '/^#/d' -e '/^$/d' \
+            -e "s/^[ \t]*\([^ \t]\+\)[ \t]\+\([^ \t]\+\)[ \t]\+-\([^ \t]\+\)/\1 \2 $2,\3/" \
+            -e "s/^[ \t]*\([^ \t]\+\)[ \t]\+\([^ \t]\+\)[ \t]*$/\1 \2 $2/"
+    fi    
 }
 
 getfilemounts()
@@ -94,13 +153,14 @@ getfilemounts()
         cat /etc/auto.master | awk '{print $0}' | sed -e '/^#/d' -e '/^$/d' | (
         while read auto_master_in
         do
-            if [ "`echo $auto_master_in | grep '^+'`" = "" ]; then
+            if [ "`echo $auto_master_in | grep '^\+'`" = "" ]; then
                 echo $auto_master_in
             else
-                for nismap in `cat /etc/auto.master | grep '^\+' |
-                        sed -e '/^#/d' -e '/^$/d'`; do
-                    catnismap `echo "$nismap" | sed -e 's/^\+//'`
-                done
+                cat /etc/auto.master | grep '^\+' | sed -e '/^#/d' -e '/^$/d' | (
+                    while read map options; do
+                        catnismap `echo "$map" | sed -e 's/^\+//'` $options
+                    done
+                )
             fi
         done
         )
@@ -120,7 +180,11 @@ getnismounts()
 getldapmounts()
 {
     if [ -x /usr/lib/autofs/autofs-ldap-auto-master ]; then
+	[ ! -z $LDAPURI ] && export LDAPURI="$LDAPURI"
+	[ ! -z $LDAPBASE ] && export LDAPBASE="$LDAPBASE"
         /usr/lib/autofs/autofs-ldap-auto-master 2> /dev/null
+	/usr/lib/autofs/autofs-ldap-auto-master -m automountMap \
+	    -e automount -n ou -k cn -v automountInformation 2> /dev/null
     fi
 }
 
@@ -183,6 +247,13 @@ getmounts()
 			-a x`echo $dir | grep -E "^/-"` != 'x' ]
 	    then
 		continue
+	    fi
+
+	    # If possible, canonicalise the path so it will always unmount
+	    # cleanly.
+	    link=`readlink -f "$dir"`
+	    if [ ! -z "$link" ]; then
+		    dir="$link"
 	    fi
 
 	    # Do not include a map if it is a duplicate, maps on top of
@@ -253,7 +324,7 @@ getmounts()
 		maptype=`echo $map | cut -f1 -d:`
 		# Handle degenerate map specifiers
 		if [ "$maptype" = "$map" ] ; then
-		    if [ "$map" = "hesiod" -o "$map" = "userhome" ] ; then
+		    if [ "$map" = "hesiod" -o "$map" = "userhome" -o "$map" = "ldap" ] ; then
 			maptype=$map
 			map=
 		    elif [ "$map" = "multi" ] ; then
@@ -262,7 +333,7 @@ getmounts()
 #		    elif echo "$map" | grep -q '^!'; then
 #		        map=`echo "$map"| sed -e 's/^!//g'`
 		    elif `echo $map | grep -q "^/"` && [ -x "$map" ]; then
-			maptype=file
+			maptype=program
 		    elif [ -x "/etc/$map" ]; then
 			maptype=program
 			map=`echo /etc/$map | sed 's^//^/^g'`
@@ -445,24 +516,116 @@ umount_loopback()
     done
 }
 
-stop() {
-	echo -n $"Stopping $prog: "
-	count=0
-	while [ -n "`pidof $DAEMON`" -a $count -lt 15 ] ; do
-		killall -TERM $prog >& /dev/null
-		RETVAL=$?
-		[ $RETVAL = 0 -a -z "`pidof $DAEMON`" ] || sleep 3
-		count=`expr $count + 1`
-	done
-	if [ -n "`pidof $DAEMON`" ] ; then
-		echo "done."
+#
+# Redhat start/stop function.
+#
+redhat()
+{
+
+#
+# See how we were called.
+#
+case "$1" in
+  start)
+        # Make sure the autofs filesystem type is available.
+        (grep -q autofs /proc/filesystems || /sbin/modprobe -k autofs4 || /sbin/modprobe -k autofs) 2> /dev/null
+        echo -n $"Starting $prog: "
+        TMP=`mktemp /tmp/autofs.XXXXXX` || { echo $"could not make temp file" >& 2; exit 1; }
+        getmounts | tee $TMP | sh
+        RETVAL=$?
+	if [ -s $TMP ] ; then
+	    if [ $RETVAL -eq 0 ] ; then
+		success "$prog startup"
+	    else
+		failure "$prog startup"
+	    fi
+	    [ $RETVAL = 0 ] && touch /var/lock/subsys/autofs
 	else
-		echo "failed."
+	    echo -n $"No Mountpoints Defined"
+	    success "$prog startup"
 	fi
-	return $RETVAL
+	rm -f $TMP
+	echo
+	;;
+  stop)
+	echo -n $"Stopping $prog:"
+	if [ -z "`pidofproc $prog`" -a -z "`getmounts`" ]; then
+		RETVAL=0
+	else
+		umount_loopback
+		signal_automounts
+		RETVAL=$?
+	fi
+	count=0
+	while [ -n "`/sbin/pidof $DAEMON`" -a $count -lt 10 ] ; do
+	   killproc $DAEMON -USR2 >& /dev/null
+	   RETVAL=$?
+	   [ $RETVAL = 0 -a -z "`/sbin/pidof $DAEMON`" ] || sleep 3
+	   count=`expr $count + 1`
+	done
+	umount -a -f -t autofs
+	rm -f /var/lock/subsys/autofs
+	if [ -n "`/sbin/pidof $DAEMON`" ] ; then
+	    failure "$prog shutdown"
+	else
+	    success "$prog shutdown"
+	fi
+	echo
+	;;
+  restart)
+	redhat stop
+	redhat start
+	;;
+  reload)
+	if [ ! -f /var/lock/subsys/autofs ]; then
+		echo $"$prog not running"
+		RETVAL=1
+		return
+	fi
+	echo $"Checking for changes to /etc/auto.master ...."
+        TMP1=`mktemp /tmp/autofs.XXXXXX` || { echo $"could not make temp file" >& 2; exit 1; }
+        TMP2=`mktemp /tmp/autofs.XXXXXX` || { echo $"could not make temp file" >& 2; exit 1; }
+	getmounts >$TMP1
+	ps axwww|grep "[0-9]:[0-9][0-9] $DAEMON " | (
+	    while read pid tt stat time command; do
+		echo "$command" >>$TMP2
+		if ! grep -q "^$command" $TMP1; then
+		    if ! echo "$command" | grep -q -e --submount; then
+			kill -USR2 $pid 2> /dev/null
+			echo $"Stop $command"
+		    fi
+		else
+			kill -HUP $pid 2> /dev/null
+			echo $"Reload map $command"
+		fi
+	    done
+	)
+	cat $TMP1 | ( while read x; do
+		if ! grep -q "^$x" $TMP2; then
+			$x
+			echo $"Start $x"
+		fi
+        done )
+	rm -f $TMP1 $TMP2
+	;;
+  status)
+	status
+	;;
+  condrestart)
+	[ -f /var/lock/subsys/autofs ] && redhat restart
+        RETVAL=0
+	;;
+  *)
+	echo $"Usage: $0 {start|stop|restart|reload|condrestart|status}"
+	RETVAL=0
+esac
 }
 
-
+#
+# Debian start/stop functions.
+#
+debian()
+{
 
 case "$1" in
 start)
@@ -486,6 +649,12 @@ start)
 	then
 		echo " no automount maps defined."
 		exit 0
+	fi
+
+	# ensure pid file directory exists
+	if [ ! -e /var/run/autofs ]
+	then
+		mkdir /var/run/autofs
 	fi
 
 	getmounts | while read cmd rest
@@ -523,9 +692,12 @@ stop)
 			  's,.* --pid-file=/var/run/autofs/\([^ ]*\)\.pid.*,\1,; s,_,/,g'`
 			dname=`basename $DAEMON`
 
-			start-stop-daemon --stop --quiet --pidfile $file --name $dname
+			start-stop-daemon --stop --quiet \
+					--retry USR2/$DAEMON_EXIT_WAIT \
+					--pidfile $file --name $dname
 
 			ret=$?
+
 			case $ret in
 			0)
 #				echo -n " $mnt"
@@ -551,8 +723,8 @@ stop)
 reload)
 	echo "Reloading automounter: checking for changes ... "
 
-	TMP1=`mktemp autofs.XXXXXX`
-	TMP2=`mktemp autofs.XXXXXX`
+	TMP1=`mktemp -t autofs.XXXXXX`
+	TMP2=`mktemp -t autofs.XXXXXX`
 
 	getmounts >$TMP1
 
@@ -602,8 +774,8 @@ reload)
 	rm -f $TMP1 $TMP2
 	;;
 force-reload|restart)
-	stop
-	start
+	debian stop
+	debian start
 	;;
 status)
 	status
@@ -619,6 +791,13 @@ active)
 	exit 1
 	;;
 esac
+}
 
-exit 0
+RETVAL=0
+if [ $system = debian ]; then
+	debian "$@"
+elif [ $system = redhat ]; then
+	redhat "$@"
+fi
 
+exit $RETVAL

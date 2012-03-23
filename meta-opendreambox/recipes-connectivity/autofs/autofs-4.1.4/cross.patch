@@ -1,17 +1,21 @@
---- autofs-4.1.4/aclocal.m4.original	2005-05-20 11:41:34 +0200
-+++ autofs-4.1.4/aclocal.m4	2005-05-20 11:41:47 +0200
-@@ -9,6 +9,8 @@
+Index: autofs-4.1.4/aclocal.m4
+===================================================================
+--- autofs-4.1.4.orig/aclocal.m4
++++ autofs-4.1.4/aclocal.m4
+@@ -9,6 +9,8 @@ dnl ------------------------------------
  AC_DEFUN(AF_PATH_INCLUDE,
  [AC_PATH_PROGS($1,$2,$3,$4)
  if test -n "$$1"; then
 +  AH_TEMPLATE([HAVE_$1], [Have $2])
 +  AH_TEMPLATE([PATH_$1], [Have $2])
-   AC_DEFINE(HAVE_$1)
-   AC_DEFINE_UNQUOTED(PATH_$1, "$$1")
+   AC_DEFINE(HAVE_$1,1,[define if you have $1])
+   AC_DEFINE_UNQUOTED(PATH_$1, "$$1", [define if you have $1])
    HAVE_$1=1
---- autofs-4.1.4/configure.in.original	2005-04-06 17:24:37 +0200
-+++ autofs-4.1.4/configure.in	2005-05-20 11:40:46 +0200
-@@ -134,12 +134,14 @@
+Index: autofs-4.1.4/configure.in
+===================================================================
+--- autofs-4.1.4.orig/configure.in
++++ autofs-4.1.4/configure.in
+@@ -135,12 +135,14 @@ AC_PROG_CC
  cat > pietest.c <<EOF
  int main(void) { return 0; }
  EOF
@@ -27,7 +31,7 @@
  	      [gcc_supports_pie=yes], [gcc_supports_pie=no])
  AC_MSG_RESULT([$gcc_supports_pie])
  if test $gcc_supports_pie = yes ; then
-@@ -149,6 +151,8 @@
+@@ -150,6 +152,8 @@ fi
  rm -f pietest.c
  AC_SUBST(DAEMON_CFLAGS)
  AC_SUBST(DAEMON_LDFLAGS)
