@@ -1,24 +1,20 @@
-# Bitbake recipe for the madwifi-ng driver
-
-require madwifi-ng_r.inc
-
-# PR set after the include, to override what's set in the included file.
-PR = "${INC_PR}.5"
+SRCREV = "30414"
+PR = "${INC_PR}.0"
 
 # versions of OpenWrt backfire (10.03)
 HAL_VERSION = "20090508"
-SRCREV = "20550"
+
+require madwifi-ng_r.inc
 
 SRC_URI += " \
         svn://svn.openwrt.org/openwrt/trunk/package/madwifi;module=patches \
         http://mirror2.openwrt.org/sources/ath_hal-${HAL_VERSION}.tgz;name=hal \
         file://fix-target-mips32.patch \
         file://remove-wprobe.patch;apply=no \
-        file://fix-build-2.6.39.patch;apply=no \
-        file://fix-build-3.x.patch;apply=no \
         file://fix-module-autoload.patch;apply=no \
         file://fix-build-3.1.patch;apply=no \
         file://fix-build-3.2.patch;apply=no \
+        file://ath-rate-ctlname.patch;apply=no \
         "
 SRC_URI[md5sum] = "2c7352cbbdac995de8c3bce5b80db5f2"
 SRC_URI[sha256sum] = "0599c75b95ba63bdc554cb8124192e62c75fbeb71b9e8a5a7bc351c8e0666758"
@@ -32,14 +28,13 @@ do_postpatch() {
         cp -a ${WORKDIR}/ath_hal-${HAL_VERSION} hal
         rm -f ${WORKDIR}/patches/104-autocreate_none.patch
         rm -f ${WORKDIR}/patches/446-single_module.patch
+        rm -f ${WORKDIR}/patches/470-mac_addresss_from_ath5k_platform_data.patch
         for i in ${WORKDIR}/patches/*.patch; do
-                oenote "Applying openwrt patch '$i'"
                 patch -p1 -i $i
         done
         patch -p1 -i ${WORKDIR}/remove-wprobe.patch
-        patch -p1 -i ${WORKDIR}/fix-build-2.6.39.patch
-        patch -p1 -i ${WORKDIR}/fix-build-3.x.patch
         patch -p1 -i ${WORKDIR}/fix-module-autoload.patch
         patch -p1 -i ${WORKDIR}/fix-build-3.1.patch
         patch -p1 -i ${WORKDIR}/fix-build-3.2.patch
+        patch -p1 -i ${WORKDIR}/ath-rate-ctlname.patch
 }
