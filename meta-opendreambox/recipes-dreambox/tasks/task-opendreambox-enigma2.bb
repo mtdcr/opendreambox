@@ -2,7 +2,7 @@ DESCRIPTION = "OpenDreambox: Enigma2 Task for the OpenDreambox Distribution"
 SECTION = "opendreambox/base"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=0a5ec7423edaca24547634f416478834"
-PR = "r16"
+PR = "r17"
 
 inherit task
 
@@ -28,6 +28,7 @@ RDEPENDS_task-opendreambox-enigma2 = "\
   ${@base_contains('DREAMBOX_FEATURES', 'fan', 'enigma2-plugin-systemplugins-tempfancontrol', '', d)} \
   enigma2-plugin-systemplugins-videomode \
   enigma2-plugin-systemplugins-videotune \
+  ${@base_contains('MACHINE_FEATURES', 'wifi', 'enigma2-plugin-systemplugins-wirelesslan', '', d)} \
   enigma2-plugins-meta \
   enigma2-skins-meta \
   enigma2-streamproxy \

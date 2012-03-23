@@ -2,13 +2,12 @@ DESCRIPTION = "OpenDreambox: WLAN support"
 SECTION = "opendreambox/base"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=0a5ec7423edaca24547634f416478834"
-PR = "r7"
+PR = "r8"
 
 inherit task
 
 DEPENDS = " \
-  enigma2 \
-  ${@base_contains('COMBINED_FEATURES', 'madwifi', 'madwifi-ng', '',d)} \
+  ${@base_contains('MACHINE_FEATURES', 'pci', 'madwifi-ng', '',d)} \
   linux-firmware \
   zd1211-firmware \
   ${@base_version_less_or_equal('DREAMBOX_KERNEL_VERSION', '2.6.18', '${WLAN_USB_MODULES_LEGACY}', '', d)} \
@@ -16,7 +15,6 @@ DEPENDS = " \
 "
 
 RDEPENDS_${PN} = " \
-  enigma2-plugin-systemplugins-wirelesslan \
   wireless-tools \
   wpa-supplicant \
   ${@base_version_less_or_equal('DREAMBOX_KERNEL_VERSION', '2.6.18', '', '${WLAN_CRYPTO_MODULES}', d)} \
@@ -55,7 +53,7 @@ WLAN_USB_MODULES_LEGACY = " \
 "
 
 WLAN_PCI_MODULES = " \
-  ${@base_contains('COMBINED_FEATURES', 'madwifi', 'madwifi-ng-modules', 'kernel-module-ath5k',d)} \
+  madwifi-ng-modules \
 "
 
 WLAN_USB_FIRMWARE = " \
