@@ -1,5 +1,5 @@
 DESCRIPTION = "Dreamcrypt/Firecrypt Conditional Access Daemon"
-PR = "r3"
+PR = "r4"
 
 SRC_URI[mipsel.md5sum] = "162282fa2c8de55693d6a2497d4632bf"
 SRC_URI[mipsel.sha256sum] = "123d8a284fa6b2caff8369f80040ef04f9852bbfe5837aca7b625c564ea5a867"
