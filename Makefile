@@ -167,7 +167,7 @@ doc:
 	@$(MAKE) $(MFLAGS) -C doc
 
 image: init
-	@echo '[*] Building image'
+	@echo '[*] Building image for $(MACHINE)'
 	@. $(CURDIR)/bitbake.env && cd $(TOPDIR) && bitbake dreambox-image
 
 download: init
