@@ -78,7 +78,7 @@ GIT_REMOTE := $(shell $(GIT) remote)
 GIT_USER_NAME := $(shell $(GIT) config user.name)
 GIT_USER_EMAIL := $(shell $(GIT) config user.email)
 
-hash = $(shell echo "$(1)" | $(XSUM) | awk '{print $$1}')
+hash = $(shell echo $(1) | $(XSUM) | awk '{print $$1}')
 
 .DEFAULT_GOAL := all
 all: init usage
@@ -195,9 +195,9 @@ MACHINE_INCLUDE_CONF = $(CURDIR)/conf/$(basename $(@F))-$(MACHINE)-ext.conf
 DISTRO_INCLUDE_CONF = $(CURDIR)/conf/$(basename $(@F))-ext.conf
 
 BITBAKE_ENV_HASH := $(call hash, \
-	BITBAKE_ENV_VERSION=0 \
-	CURDIR=$(CURDIR) \
-	TMPDIR=$(TMPDIR) \
+	'BITBAKE_ENV_VERSION = "0"' \
+	'CURDIR = "$(CURDIR)"' \
+	'TMPDIR = "$(TMPDIR)"' \
 	)
 
 bitbake.env: $(DEPDIR)/.bitbake.env.$(BITBAKE_ENV_HASH)
@@ -207,14 +207,14 @@ bitbake.env: $(DEPDIR)/.bitbake.env.$(BITBAKE_ENV_HASH)
 	@echo 'export PATH=$(CURDIR)/openembedded-core/scripts:$(CURDIR)/bitbake/bin:$${PATH}' >> $@
 
 OPENDREAMBOX_CONF_HASH := $(call hash, \
-	OPENDREAMBOX_CONF_VERSION=1 \
-	CURDIR=$(CURDIR) \
-	BB_NUMBER_THREADS=$(BB_NUMBER_THREADS) \
-	PARALLEL_MAKE=$(PARALLEL_MAKE) \
-	DL_DIR=$(DL_DIR) \
-	SSTATE_DIR=$(SSTATE_DIR) \
-	TMPDIR=$(TMPDIR) \
-	RM_WORK=$(RM_WORK) \
+	'OPENDREAMBOX_CONF_VERSION = "1"' \
+	'CURDIR = "$(CURDIR)"' \
+	'BB_NUMBER_THREADS = "$(BB_NUMBER_THREADS)"' \
+	'PARALLEL_MAKE = "$(PARALLEL_MAKE)"' \
+	'DL_DIR = "$(DL_DIR)"' \
+	'SSTATE_DIR = "$(SSTATE_DIR)"' \
+	'TMPDIR = "$(TMPDIR)"' \
+	'RM_WORK = "$(RM_WORK)"' \
 	)
 
 conf/opendreambox.conf: $(DEPDIR)/.opendreambox.conf.$(OPENDREAMBOX_CONF_HASH)
@@ -235,10 +235,10 @@ conf/opendreambox.conf: $(DEPDIR)/.opendreambox.conf.$(OPENDREAMBOX_CONF_HASH)
 	@echo 'USER_CLASSES = "buildstats"' >> $@
 
 LOCAL_CONF_HASH := $(call hash, \
-	LOCAL_CONF_VERSION=0 \
-	CURDIR=$(CURDIR) \
-	TOPDIR=$(TOPDIR) \
-	MACHINE=$(MACHINE) \
+	'LOCAL_CONF_VERSION = "0"' \
+	'CURDIR = "$(CURDIR)"' \
+	'TOPDIR = "$(TOPDIR)"' \
+	'MACHINE = "$(MACHINE)"' \
 	)
 
 $(TOPDIR)/conf/local.conf: $(DEPDIR)/.local.conf.$(MACHINE).$(LOCAL_CONF_HASH)
@@ -252,9 +252,9 @@ $(TOPDIR)/conf/local.conf: $(DEPDIR)/.local.conf.$(MACHINE).$(LOCAL_CONF_HASH)
 	@echo 'include $(MACHINE_INCLUDE_CONF)' >> $@
 
 BBLAYERS_CONF_HASH := $(call hash, \
-	BBLAYERS_CONF_VERSION=0 \
-	CURDIR=$(CURDIR) \
-	BBLAYERS=$(BBLAYERS) \
+	'BBLAYERS_CONF_VERSION = "0"' \
+	'CURDIR = "$(CURDIR)"' \
+	'BBLAYERS = "$(BBLAYERS)"' \
 	)
 
 $(TOPDIR)/conf/bblayers.conf: $(DEPDIR)/.bblayers.conf.$(MACHINE).$(BBLAYERS_CONF_HASH)
