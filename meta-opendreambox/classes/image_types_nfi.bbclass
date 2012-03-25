@@ -17,12 +17,7 @@ IMAGE_CMD_jffs2.nfi = " \
 		--compression-mode=size \
 		--output=${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.jffs2 \
 		${EXTRA_IMAGECMD}; \
-	buildimage \
-		--arch ${MACHINE} \
-		${EXTRA_BUILDCMD} \
-		--erase-block-size ${DREAMBOX_ERASE_BLOCK_SIZE} \
-		--flash-size ${DREAMBOX_FLASH_SIZE} \
-		--sector-size ${DREAMBOX_SECTOR_SIZE} \
+	${DREAMBOX_BUILDIMAGE} \
 		--boot-partition ${DREAMBOX_PART0_SIZE}:${STAGING_DATADIR}/dreambox-secondstage/secondstage-${MACHINE}.bin \
 		--data-partition ${DREAMBOX_PART1_SIZE}:${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.boot.jffs2 \
 		--data-partition ${DREAMBOX_PART2_SIZE}:${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.jffs2 \
@@ -54,12 +49,7 @@ IMAGE_CMD_sum.jffs2.nfi = " \
 		-i ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.jffs2 \
 		-o ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.sum.jffs2 \
 		${EXTRA_IMAGECMD}; \
-	buildimage \
-		--arch ${MACHINE} \
-		${EXTRA_BUILDCMD} \
-		--erase-block-size ${DREAMBOX_ERASE_BLOCK_SIZE} \
-		--flash-size ${DREAMBOX_FLASH_SIZE} \
-		--sector-size ${DREAMBOX_SECTOR_SIZE} \
+	${DREAMBOX_BUILDIMAGE} \
 		--boot-partition ${DREAMBOX_PART0_SIZE}:${STAGING_DATADIR}/dreambox-secondstage/secondstage-${MACHINE}.bin \
 		--data-partition ${DREAMBOX_PART1_SIZE}:${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.boot.sum.jffs2 \
 		--data-partition ${DREAMBOX_PART2_SIZE}:${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.sum.jffs2 \

@@ -34,3 +34,8 @@ MKUBIFS_ARGS = "-m 2048 -e 129024 -c 1996 -x favor_lzo -X 1"
 # UBI: physical eraseblock size:   131072 bytes (128 KiB)
 # UBI: sub-page size:              512
 UBINIZE_ARGS = "-m 2048 -p 128KiB -s 512"
+
+DREAMBOX_BUILDIMAGE = "buildimage --arch ${MACHINE} ${EXTRA_BUILDCMD} \
+	--erase-block-size ${DREAMBOX_ERASE_BLOCK_SIZE} \
+	--flash-size ${DREAMBOX_FLASH_SIZE} \
+	--sector-size ${DREAMBOX_SECTOR_SIZE}"
