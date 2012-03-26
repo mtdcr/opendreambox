@@ -4,7 +4,7 @@ LICENSE = "CLOSED"
 DEPENDS = "dreambox-buildimage-native"
 PROVIDES = "virtual/bootloader"
 PRIORITY = "required"
-INC_PR = "r8"
+INC_PR = "r9"
 
 SRC_URI = "http://sources.dreamboxupdate.com/download/7020/secondstage-${MACHINE}-${PV}.bin"
 
@@ -13,7 +13,7 @@ S = "${WORKDIR}"
 do_compile() {
         ${DREAMBOX_BUILDIMAGE} \
                 --boot-partition ${DREAMBOX_PART0_SIZE}:secondstage-${MACHINE}-${PV}.bin \
-		--raw \
+                --raw \
                 > secondstage-${MACHINE}-${PV}.nand
 }
 do_install() {
@@ -35,5 +35,6 @@ pkg_postinst_${PN}() {
 if [ -z "$D" ]; then
         flash_erase /dev/mtd1 0 $((${DREAMBOX_PART0_SIZE} / ${DREAMBOX_ERASE_BLOCK_SIZE}))
         nandwrite -m -n -o /dev/mtd1 ${datadir}/${PN}/secondstage-${MACHINE}.nand
+        sync
 fi
 }
