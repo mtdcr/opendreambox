@@ -1,4 +1,4 @@
-PR .= "-dream3"
+PR .= "-dream4"
 
 SRC_URI += "file://telnetd.xinetd.in"
 
