@@ -197,13 +197,11 @@ DISTRO_INCLUDE_CONF = $(CURDIR)/conf/$(basename $(@F))-ext.conf
 BITBAKE_ENV_HASH := $(call hash, \
 	'BITBAKE_ENV_VERSION = "0"' \
 	'CURDIR = "$(CURDIR)"' \
-	'TMPDIR = "$(TMPDIR)"' \
 	)
 
 bitbake.env: $(DEPDIR)/.bitbake.env.$(BITBAKE_ENV_HASH)
 	@echo '[*] Generating $@'
 	@echo '# Automatically generated file. Do not edit!' > $@
-	@echo 'export PSEUDODONE=$(TMPDIR)/pseudodone' >> $@
 	@echo 'export PATH=$(CURDIR)/openembedded-core/scripts:$(CURDIR)/bitbake/bin:$${PATH}' >> $@
 
 OPENDREAMBOX_CONF_HASH := $(call hash, \
