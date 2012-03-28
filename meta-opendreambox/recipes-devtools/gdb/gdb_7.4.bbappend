@@ -1,2 +1,3 @@
 PR .= "-dream1"
-RRECOMMENDS_gdbserver += " glibc-thread-db"
+
+RRECOMMENDS_gdbserver += "glibc-thread-db"
