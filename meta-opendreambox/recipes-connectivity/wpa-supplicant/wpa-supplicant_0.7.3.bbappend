@@ -1,3 +1,4 @@
+DEPENDS += "openssl"
 PR .= "-dream1"
 
 do_configure_append() {
