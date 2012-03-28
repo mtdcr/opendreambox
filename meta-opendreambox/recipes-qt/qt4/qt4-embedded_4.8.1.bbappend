@@ -1,5 +1,5 @@
 DEPENDS := "${@oe_filter_out('^(mysql5|postgresql|sqlite)$', '${DEPENDS}', d)}"
-PR .= "-dream3"
+PR .= "-dream1"
 
 SRC_URI += "file://0001-Qt-build-NPAPI-without-X11.patch \
             file://0002-Qt-Add-HbbTv-MIME-types.patch"
