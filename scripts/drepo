@@ -38,10 +38,10 @@ fi
 
 case "$CMD" in
 	diff)
-		( git diff; git submodule --quiet foreach "git diff || true" ) | $PAGER
+		( git diff $@; git submodule --quiet foreach "git diff $@ || true" ) | $PAGER
 		;;
 	find)
-		( find bitbake meta-bsp meta-opendreambox meta-openembedded openembedded-core "$@" ) | $PAGER
+		( find bitbake meta-bsp meta-opendreambox meta-openembedded openembedded-core $@ ) | $PAGER
 		;;
 	grep)
 		( git grep $@; git submodule --quiet foreach "( git grep $@ | sed -e \"s,^,\$path/,\" ) || true" ) | $PAGER
