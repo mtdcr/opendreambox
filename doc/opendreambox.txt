@@ -188,6 +188,8 @@ opendreambox
      * Ubuntu "oneiric" 11.10 (amd64)
 
    Distributions known to cause problems:
+     * Arch Linux: make 3.82 causes build failures for some packages. Try
+       downgrading to make 3.81.
      * Ubuntu "lucid" 10.04 LTS (i386): The dynamic linker crashes frequently,
        interrupting the build process.
 
