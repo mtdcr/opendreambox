@@ -1,6 +1,6 @@
-PV = "0.3.91"
+PV = "0.3.93"
 
-SRCREV = "eea752ae149c9c43d1b8cc2d7429f81168f7eaca"
+SRCREV = "0cf00a4fe8559271ff1fd92cf5a503f1701739e0"
 
 inherit qt4e
 
