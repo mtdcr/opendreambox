@@ -6,7 +6,7 @@ SECTION = "console/network"
 
 #twisted/topfiles/NEWS:655: - Relicensed: Now under the MIT license, rather than LGPL.
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=fc0f9dafb8baecfd2b77ff4bf64e6eaf"
+LIC_FILES_CHKSUM = "file://LICENSE;beginline=40;md5=3fced11d6df719b47505837a51c16ae5"
 
 SRC_URI = "http://twistedmatrix.com/Releases/Twisted/12.0/Twisted-${PV}.tar.bz2"
 SRC_URI[md5sum] = "cf49a8676c21c50faf1b42b528049471"
