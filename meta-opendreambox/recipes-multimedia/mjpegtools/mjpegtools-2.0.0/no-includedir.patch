@@ -1,3 +1,6 @@
+Upstream-Status: Submitted [https://sourceforge.net/tracker/?func=detail&aid=3512932&group_id=5776&atid=105776]
+
+Signed-off-by: Andreas Oberritter <obi@opendreambox.org>
 diff -Naur mjpegtools-2.0.0.orig/lavtools/Makefile.am mjpegtools-2.0.0/lavtools/Makefile.am
 --- mjpegtools-2.0.0.orig/lavtools/Makefile.am	2011-05-11 20:17:16.000000000 +0200
 +++ mjpegtools-2.0.0/lavtools/Makefile.am	2012-03-29 20:41:38.040971709 +0200
