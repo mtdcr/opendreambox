@@ -54,7 +54,7 @@ SSTATE_DIR = $(CURDIR)/sstate-cache
 TMPDIR = $(CURDIR)/tmp
 DEPDIR = $(CURDIR)/.deps
 
-BBLAYERS = \
+BBLAYERS ?= \
 	$(CURDIR)/meta-bsp/$(MACHINE) \
 	$(CURDIR)/meta-bsp/common \
 	$(CURDIR)/meta-opendreambox \
