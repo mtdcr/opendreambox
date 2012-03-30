@@ -42,6 +42,16 @@ RDEPENDS_${PN} += " \
         qt4-embedded-fonts-ttf-dejavu \
         qt4-embedded-fonts-ttf-vera \
 "
+RDEPENDS_enigma2-plugin-dreamboxnetwork-core = " \
+        python-json \
+        python-stringold \
+        python-twisted-core \
+        python-twisted-web \
+        python-xml \
+"
+RDEPENDS_enigma2-plugin-dreamboxnetwork-demo = " \
+        python-stringold \
+"
 
 require enigma2-common.inc
 

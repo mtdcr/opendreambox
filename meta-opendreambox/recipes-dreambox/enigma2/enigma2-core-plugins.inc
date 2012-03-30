@@ -15,16 +15,6 @@ DESCRIPTION_enigma2-plugin-systemplugins-upnp = "UPnP tools based on python-cohe
 DESCRIPTION_enigma2-plugin-systemplugins-videomode = "Select custom video modes"
 DESCRIPTION_enigma2-plugin-systemplugins-wirelesslan = "Wireless network settings"
 
-RDEPENDS_enigma2-plugin-dreamboxnetwork-core = " \
-        python-json \
-        python-stringold \
-        python-twisted-core \
-        python-twisted-web \
-        python-xml \
-"
-RDEPENDS_enigma2-plugin-dreamboxnetwork-demo = " \
-        python-stringold \
-"
 RDEPENDS_enigma2-plugin-extensions-browser = " \
         python-sqlite3 \
         python-xml \
