@@ -1,7 +1,11 @@
-build/
-.deps/
-sources/
-sstate-cache/
-tmp/
-bitbake.env
+/build/
+/.deps/
+/meta-*/
+!/meta-bsp/
+!/meta-opendreambox/
+!/meta-openembedded/
+/sources/
+/sstate-cache/
+/tmp/
+/bitbake.env
 *.swp
