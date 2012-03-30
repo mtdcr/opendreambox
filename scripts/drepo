@@ -41,7 +41,7 @@ case "$CMD" in
 		( git diff $@; git submodule --quiet foreach "git diff $@ || true" ) | $PAGER
 		;;
 	find)
-		( find bitbake meta-bsp meta-opendreambox meta-openembedded openembedded-core $@ ) | $PAGER
+		( find bitbake meta-* openembedded-core $@ ) | $PAGER
 		;;
 	grep)
 		( git grep $@; git submodule --quiet foreach "( git grep $@ | sed -e \"s,^,\$path/,\" ) || true" ) | $PAGER
