@@ -2,7 +2,7 @@ DESCRIPTION = "OpenDreambox: Enigma2 Task for the OpenDreambox Distribution"
 SECTION = "opendreambox/base"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=0a5ec7423edaca24547634f416478834"
-PR = "r17"
+PR = "r18"
 
 inherit task
 
@@ -73,7 +73,6 @@ RDEPENDS_task-opendreambox-enigma2 = "\
 
 RRECOMMENDS_task-opendreambox-enigma2 = "\
   aio-grab \
-  enigma2-plugin-dreamboxnetwork-core \
   enigma2-plugin-extensions-audiosync \
   ${@base_less_or_equal('DREAMBOX_IMAGE_SIZE', 64, '', 'enigma2-plugin-extensions-browser', d)} \
   enigma2-plugin-extensions-cutlisteditor \
