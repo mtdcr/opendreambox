@@ -2,7 +2,7 @@ DESCRIPTION = "kernel-based automounter for Linux"
 SECTION = "base"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3"
-PR = "r7"
+PR = "r8"
 
 SRC_URI = "${KERNELORG_MIRROR}/linux/daemons/autofs/v4/${BP}.tar.bz2 \
            file://020_auto_net_path_sortlocale_mountoptions.patch \
@@ -26,7 +26,6 @@ SRC_URI = "${KERNELORG_MIRROR}/linux/daemons/autofs/v4/${BP}.tar.bz2 \
            file://074_auto_smb_cifs.patch \
            file://075_auto_net_escape_hash.patch \
            file://076_ldap_deprecated.patch \
-           file://077_dont_create_remote_dirs.patch \
            file://078_locking_fix_1.patch \
            file://079_no_unlink_upstream.patch \
            file://080_auto_smb_probe_credentials.patch \
