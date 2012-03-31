@@ -68,8 +68,10 @@ do_install () {
         install -m 644 ${WORKDIR}/auto.network ${D}${sysconfdir}/auto.network
         install -d ${D}${sysconfdir}/default/volatiles
         install -m 644 ${WORKDIR}/volatiles.99_autofs ${D}${sysconfdir}/default/volatiles/99_autofs
+        install -d ${D}/autofs
 }
 
+FILES_${PN} += "/autofs"
 RDEPENDS_${PN} = "procps"
 
 INITSCRIPT_NAME = "autofs"
