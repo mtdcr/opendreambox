@@ -1,6 +1,7 @@
-PR = "${INC_PR}.0"
+PR = "${INC_PR}.1"
 
 SRC_URI = "file://small_hdd_bugfix.patch \
+           file://fix_madwifi.patch \
            file://enigma2_de.mo"
 
 do_install_append(){
