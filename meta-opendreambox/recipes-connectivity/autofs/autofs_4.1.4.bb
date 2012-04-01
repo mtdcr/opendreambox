@@ -2,7 +2,7 @@ DESCRIPTION = "kernel-based automounter for Linux"
 SECTION = "base"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3"
-PR = "r8"
+PR = "r9"
 
 SRC_URI = "${KERNELORG_MIRROR}/linux/daemons/autofs/v4/${BP}.tar.bz2 \
            file://020_auto_net_path_sortlocale_mountoptions.patch \
@@ -68,10 +68,8 @@ do_install () {
         install -m 644 ${WORKDIR}/auto.network ${D}${sysconfdir}/auto.network
         install -d ${D}${sysconfdir}/default/volatiles
         install -m 644 ${WORKDIR}/volatiles.99_autofs ${D}${sysconfdir}/default/volatiles/99_autofs
-        install -d ${D}/autofs
 }
 
-FILES_${PN} += "/autofs"
 RDEPENDS_${PN} = "procps"
 
 INITSCRIPT_NAME = "autofs"
