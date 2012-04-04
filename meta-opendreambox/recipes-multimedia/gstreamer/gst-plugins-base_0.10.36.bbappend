@@ -1,5 +1,5 @@
 DEPENDS += "cdparanoia orc orc-native"
-PR .= "-dream2"
+PR .= "-dream1"
 
 EXTRA_OECONF += "--enable-orc"
 
