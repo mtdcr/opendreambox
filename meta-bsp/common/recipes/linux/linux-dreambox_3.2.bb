@@ -1,4 +1,4 @@
-PR = "${INC_PR}.5"
+PR = "${INC_PR}.6"
 
 PATCHREV = "a3eaf43fbd1c2994fb61fd7065724ff4f2e4f1e0"
 PATCHLEVEL = "14"
@@ -13,6 +13,7 @@ SRC_URI = " \
         file://no-force-threaded-interrupts.patch \
         file://brcmnand-buildfix.patch \
         file://brcmnand-fixed-corr-uncorr-error-detection.patch \
+        file://brcmnand-fixed-non-hwecc-first-workaround.patch \
         file://defconfig \
 "
 
