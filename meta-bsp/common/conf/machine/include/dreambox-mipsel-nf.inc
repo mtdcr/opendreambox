@@ -5,7 +5,7 @@ LINUXLIBCVERSION = "2.6.18"
 OLDEST_KERNEL = "2.6.18"
 
 TARGET_ARCH = "mipsel"
-DEFAULTTUNE = "mips32el-nf"
+DEFAULTTUNE = "mipsel-nf"
 
 require conf/machine/include/dreambox.inc
-require conf/machine/include/tune-mips32.inc
+require conf/machine/include/mips/arch-mips.inc
