@@ -1,4 +1,4 @@
-PR = "${INC_PR}.6"
+PR = "${INC_PR}.7"
 
 PATCHREV = "a3eaf43fbd1c2994fb61fd7065724ff4f2e4f1e0"
 PATCHLEVEL = "14"
@@ -14,6 +14,10 @@ SRC_URI = " \
         file://brcmnand-buildfix.patch \
         file://brcmnand-fixed-corr-uncorr-error-detection.patch \
         file://brcmnand-fixed-non-hwecc-first-workaround.patch \
+        file://rtl8712-backport-a.patch \
+        file://rtl8712-backport-b.patch \
+        file://rtl8712-backport-c.patch \
+        file://rtl8712-backport-d.patch \
         file://defconfig \
 "
 
