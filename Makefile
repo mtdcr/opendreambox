@@ -127,8 +127,8 @@ help:
 	@echo "  PARALLEL_MAKE = $(PARALLEL_MAKE)"
 	@echo "  RM_WORK = $(RM_WORK)"
 	@echo
-	@echo "Trouble finding a recipe? Try \"git grep 'search string'\" here"
-	@echo "and inside the 'openembedded' subdirectory."
+	@echo "Trouble finding a recipe? Try ./scripts/drepo grep 'search string'"
+	@echo "or ./scripts/drepo find -name \"*recipe*\"."
 	@echo
 	@if [ -z "$(GIT_USER_NAME)" -o -z "$(GIT_USER_EMAIL)" ]; then \
 		echo "Before doing any commits, please configure your name and email"; \
