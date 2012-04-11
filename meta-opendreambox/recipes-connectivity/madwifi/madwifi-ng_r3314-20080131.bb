@@ -1,5 +1,5 @@
 SRCREV = "30414"
-PR = "${INC_PR}.0"
+PR = "${INC_PR}.1"
 
 # versions of OpenWrt backfire (10.03)
 HAL_VERSION = "20090508"
@@ -15,6 +15,8 @@ SRC_URI += " \
         file://fix-build-3.1.patch;apply=no \
         file://fix-build-3.2.patch;apply=no \
         file://ath-rate-ctlname.patch;apply=no \
+        file://set-affinity-hint.patch;apply=no \
+        file://madwifi-smp-affinity \
         "
 SRC_URI[md5sum] = "2c7352cbbdac995de8c3bce5b80db5f2"
 SRC_URI[sha256sum] = "0599c75b95ba63bdc554cb8124192e62c75fbeb71b9e8a5a7bc351c8e0666758"
@@ -37,4 +39,12 @@ do_postpatch() {
         patch -p1 -i ${WORKDIR}/fix-build-3.1.patch
         patch -p1 -i ${WORKDIR}/fix-build-3.2.patch
         patch -p1 -i ${WORKDIR}/ath-rate-ctlname.patch
+        patch -p1 -i ${WORKDIR}/set-affinity-hint.patch
+}
+
+do_install_append() {
+	install -d ${D}/etc/network/if-pre-up.d
+	install -m 0755 ${WORKDIR}/madwifi-smp-affinity ${D}/etc/network/if-pre-up.d
+	install -d ${D}/etc/network/if-post-down.d
+	ln -sf ../if-pre-up.d/madwifi-smp-affinity ${D}/etc/network/if-post-down.d
 }

@@ -2,7 +2,7 @@ DESCRIPTION = "OpenDreambox: WLAN support"
 SECTION = "opendreambox/base"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=0a5ec7423edaca24547634f416478834"
-PR = "r8"
+PR = "r9"
 
 inherit task
 
@@ -54,6 +54,7 @@ WLAN_USB_MODULES_LEGACY = " \
 
 WLAN_PCI_MODULES = " \
   madwifi-ng-modules \
+  madwifi-ng \
 "
 
 WLAN_USB_FIRMWARE = " \
