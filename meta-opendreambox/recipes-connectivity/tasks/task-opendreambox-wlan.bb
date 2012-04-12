@@ -2,7 +2,7 @@ DESCRIPTION = "OpenDreambox: WLAN support"
 SECTION = "opendreambox/base"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${OPENDREAMBOX_BASE}/LICENSE;md5=0a5ec7423edaca24547634f416478834"
-PR = "r9"
+PR = "r10"
 
 inherit task
 
@@ -32,6 +32,7 @@ WLAN_CRYPTO_MODULES = " \
 "
 
 WLAN_USB_FIRMWARE_KERNEL = " \
+  linux-firmware-rt2800usb \
   linux-firmware-rt73usb \
   linux-firmware-rtl8192su \
   zd1211-firmware \
@@ -42,12 +43,14 @@ WLAN_USB_FIRMWARE_LEGACY = " \
 
 WLAN_USB_MODULES_KERNEL = " \
   kernel-module-r8712u \
+  kernel-module-rt2800usb \
   kernel-module-rt73usb \
   kernel-module-zd1211rw \
 "
 
 WLAN_USB_MODULES_LEGACY = " \
   r8712u \
+  rt3070 \
   wlan-rt73 \
   zd1211b \
 "
