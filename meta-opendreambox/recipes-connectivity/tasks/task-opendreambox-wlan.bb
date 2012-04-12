@@ -7,7 +7,7 @@ DEPENDS = " \
   ${@base_version_less_or_equal('DREAMBOX_KERNEL_VERSION', '2.6.18', '${WLAN_USB_MODULES_LEGACY}', '', d)} \
   virtual/kernel \
 "
-PR = "r11"
+PR = "r12"
 
 inherit task
 
@@ -24,6 +24,7 @@ RSUGGESTS_${PN} = " \
 "
 
 WLAN_USB_MODULES_KERNEL = " \
+  kernel-module-carl9170 \
   kernel-module-r8712u \
   kernel-module-rt2800usb \
   kernel-module-rt73usb \
