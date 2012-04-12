@@ -2,7 +2,7 @@ DESCRIPTION = "Linux driver for 802.11a/b/g universal NIC cards using Atheros ch
 SECTION = "base"
 LICENSE = "BSD-3-Clause | GPLv2"
 LIC_FILES_CHKSUM = "file://COPYRIGHT;md5=58383ec8217e551da24db177e27a6ff2"
-INC_PR = "r0"
+INC_PR = "r1"
 
 SRC_URI = "http://snapshots.madwifi-project.org/madwifi-trunk/${BP}.tar.gz"
 
@@ -28,6 +28,8 @@ do_install() {
 }
 
 PACKAGES =+ "${PN}-modules ${PN}-tools"
+
+RDEPENDS_${PN}-modules = "kernel-module-aes-generic"
 
 FILES_${PN}-modules = "/lib/modules/"
 FILES_${PN}-tools = "${sbindir}/*"
