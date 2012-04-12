@@ -1,7 +1,7 @@
 DESCRIPTION = "Dreambox second stage bootloader"
 SECTION = "base"
 LICENSE = "CLOSED"
-DEPENDS = "dreambox-buildimage-native"
+DEPENDS += "dreambox-buildimage-native"
 PROVIDES = "virtual/bootloader"
 PRIORITY = "required"
 INC_PR = "r9"
