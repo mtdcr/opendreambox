@@ -1,6 +1,7 @@
-PR .= "-dream4"
+PR .= "-dream6"
 
-SRC_URI += "file://telnetd.xinetd.in"
+SRC_URI += "file://telnetd.xinetd.in \
+            file://0001-ifupdown-backport-from-master.patch"
 
 inherit xinetd
 
@@ -10,4 +11,4 @@ do_install_append() {
         fi
 }
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/${P}:"
