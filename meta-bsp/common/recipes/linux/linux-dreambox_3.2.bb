@@ -1,5 +1,5 @@
-DEPENDS = "linux-firmware zd1211-firmware"
-PR = "${INC_PR}.8"
+DEPENDS = "carl9170fw linux-firmware zd1211-firmware"
+PR = "${INC_PR}.9"
 
 PATCHREV = "a3eaf43fbd1c2994fb61fd7065724ff4f2e4f1e0"
 PATCHLEVEL = "14"
@@ -31,6 +31,7 @@ SRC_URI[dmm-patch.sha256sum] = "a725831642a8d19a9664592adf36ab7a1341cca0a3570f1c
 
 S = "${WORKDIR}/linux-3.2"
 
+RDEPENDS_kernel-module-carl9170 = "carl9170fw"
 RDEPENDS_kernel-module-cifs = "kernel-module-arc4 kernel-module-ecb kernel-module-hmac kernel-module-md4"
 RDEPENDS_kernel-module-mac80211 = "kernel-module-aes-generic kernel-module-arc4"
 RDEPENDS_kernel-module-r8712u = "linux-firmware-rtl8192su"
