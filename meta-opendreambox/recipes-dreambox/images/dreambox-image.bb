@@ -38,9 +38,9 @@ opendreambox_rootfs_postprocess() {
 ROOTFS_POSTPROCESS_COMMAND += "opendreambox_rootfs_postprocess; "
 
 do_rootfs_append() {
-    VER=`grep Version: "${IMAGE_ROOTFS}${libdir}/opkg/info/enigma2.control" | cut -b 10-12`
-    DATE=`date +%Y-%m-%d' '%H':'%M`
-    MD5=`md5sum ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.nfi | cut -b 1-32`
+    VER=`grep ^Version: ${IMAGE_ROOTFS}${opkglibdir}/info/enigma2.control | cut -d ' ' -f 2`
+    DATE=`date -u '+%F %R'`
+    MD5=`md5sum ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.nfi | cut -d ' ' -f 1`
     SHA256=`sha256sum ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.nfi | cut -d ' ' -f 1`
     # In addition to the fields below, you may add 'Issuer' and 'Description'.
     echo "Date: ${DATE}" > ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.nfo
