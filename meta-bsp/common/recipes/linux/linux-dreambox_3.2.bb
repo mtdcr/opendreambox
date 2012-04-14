@@ -1,5 +1,5 @@
 DEPENDS = "carl9170fw linux-firmware zd1211-firmware"
-PR = "${INC_PR}.9"
+PR = "${INC_PR}.10"
 
 PATCHREV = "a3eaf43fbd1c2994fb61fd7065724ff4f2e4f1e0"
 PATCHLEVEL = "14"
@@ -19,6 +19,7 @@ SRC_URI = " \
         file://rtl8712-backport-b.patch \
         file://rtl8712-backport-c.patch \
         file://rtl8712-backport-d.patch \
+        file://make-3.82-hack.patch \
         file://defconfig \
 "
 
