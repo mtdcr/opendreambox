@@ -42,9 +42,6 @@ NR_CPU := $(shell [ -f /proc/cpuinfo ] && grep -c '^processor\s*:' /proc/cpuinfo
 BB_NUMBER_THREADS ?= $(NR_CPU)
 PARALLEL_MAKE ?= -j $(NR_CPU)
 
-# Remove work directories after successful builds
-RM_WORK ?= yes
-
 XSUM ?= md5sum
 
 BUILD_DIR = $(CURDIR)/build
@@ -125,7 +122,6 @@ help:
 	@echo
 	@echo "  BB_NUMBER_THREADS = $(BB_NUMBER_THREADS)"
 	@echo "  PARALLEL_MAKE = $(PARALLEL_MAKE)"
-	@echo "  RM_WORK = $(RM_WORK)"
 	@echo
 	@echo "Trouble finding a recipe? Try ./scripts/drepo grep 'search string'"
 	@echo "or ./scripts/drepo find -name \"*recipe*\"."
@@ -212,7 +208,6 @@ OPENDREAMBOX_CONF_HASH := $(call hash, \
 	'DL_DIR = "$(DL_DIR)"' \
 	'SSTATE_DIR = "$(SSTATE_DIR)"' \
 	'TMPDIR = "$(TMPDIR)"' \
-	'RM_WORK = "$(RM_WORK)"' \
 	)
 
 conf/opendreambox.conf: $(DEPDIR)/.opendreambox.conf.$(OPENDREAMBOX_CONF_HASH)
@@ -224,7 +219,6 @@ conf/opendreambox.conf: $(DEPDIR)/.opendreambox.conf.$(OPENDREAMBOX_CONF_HASH)
 	@echo 'DL_DIR = "$(DL_DIR)"' >> $@
 	@echo 'SSTATE_DIR = "$(SSTATE_DIR)"' >> $@
 	@echo 'TMPDIR = "$(TMPDIR)"' >> $@
-	@test "$(RM_WORK)" = "yes" && echo 'INHERIT += "rm_work"' >> $@ || true
 	@echo 'BB_GENERATE_MIRROR_TARBALLS = "0"' >> $@
 	@echo 'BBINCLUDELOGS = "yes"' >> $@
 	@echo 'CONF_VERSION = "1"' >> $@
