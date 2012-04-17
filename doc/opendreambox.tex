@@ -53,10 +53,10 @@
 
 \section{Introduction}
   \begin{flushleft}
-    This document describes the OpenDreambox distribution, an embedded Linux
+    This document briefly describes the OpenDreambox distribution, an embedded Linux
     distribution for Set-Top-Boxes manufactured by \href{http://www.dream-multimedia-tv.de/}{Dream Multimedia GmbH}.
 
-    OpenDreambox is based on \href{http://www.openembedded.org/}{OpenEmbedded} build framework, which
+    OpenDreambox is based on the \href{http://www.openembedded.org/}{OpenEmbedded} build framework, which
     uses \href{http://bitbake.berlios.de/}{BitBake} to transform build instructions into
     distributable firmare images and software packages.
   \end{flushleft}
@@ -167,7 +167,7 @@ THE SOFTWARE.
 
     \subsubsection{openembedded-core and meta-openembedded}
        These directories contain copies of Git repositories from git.openembedded.org, including
-       the OpenEmbedded Core layer ("meta") and the OpenEmbedded layer ("meta-oe"). They get created
+       the OpenEmbedded-Core layer ("meta") and the OpenEmbedded layer ("meta-oe"). They get created
        automatically when building the distribution for the first time.
 
        Throughout this document, the combination of these directories will be
@@ -210,27 +210,31 @@ THE SOFTWARE.
 
    It is highly recommended to use Linux to build OpenDreambox. In theory,
    any recent distribution will do, but not many distributions have been
-   verified to build OpenDreambox without errors. Tested distributions include:
+   verified to build OpenDreambox without errors. Tested distributions
+   include:
 
    \begin{itemize}
-     \item Debian "squeeze" 6.0 (i386)
-     \item Debian "wheezy" (i386)
-     \item Ubuntu "oneiric" 11.10 (amd64)
+     \item Arch Linux 2011.08.19 [amd64]
+     \item Debian 6.0 (Squeeze) [i386]
+     \item Debian "Testing" (Wheezy) [i386]
+     \item Fedora 16 [amd64]
+     \item Ubuntu 10.10 (Maverick Meerkat) [i386]
+     \item Ubuntu 11.10 (Oneiric Ocelot) [amd64]
+     \item Ubuntu 12.04 LTS (Precise Pangolin) [i386]
    \end{itemize}
 
    Distributions known to cause problems:
 
    \begin{itemize}
-     \item Arch Linux: make 3.82 causes build failures for some packages.
-           Try downgrading to make 3.81.
-     \item Ubuntu "lucid" 10.04 LTS (i386): The dynamic linker crashes
-           frequently, interrupting the build process.
+     \item Fedora 16 [i386],
+     \item Ubuntu 10.04 LTS (Lucid Lynx) [i386]: The dynamic linker crashes
+           frequently, interrupting the build process. Setting \shell{PARALLEL\_MAKE = -j1} in \shell{conf/make.conf} may help.
    \end{itemize}
 
    Distributions known not to work:
 
    \begin{itemize}
-     \item Debian "lenny" 5.0: Comes with Python 2.5, which is too old.
+     \item Debian 5.0 (Lenny): Comes with Python 2.5, which is too old.
    \end{itemize}
 
 \pagebreak
@@ -304,25 +308,17 @@ THE SOFTWARE.
       obtained from \shell{/proc/cpuinfo}. If this file is unavailable, the
       default value is 1.
 
-      Don't increase this option unless you know what you're doing.
-
-    \subsubsection{RM\_WORK}
-      Controls whether the temporary work directory of each package may be
-      cleaned automatically after the respective package has been built
-      successfully. Valid values are \shell{yes} (default) and \shell{no}.
-
-      If set to \shell{yes}, only log files will be preserved. Setting
-      \shell{RM\_WORK} to \shell{no} may be useful to debug packaging errors.
+      NOTE: If you see seemingly random build failures, try setting this variable to 1.
 
   \subsection{Adding custom layers}
   \label{custom_layers}
-     It is possible to add custom layers to the configuration. This can be done globally
+     It is possible to add custom layers to the build system. This can be done globally
      and per machine. To add a layer globally, edit \shell{conf/bblayers-ext.conf}. To
      add a machine-specific layer, edit \shell{conf/bblayers-\$\{MACHINE\}-ext.conf}.
-     Assuming that an additional layer is available at \shell{/home/username/custom-layer},
+     Assuming that an additional layer is available at \shell{\$\{HOME\}/custom-layer},
      the entry to add to the file will look like this:
 
-     \shell{BBLAYERS =+ "/home/username/custom-layer"}
+     \shell{BBLAYERS =+ "\$\{HOME\}/custom-layer"}
 
   \subsection{Adding custom options}
      It is possible to tweak a lot more options than those used by the
@@ -335,7 +331,45 @@ THE SOFTWARE.
      \shell{DISTRO\_FEED\_URI = "http://192.168.1.1/\$\{DISTRO\}/\$\{DISTRO\_VERSION\}"}
 
      In general, any variable in OpenEmbedded that uses weak assignment (\shell{?=}) may be
-     overridden from those files.
+     overridden from these files.
+
+     The following sections list some commonly used options.
+
+     \subsubsection{DISTRO\_FEED\_PREFIX}
+
+       \shell{DISTRO\_FEED\_PREFIX} specifies the name of the package update feed.
+       This name may be arbitarily chosen.
+
+       Default: \shell{DISTRO\_FEED\_PREFIX = "remote"}
+
+     \subsubsection{DISTRO\_FEED\_URI}
+
+       \shell{DISTRO\_FEED\_URI} specifies the URI of the package update feed.
+
+       Default: \shell{DISTRO\_FEED\_URI = "http://my-distribution.example/remote-feed/"}
+
+     \subsubsection{INHERIT}
+
+       \shell{INHERIT} specifies bbclasses to include from a configuration file. Usually,
+       this variable gets appended to by using the \shell{+=} operator.
+
+       The OpenDreambox distribution automatically appends \shell{"buildhistory recipe\_sanity testlab"} to \shell{INHERIT}.
+
+       Default: \shell{INHERIT = ""}
+
+       \textbf{Some examples:}
+
+       Always build the latest versions of OpenDreambox-related projects from Git:
+
+       \shell{INHERIT += "opendreambox-autorev"}
+
+       Remove temporary files of previous versions of a recipe before a newer version gets built:
+
+       \shell{INHERIT += "rm\_old\_work"}
+
+       Remove temporary files of a recipe after it has been built and packaged successfully.
+
+       \shell{INHERIT += "rm\_work"}
 
   \subsection{Setting up a build directory}
      To set up a build directory for e.g. \textbf{DM 500 HD} run \shell{make MACHINE=dm500hd}. If

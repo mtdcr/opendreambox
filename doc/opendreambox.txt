@@ -26,9 +26,11 @@ opendreambox
      5.2.1 BB_NUMBER_THREADS
      5.2.2 MACHINE
      5.2.3 PARALLEL_MAKE
-     5.2.4 RM_WORK
     5.3 Adding custom layers
     5.4 Adding custom options
+     5.4.1 DISTRO_FEED_PREFIX
+     5.4.2 DISTRO_FEED_URI
+     5.4.3 INHERIT
     5.5 Setting up a build directory
     5.6 Building a firmware image
     5.7 Building a package
@@ -40,11 +42,11 @@ opendreambox
 
   1 Introduction
 
-   This document describes the OpenDreambox distribution, an embedded Linux
-   distribution for Set-Top-Boxes manufactured by Dream Multimedia GmbH.
+   This document briefly describes the OpenDreambox distribution, an embedded
+   Linux distribution for Set-Top-Boxes manufactured by Dream Multimedia GmbH.
 
-   OpenDreambox is based on OpenEmbedded build framework, which uses BitBake to
-   transform build instructions into distributable firmare images and software
+   OpenDreambox is based on the OpenEmbedded build framework, which uses BitBake
+   to transform build instructions into distributable firmare images and software
    packages.
 
     1.1 Target audience
@@ -146,7 +148,7 @@ opendreambox
       1.6.1 openembedded-core and meta-openembedded
 
    These directories contain copies of Git repositories from git.openembedded.org,
-   including the OpenEmbedded Core layer ("meta") and the OpenEmbedded layer
+   including the OpenEmbedded-Core layer ("meta") and the OpenEmbedded layer
    ("meta-oe"). They get created automatically when building the distribution for
    the first time.
 
@@ -183,18 +185,22 @@ opendreambox
    It is highly recommended to use Linux to build OpenDreambox. In theory, any
    recent distribution will do, but not many distributions have been verified to
    build OpenDreambox without errors. Tested distributions include:
-     * Debian "squeeze" 6.0 (i386)
-     * Debian "wheezy" (i386)
-     * Ubuntu "oneiric" 11.10 (amd64)
+     * Arch Linux 2011.08.19 [amd64]
+     * Debian 6.0 (Squeeze) [i386]
+     * Debian "Testing" (Wheezy) [i386]
+     * Fedora 16 [amd64]
+     * Ubuntu 10.10 (Maverick Meerkat) [i386]
+     * Ubuntu 11.10 (Oneiric Ocelot) [amd64]
+     * Ubuntu 12.04 LTS (Precise Pangolin) [i386]
 
    Distributions known to cause problems:
-     * Arch Linux: make 3.82 causes build failures for some packages. Try
-       downgrading to make 3.81.
-     * Ubuntu "lucid" 10.04 LTS (i386): The dynamic linker crashes frequently,
-       interrupting the build process.
+     * Fedora 16 [i386],
+     * Ubuntu 10.04 LTS (Lucid Lynx) [i386]: The dynamic linker crashes
+       frequently, interrupting the build process. Setting PARALLEL_MAKE = -j1 in
+       conf/make.conf may help.
 
    Distributions known not to work:
-     * Debian "lenny" 5.0: Comes with Python 2.5, which is too old.
+     * Debian 5.0 (Lenny): Comes with Python 2.5, which is too old.
 
   3 Major changes since previous releases
 
@@ -259,26 +265,18 @@ opendreambox
    cores available on the build system. The number of cores is obtained from
    /proc/cpuinfo. If this file is unavailable, the default value is 1.
 
-   Don't increase this option unless you know what you're doing.
-
-      5.2.4 RM_WORK
-
-   Controls whether the temporary work directory of each package may be cleaned
-   automatically after the respective package has been built successfully. Valid
-   values are yes (default) and no.
-
-   If set to yes, only log files will be preserved. Setting RM_WORK to no may be
-   useful to debug packaging errors.
+   NOTE: If you see seemingly random build failures, try setting this variable to
+   1.
 
     5.3 Adding custom layers
 
-   It is possible to add custom layers to the configuration. This can be done
+   It is possible to add custom layers to the build system. This can be done
    globally and per machine. To add a layer globally, edit conf/bblayers-ext.conf.
    To add a machine-specific layer, edit conf/bblayers-${MACHINE}-ext.conf.
-   Assuming that an additional layer is available at /home/username/custom-layer,
-   the entry to add to the file will look like this:
+   Assuming that an additional layer is available at ${HOME}/custom-layer, the
+   entry to add to the file will look like this:
 
-   BBLAYERS =+ "/home/username/custom-layer"
+   BBLAYERS =+ "${HOME}/custom-layer"
 
     5.4 Adding custom options
 
@@ -292,7 +290,48 @@ opendreambox
    DISTRO_FEED_URI = "http://192.168.1.1/${DISTRO}/${DISTRO_VERSION}"
 
    In general, any variable in OpenEmbedded that uses weak assignment (?=) may be
-   overridden from those files.
+   overridden from these files.
+
+   The following sections list some commonly used options.
+
+      5.4.1 DISTRO_FEED_PREFIX
+
+   DISTRO_FEED_PREFIX specifies the name of the package update feed. This name may
+   be arbitarily chosen.
+
+   Default: DISTRO_FEED_PREFIX = "remote"
+
+      5.4.2 DISTRO_FEED_URI
+
+   DISTRO_FEED_URI specifies the URI of the package update feed.
+
+   Default: DISTRO_FEED_URI = "http://my-distribution.example/remote-feed/"
+
+      5.4.3 INHERIT
+
+   INHERIT specifies bbclasses to include from a configuration file. Usually, this
+   variable gets appended to by using the += operator.
+
+   The OpenDreambox distribution automatically appends "buildhistory recipe_sanity
+   testlab" to INHERIT.
+
+   Default: INHERIT = ""
+
+   Some examples:
+
+   Always build the latest versions of OpenDreambox-related projects from Git:
+
+   INHERIT += "opendreambox-autorev"
+
+   Remove temporary files of previous versions of a recipe before a newer version
+   gets built:
+
+   INHERIT += "rm_old_work"
+
+   Remove temporary files of a recipe after it has been built and packaged
+   successfully.
+
+   INHERIT += "rm_work"
 
     5.5 Setting up a build directory
 
