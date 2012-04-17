@@ -1,10 +1,10 @@
 DESCRIPTION = "Dreamcrypt/Firecrypt Conditional Access Daemon"
 PR = "r4"
 
-SRC_URI[mipsel.md5sum] = "162282fa2c8de55693d6a2497d4632bf"
-SRC_URI[mipsel.sha256sum] = "123d8a284fa6b2caff8369f80040ef04f9852bbfe5837aca7b625c564ea5a867"
-SRC_URI[mipsel-nf.md5sum] = "6454f6b19d270342299e28e86914fe04"
-SRC_URI[mipsel-nf.sha256sum] = "bfd9c2b767343c88600c99c18dd4461079a5ecae020a696bdbc151fd72f9f323"
+SRC_URI[mips32el.md5sum] = "87e5b67b83d329dc171045b99d44dd67"
+SRC_URI[mips32el.sha256sum] = "7da7d8748c40efb479029e40f49c2cc8c507be1caf5bad7e4e267281e38c48e6"
+SRC_URI[mips32el-nf.md5sum] = "5f1fd7d3815a0c927f01a2edbfb88001"
+SRC_URI[mips32el-nf.sha256sum] = "5924d74d8df12bd3e0c86a78074766e99dac665b68e8ec83eff910b440c86671"
 
 inherit opendreambox-precompiled-binary opendreambox-sysvinit
 

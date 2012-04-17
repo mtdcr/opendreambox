@@ -2,10 +2,10 @@ require blindscan-utils.inc
 
 PR = "${INC_PR}.0"
 
-SRC_URI[mipsel.md5sum] = "0707c05dee226010ab199652b9f69c76"
-SRC_URI[mipsel.sha256sum] = "8469f55063f175ea21ac66902d2ad2f40635721ae5a9ac6b48ba9d62cb2ff43f"
-SRC_URI[mipsel-nf.md5sum] = "2195625424c013e39343b4b3ca49f406"
-SRC_URI[mipsel-nf.sha256sum] = "57233276d53e707689cd45824de3af5a8d92eadf0191b7d2b4ac8158d61dc859"
+SRC_URI[mips32el.md5sum] = "a7ebe5926901dbd9fd547ef0b92f9e5f"
+SRC_URI[mips32el.sha256sum] = "7c19d327870d0d37cb682d12fd97293332cae77689918172d53f9525acca1324"
+SRC_URI[mips32el-nf.md5sum] = "6e9fb6888ba9ace9d100810cb6919cc3"
+SRC_URI[mips32el-nf.sha256sum] = "8ac1df91340176126a3ddbdddf1bb2ede4007c56716256ab088e4bbb5389e35d"
 
 inherit opendreambox-precompiled-binary
 

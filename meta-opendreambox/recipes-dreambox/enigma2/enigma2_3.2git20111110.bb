@@ -1,8 +1,8 @@
 PR = "${INC_PR}.0"
 
-SRC_URI[mipsel.md5sum] = "332045523d2e46e37f0c55bae45e009a"
-SRC_URI[mipsel.sha256sum] = "0a27de5e1d7fbd6d7df677acc4377ab8211ffb44b4bed85579db48d83cc4ef8a"
-SRC_URI[mipsel-nf.md5sum] = "daf44578989f9eadbedd9bde7059341f"
-SRC_URI[mipsel-nf.sha256sum] = "a6fbab0ffda37597d31a51b43d4748e36662cf0702cb2af1af4868e89c8710e6"
+SRC_URI[mips32el.md5sum] = "ab962f344eb49809a2a3cdd9df3cf843"
+SRC_URI[mips32el.sha256sum] = "a20d41d08cabadf4d765490d687b6775cd0dbc595917c78fcd07f4b2a01833b9"
+SRC_URI[mips32el-nf.md5sum] = "cb0548ecd1baf2d04b064ff7da3e359b"
+SRC_URI[mips32el-nf.sha256sum] = "a7f1e2f5a178aea62ab625a8d6e6a52a18162fdaa005605aaf4f416d0e0abfba"
 
 require enigma2-bin-3.2.inc

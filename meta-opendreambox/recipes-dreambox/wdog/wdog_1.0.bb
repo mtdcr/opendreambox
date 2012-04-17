@@ -3,10 +3,10 @@ PR = "r1"
 
 inherit opendreambox-precompiled-binary
 
-SRC_URI[mipsel.md5sum] = "d11eac1867b6e7651e3d6545e1a53289"
-SRC_URI[mipsel.sha256sum] = "a16906b210329a449aa76f897658a0413fffb79f968b618144bd6972ea6c6723"
-SRC_URI[mipsel-nf.md5sum] = "1da03db72f3b846f73e628533e11c4c0"
-SRC_URI[mipsel-nf.sha256sum] = "c4548a695a7b3f315c6e0a5d3e3970e1867ce5d86355b2b4225cc4f46f5dabb5"
+SRC_URI[mips32el.md5sum] = "037fcab221a559ec765ce58943c4e95c"
+SRC_URI[mips32el.sha256sum] = "96f3bcb25599562c57f3e451cfc884e39b924b6998032b0b562c66430d271483"
+SRC_URI[mips32el-nf.md5sum] = "628c9db98032e6bbc942ab5fc94a39db"
+SRC_URI[mips32el-nf.sha256sum] = "83b8b3e61c3695e527f42e446628e4b9a8d23dcfe8a1949bfe07315706fc7078"
 
 do_install() {
         install -d ${D}${bindir}
