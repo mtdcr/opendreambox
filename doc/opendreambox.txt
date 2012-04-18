@@ -188,13 +188,12 @@ opendreambox
      * Arch Linux 2011.08.19 [amd64]
      * Debian 6.0 (Squeeze) [i386]
      * Debian "Testing" (Wheezy) [i386]
-     * Fedora 16 [amd64]
+     * Fedora 16 [i386, amd64]
      * Ubuntu 10.10 (Maverick Meerkat) [i386]
      * Ubuntu 11.10 (Oneiric Ocelot) [amd64]
-     * Ubuntu 12.04 LTS (Precise Pangolin) [i386]
+     * Ubuntu 12.04 LTS (Precise Pangolin) [i386, amd64]
 
    Distributions known to cause problems:
-     * Fedora 16 [i386],
      * Ubuntu 10.04 LTS (Lucid Lynx) [i386]: The dynamic linker crashes
        frequently, interrupting the build process. Setting PARALLEL_MAKE = -j1 in
        conf/make.conf may help.
