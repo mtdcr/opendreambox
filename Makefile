@@ -98,7 +98,7 @@ help:
 	@echo "      $$ view doc/opendreambox.txt"
 	@echo
 	@echo "  * Select a new target machine:"
-	@echo "      $$ echo MACHINE=dm800se >> build.conf"
+	@echo "      $$ echo MACHINE=dm800se >> conf/make.conf"
 	@echo "    [Valid values: dm500hd, dm800, dm800se, dm7020hd, dm8000]"
 	@echo
 	@echo "  * Build a firmware image for the selected target machine:"
